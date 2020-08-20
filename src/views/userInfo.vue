@@ -14,7 +14,7 @@
       <el-form :model="form" :rules="rules" label-width="120px" ref="form">
         <el-row :gutter="0">
           <el-col :span="6">
-            <el-form-item label="姓名">
+            <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name" />
             </el-form-item>
           </el-col>
@@ -47,7 +47,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="身份证号">
+            <el-form-item label="身份证号" prop="idCard">
               <el-input v-model="form.idCard" />
             </el-form-item>
           </el-col>
@@ -120,8 +120,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="工作年限">
-                <el-input v-model="form.workingYears" />
+              <el-form-item label="工作年限(年)">
+                <el-input placeholder="工作年限(年)" v-model="form.workingYears" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -269,7 +269,7 @@
         <!-- <el-form-item>
           <el-button @click="onSubmit" type="primary">立即创建</el-button>
           <el-button>取消</el-button>
-        </el-form-item> -->
+        </el-form-item>-->
       </el-form>
     </div>
     <!-- <networking /> -->
@@ -305,6 +305,10 @@ export default {
       passType: true,
       checkPassType: true,
       rules: {
+        name: [{ required: true, message: '请填写姓名', trigger: 'blur' }],
+        idCard: [
+          { required: true, message: '请填写身份证号', trigger: 'blur' },
+        ],
         password: [{ validator: validatePass, trigger: 'blur' }],
         checkPassword: [{ validator: validatePass2, trigger: 'blur' }],
       },
@@ -325,7 +329,6 @@ export default {
           break
         case 'about': // 关于
           console.log('about')
-          this.openDialogByRemote()
           break
         case 'save': // 保存
           this.downloadZip()
@@ -338,14 +341,6 @@ export default {
     })
   },
   methods: {
-    openDialogByRemote() {
-      this.$dialog.showMessageBox({
-        title: '廉情信息报告表',
-        message: '欢迎使用廉情信息报告表',
-        detail: '1.1.0版',
-        type: 'info',
-      })
-    },
     openDialogByIpc() {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },
@@ -385,32 +380,42 @@ export default {
       }
     },
     downloadZip() {
-      const self = this
-      // 初始化一个zip打包对象
-      var zip = new JSZip()
-      // 创建一个被用来打包的文件
-      zip.file('user.json', JSON.stringify(this.form))
-      if (this.form.password) {
-        zip.file('password', this.form.password)
-      }
-      // 创建一个名为images的新的文件目录
-      // var img = zip.folder('images')
-      // 这个images文件目录中创建一个base64数据为imgData的图像，图像名是smile.gif
-      // img.file('smile.gif', imgData, { base64: true })
-      // 把打包内容异步转成blob二进制格式
-      zip.generateAsync({ type: 'blob' }).then(function (content) {
-        var filename = self.form.name + self.form.idCard + '.wt'
-        // 创建隐藏的可下载链接
-        var eleLink = document.createElement('a')
-        eleLink.download = filename
-        eleLink.style.display = 'none'
-        // 下载内容转变成blob地址
-        eleLink.href = URL.createObjectURL(content)
-        // 触发点击
-        document.body.appendChild(eleLink)
-        eleLink.click()
-        // 然后移除
-        document.body.removeChild(eleLink)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          const self = this
+          // 初始化一个zip打包对象
+          var zip = new JSZip()
+          // 创建一个被用来打包的文件
+          zip.file('user.json', JSON.stringify(this.form))
+          if (this.form.password) {
+            zip.file('password', this.form.password)
+          }
+          // 创建一个名为images的新的文件目录
+          // var img = zip.folder('images')
+          // 这个images文件目录中创建一个base64数据为imgData的图像，图像名是smile.gif
+          // img.file('smile.gif', imgData, { base64: true })
+          // 把打包内容异步转成blob二进制格式
+          zip.generateAsync({ type: 'blob' }).then(function (content) {
+            var filename = self.form.name + self.form.idCard + '.wt'
+            // 创建隐藏的可下载链接
+            var eleLink = document.createElement('a')
+            eleLink.download = filename
+            eleLink.style.display = 'none'
+            // 下载内容转变成blob地址
+            eleLink.href = URL.createObjectURL(content)
+            // 触发点击
+            document.body.appendChild(eleLink)
+            eleLink.click()
+            // 然后移除
+            document.body.removeChild(eleLink)
+          })
+        } else {
+          this.$message({
+            type: 'error',
+            message: '请检查输入是否有误',
+          })
+          return false
+        }
       })
     },
     loadAsyncZip(defaultpath, callback) {
