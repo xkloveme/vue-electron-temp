@@ -1,12 +1,25 @@
-
+/**
+ * checkPassword,是对password的校验,
+ * other,是其他项类似备注的,
+ * tableStatus是表的标示,有无此类情况格式类似tableStatus:{table1:1,table2:0},1为有0为没有
+ */
 const db = {
-  name: '',
-  idCard: '',
+  name: '', // 姓名
+  gender: '', // 性别
+  idCard: '', // 身份证号
+  workingStatus: '',
   nation: '', // 民族
   politicsStatus: '', // 政治面貌
-  work: '', // 工作单位
-  department: '', // 部门
+  work: '', // 分管工作
+  employer: '', // 工作单位
+  workingYears:'', // 工作年限
+  phone: '', // 联系电话
   duty: '', // 现任职务
+  grade:'', // 职级
+  position:'', // 职位
+  personnelSource:'', // 人员来源
+  objectIdentity:'', // 对象身份
+  department: '', // 部门
   partyTime: '', // 入党时间
   // 枚举值:{1:'区管干部',2:'纪检干部',3:'人大代表(区级及其以上)',4:'党代表(区级及其以上)',5:'政协委员(区级及其以上)'}
   identity: [], // 人员身份 枚举
@@ -16,14 +29,76 @@ const db = {
   password: '',
   checkPassword: '',
   imageUrl: '', // 照片
-  other: '',
+  other: '', // 超长字符串,类似备注
+  tableStatus: {},
+  // 未办证产权
+  notRushEstate: [{
+    people: '', // 产权人
+    relationship: '', // 与本人关系
+    source: '', // 房产来源
+    address: '', // 具体地址
+    area: '', // 建筑面积
+    propertyNature: '', // 产权性质
+    transactionTime: '', // 交易时间
+    transactionPrice: '' // 交易价格
+  }],
+  // 宅基地
+  homestead: [{
+    people: '', // 产权人
+    relationship: '', // 与本人关系
+    source: '', // 房产来源
+    address: '', // 具体地址
+    area: '', // 建筑面积
+    propertyNature: '', // 产权性质
+    transactionTime: '', // 交易时间
+    transactionPrice: '' // 交易价格
+  }],
+  // 股票
+  stock: {
+    desc: '',
+    allMarketValue: '', // 总市值
+    list: [{
+      name: '',
+      stockName: '', // 股票名称
+      stockNumber: '', // 股票数量
+      stockMarketValue: ''// 股票市值
+    }]
+  },
+  // 基金
+  fund: {
+    allMarketValue: '', // 总市值
+    list: [{
+      name: '',
+      fundName: '', // 基金名称
+      fundNumber: '', // 基金数量
+      fundMarketValue: ''// 基金市值
+    }]
+  },
+  // 期货
+  futures: {
+    allMarketValue: '', // 总市值
+    list: [{
+      name: '',
+      futuresName: '', // 期货名称
+      futuresNumber: '', // 期货数量
+      futuresMarketValue: ''// 期货市值
+    }]
+  },
+  workingList: [
+    {
+      // employer: '', // 工作单位
+      duty: '' // 现任职务
+      // phone: '' // 联系电话
+    }
+  ],
   // 人脉关系
   networking: [
     {
       relationship: '', // 本人关系
       name: '',
-      birth: '', // 出生年月
-      politicsStatus: '',
+      idCard: '',
+      politicsStatus: '', // 政治面貌
+      phone: '',
       work: ''
     }
   ],
@@ -66,7 +141,7 @@ const db = {
   travelDocuments: [{
     name: '', // 证件名称
     number: '', // 证件号码
-    Licensing: '', // 发证机关
+    licensing: '', // 发证机关
     time: '', // 发证时间
     validity: '', // 有效期
     custodyInstitutions: ''// 保管机构

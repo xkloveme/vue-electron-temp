@@ -19,77 +19,46 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="证件名称"
+      label="持有人姓名"
       width="180"
     >
       <template scope="scope">
-        <el-select
+        <el-input
           v-model="scope.row.name"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in $utils.identification"
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
-          />
-        </el-select>
+          size="small"
+          placeholder="请输入内容"
+        />
       </template>
     </el-table-column>
     <el-table-column
-      label="证件号码"
+      label="基金名称或代码"
+    >
+      <template scope="scope">
+        <el-input
+          v-model="scope.row.fundName"
+          size="small"
+          placeholder="请输入内容"
+        />
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="基金份额"
       width="180"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.number"
+          v-model="scope.row.fundNumber"
           size="small"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
-      label="发证机关"
+      label="填报前一交易日净值（万元）"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.licensing"
-          size="small"
-          placeholder="请输入内容"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="发证时间"
-      width="180"
-    >
-      <template scope="scope">
-        <el-date-picker
-          v-model="scope.row.time"
-          style="width:150px"
-          type="date"
-          value-format="timestamp"
-          placeholder="选择时间"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="有效期"
-    >
-      <template scope="scope">
-        <el-input
-          v-model="scope.row.validity"
-          size="small"
-          placeholder="请输入内容"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="保管机构"
-    >
-      <template scope="scope">
-        <el-input
-          v-model="scope.row.custodyInstitutions"
+          v-model="scope.row.fundMarketValue"
           size="small"
           placeholder="请输入内容"
         />
@@ -97,11 +66,24 @@
     </el-table-column>
     <div
       slot="append"
-      style="cursor: pointer;line-height: 30px;text-align:center;"
-      @click="handleAddLine"
+      style="cursor: pointer;line-height: 30px;"
     >
-      <i class="el-icon-circle-plus-outline" />
-      添加一行
+      <div style="text-align:right;border-bottom:1px solid #ebeef5;padding:5px">
+        填报前一交易日所有基金的总净值（万元）
+        <el-input
+          v-model="allMarketValue"
+          size="small"
+          style="width:400px"
+          placeholder="请输入内容"
+        />
+      </div>
+      <div
+        style="text-align:center;"
+        @click="handleAddLine"
+      >
+        <i class="el-icon-circle-plus-outline" />
+        添加一行
+      </div>
     </div>
   </el-table>
 </template>
@@ -113,7 +95,15 @@ export default {
   },
   computed: {
     tableData () {
-      return this.$store.getters.getTravelDocuments
+      return this.$store.getters.getFund.list
+    },
+    allMarketValue: {
+      get: function () {
+        return this.$store.getters.getFund.allMarketValue
+      },
+      set: function (newValue) {
+        this.$store.dispatch('updateFundAllMarketValue', newValue)
+      }
     }
   },
   methods: {
@@ -129,12 +119,10 @@ export default {
     },
     handleAddLine () {
       this.tableData.push({
-        name: '', // 证件名称
-        number: '', // 证件号码
-        licensing: '', // 发证机关
-        time: '', // 发证时间
-        validity: '', // 有效期
-        custodyInstitutions: ''// 保管机构
+        name: '',
+        fundName: '', // 基金名称
+        fundNumber: '', // 基金数量
+        fundMarketValue: ''// 基金市值
       })
     }
   }

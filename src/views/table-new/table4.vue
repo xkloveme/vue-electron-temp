@@ -19,77 +19,47 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="证件名称"
+      label="持有人姓名"
       width="180"
     >
       <template scope="scope">
-        <el-select
+        <el-input
           v-model="scope.row.name"
-          placeholder="请选择"
-        >
-          <el-option
-            v-for="item in $utils.identification"
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
-          />
-        </el-select>
+          size="small"
+          placeholder="请输入内容"
+        />
       </template>
     </el-table-column>
     <el-table-column
-      label="证件号码"
+      prop="organization"
+      label="股票名称或代码"
+    >
+      <template scope="scope">
+        <el-input
+          v-model="scope.row.stockName"
+          size="small"
+          placeholder="请输入内容"
+        />
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="持股数量"
       width="180"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.number"
+          v-model="scope.row.stockNumber"
           size="small"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
-      label="发证机关"
+      label="填报前一交易日市值（万元）"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.licensing"
-          size="small"
-          placeholder="请输入内容"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="发证时间"
-      width="180"
-    >
-      <template scope="scope">
-        <el-date-picker
-          v-model="scope.row.time"
-          style="width:150px"
-          type="date"
-          value-format="timestamp"
-          placeholder="选择时间"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="有效期"
-    >
-      <template scope="scope">
-        <el-input
-          v-model="scope.row.validity"
-          size="small"
-          placeholder="请输入内容"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="保管机构"
-    >
-      <template scope="scope">
-        <el-input
-          v-model="scope.row.custodyInstitutions"
+          v-model="scope.row.stockMarketValue"
           size="small"
           placeholder="请输入内容"
         />
@@ -97,11 +67,33 @@
     </el-table-column>
     <div
       slot="append"
-      style="cursor: pointer;line-height: 30px;text-align:center;"
-      @click="handleAddLine"
+      style="cursor: pointer;line-height: 30px;"
     >
-      <i class="el-icon-circle-plus-outline" />
-      添加一行
+      <div style="text-align:right;border-bottom:1px solid #ebeef5;padding:5px">
+        填报前一交易日所有股票的总市值（万元）
+        <el-input
+          v-model="allMarketValue"
+          size="small"
+          style="width:400px"
+          placeholder="请输入内容"
+        />
+      </div>
+      <div style="text-align:right;border-bottom:1px solid #ebeef5;padding:5px">
+        备注
+        <el-input
+          v-model="desc"
+          size="small"
+          style="width:400px"
+          placeholder="请输入内容"
+        />
+      </div>
+      <div
+        style="text-align:center;"
+        @click="handleAddLine"
+      >
+        <i class="el-icon-circle-plus-outline" />
+        添加一行
+      </div>
     </div>
   </el-table>
 </template>
@@ -113,7 +105,23 @@ export default {
   },
   computed: {
     tableData () {
-      return this.$store.getters.getTravelDocuments
+      return this.$store.getters.getStock.list
+    },
+    allMarketValue: {
+      get: function () {
+        return this.$store.getters.getStock.allMarketValue
+      },
+      set: function (newValue) {
+        this.$store.dispatch('updateStockAllMarketValue', newValue)
+      }
+    },
+    desc: {
+      get: function () {
+        return this.$store.getters.getStock.desc
+      },
+      set: function (newValue) {
+        this.$store.dispatch('updateStockDesc', newValue)
+      }
     }
   },
   methods: {
@@ -129,12 +137,10 @@ export default {
     },
     handleAddLine () {
       this.tableData.push({
-        name: '', // 证件名称
-        number: '', // 证件号码
-        licensing: '', // 发证机关
-        time: '', // 发证时间
-        validity: '', // 有效期
-        custodyInstitutions: ''// 保管机构
+        name: '',
+        stockName: '', // 股票名称
+        stockNumber: '', // 股票名称
+        stockMarketValue: ''// 股票市值
       })
     }
   }

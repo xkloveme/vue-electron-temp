@@ -19,16 +19,46 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="证件名称"
+      label="产权人姓名"
       width="180"
     >
       <template scope="scope">
+        <el-input
+          v-model="scope.row.people"
+          size="small"
+          placeholder="请输入内容"
+        />
+      </template>
+    </el-table-column>
+    <!-- <el-table-column
+      label="与本人关系"
+    >
+      <template scope="scope">
         <el-select
-          v-model="scope.row.name"
+          v-model="scope.row.relationship"
           placeholder="请选择"
         >
           <el-option
-            v-for="item in $utils.identification"
+            v-for="item in $utils.relationshipWithMyself"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          />
+        </el-select>
+      </template>
+    </el-table-column> -->
+    <el-table-column
+      prop="organization"
+      label="房产来源(去向)"
+    >
+      <template scope="scope">
+        <el-select
+          v-model="scope.row.source"
+          clearable
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in $utils.houseProperty"
             :key="item.key"
             :label="item.value"
             :value="item.key"
@@ -37,59 +67,67 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="证件号码"
+      label="具体地址"
       width="180"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.number"
+          v-model="scope.row.address"
           size="small"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
-      label="发证机关"
+      label="建筑面积(m²)"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.licensing"
+          v-model="scope.row.area"
           size="small"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
-      label="发证时间"
+      label="房产性质和功能类型"
+    >
+      <template scope="scope">
+        <el-select
+          v-model="scope.row.propertyNature"
+          clearable
+          style="width:100%"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in $utils.propertyRight"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          />
+        </el-select>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="交易时间"
       width="180"
     >
       <template scope="scope">
         <el-date-picker
-          v-model="scope.row.time"
+          v-model="scope.row.transactionTime"
           style="width:150px"
-          type="date"
+          type="month"
           value-format="timestamp"
           placeholder="选择时间"
         />
       </template>
     </el-table-column>
     <el-table-column
-      label="有效期"
+      label="交易价格(万元)"
     >
       <template scope="scope">
         <el-input
-          v-model="scope.row.validity"
-          size="small"
-          placeholder="请输入内容"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="保管机构"
-    >
-      <template scope="scope">
-        <el-input
-          v-model="scope.row.custodyInstitutions"
+          v-model="scope.row.transactionPrice"
           size="small"
           placeholder="请输入内容"
         />
@@ -113,7 +151,7 @@ export default {
   },
   computed: {
     tableData () {
-      return this.$store.getters.getTravelDocuments
+      return this.$store.getters.getRecommendation
     }
   },
   methods: {
@@ -129,12 +167,14 @@ export default {
     },
     handleAddLine () {
       this.tableData.push({
-        name: '', // 证件名称
-        number: '', // 证件号码
-        licensing: '', // 发证机关
-        time: '', // 发证时间
-        validity: '', // 有效期
-        custodyInstitutions: ''// 保管机构
+        people: '', // 产权人
+        relationship: '', // 与本人关系
+        source: '', // 房产来源
+        address: '', // 具体地址
+        area: '', // 建筑面积
+        propertyNature: '', // 产权性质
+        transactionTime: '', // 交易时间
+        transactionPrice: '' // 交易价格
       })
     }
   }

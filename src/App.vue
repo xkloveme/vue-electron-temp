@@ -42,7 +42,7 @@ img { -webkit-user-drag: none; }
   padding: 0 20px;
   // width: 100vw;
   // background-color: #2D3A41;
-  color: #B2CCD6;
+  color: #000;
   background: #fff;
   // ok
   font-family: 'Microsoft YaHei', 'Avenir', 'Helvetica', 'Arial', 'sans-serif';

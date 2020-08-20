@@ -1,12 +1,17 @@
 <template>
   <div style="text-align: center;">
-    <div>
-      <el-form
-        ref="form"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
+    <h2>
+      报告人基本情况
+      <el-tooltip
+        class="item"
+        content="说明：①工作年限以年为单位。②身份证号码应填写18位公民身份号码。③领导岗位填分管工作，非领导岗位填从事的主要工作。"
+        effect="dark"
       >
+        <i class="el-icon-question" />
+      </el-tooltip>
+    </h2>
+    <div>
+      <el-form :model="form" :rules="rules" label-width="120px" ref="form">
         <el-row :gutter="0">
           <el-col :span="6">
             <el-form-item label="姓名">
@@ -14,194 +19,271 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="身份证号">
-              <el-input v-model="form.idCard" />
+            <el-form-item label="性别">
+              <el-select clearable filterable placeholder="请选择" v-model="form.gender">
+                <el-option :key="item" :label="item" :value="i" v-for="(item,i) in $utils.gender" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="民族">
-              <el-select
-                v-model="form.nation"
-                placeholder="请选择"
-              >
-                <el-option
-                  v-for="item in $utils.nation"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                />
+              <el-select placeholder="请选择" v-model="form.nation">
+                <el-option :key="item" :label="item" :value="item" v-for="item in $utils.nation" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="政治面貌">
-              <el-select
-                v-model="form.politicsStatus"
-                placeholder="请选择"
-              >
+              <el-select placeholder="请选择" v-model="form.politicsStatus">
                 <el-option
-                  v-for="(item,i) in $utils.politicsStatus"
                   :key="item"
                   :label="item"
                   :value="i"
+                  v-for="(item,i) in $utils.politicsStatus"
                 />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
-
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="身份证号">
+              <el-input v-model="form.idCard" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="联系电话">
+              <el-input v-model="form.phone" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="从事或分管工作">
+              <el-input v-model="form.work" />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="工作单位">
-                  <el-select
-                    v-model="form.work"
-                    style="width:100%"
-                    placeholder="请选择"
-                  >
-                    <el-option
-                      v-for="item in $utils.workOrganization"
-                      :key="item.key"
-                      :label="item.value"
-                      :value="item.key"
-                    />
-                  </el-select>
-                  <!-- <el-input v-model="form.work" /> -->
-                </el-form-item>
-                <el-form-item label="现任职务">
-                  <el-input v-model="form.duty" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="工作部门">
-                  <el-input v-model="form.department" />
-                </el-form-item>
-                <el-form-item label="入党时间">
-                  <el-date-picker
-                    v-model="form.partyTime"
-                    type="month"
-                    style="width:100%"
-                    value-format="timestamp"
-                    placeholder="选择年月"
-                  />
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-form-item label="人员身份">
-              <el-checkbox-group v-model="form.identity">
-                <el-checkbox
-                  v-for="(item,i) in $utils.identity"
-                  :key="i+1"
-                  :label="item"
-                />
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item label="户籍地址">
-              <el-input v-model="form.householdRegistration" />
-            </el-form-item>
-            <el-form-item label="现居住地">
-              <el-input v-model="form.currentResidence" />
-            </el-form-item>
             <el-col :span="12">
-              <el-form-item
-                label="密码"
-                prop="password"
-              >
-                <el-input
-                  v-model="form.password"
-                  :type="passType?'password':'text'"
-                  autocomplete="off"
+              <el-form-item label="工作单位">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.employer"
                 >
-                  <el-button
-                    slot="append"
-                    icon="el-icon-view"
-                    @click="passType=!passType"
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.workOrganization"
                   />
-                </el-input>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item
-                label="确认密码"
-                prop="checkPassword"
-              >
-                <el-input
-                  v-model="form.checkPassword"
-                  :type="checkPassType?'password':'text'"
-                  autocomplete="off"
+              <el-form-item label="现任职务">
+                <el-input v-model="form.duty" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="工作部门">
+                <el-input v-model="form.department" />
+              </el-form-item>
+              <el-form-item label="入党时间">
+                <el-date-picker
+                  placeholder="选择年月"
+                  style="width:100%"
+                  type="month"
+                  v-model="form.partyTime"
+                  value-format="timestamp"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="在职状态">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.workingStatus"
                 >
-                  <el-button
-                    slot="append"
-                    icon="el-icon-view"
-                    @click="checkPassType=!checkPassType"
+                  <el-option
+                    :key="item"
+                    :label="item"
+                    :value="i"
+                    v-for="(item,i) in $utils.workingStatus"
                   />
-                </el-input>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="工作年限">
+                <el-input v-model="form.workingYears" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="职级">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.grade"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.grade"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="职位">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.position"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.position"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="人员来源">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.personnelSource"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.personnelSource"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="对象身份">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.objectIdentity"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.objectIdentity"
+                  />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col>
+              <el-form-item label="人员身份">
+                <el-checkbox-group v-model="form.identity">
+                  <el-checkbox :key="i+1" :label="item" v-for="(item,i) in $utils.identity" />
+                </el-checkbox-group>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="4">
             <input
-              ref="input"
-              type="file"
-              accept="image/*"
-              style="display:none"
               @change="handleAvatarSuccess"
-            >
+              accept="image/*"
+              ref="input"
+              style="display:none"
+              type="file"
+            />
             <div class="avatar-uploader">
               <el-image
-                v-if="form.imageUrl"
                 :src="form.imageUrl"
+                @click="$refs.input.click()"
                 class="avatar"
                 fit="fit"
-                @click="$refs.input.click()"
+                v-if="form.imageUrl"
               >
-                <div
-                  slot="error"
-                  class="image-slot"
-                >
+                <div class="image-slot" slot="error">
                   <i class="el-icon-picture-outline" />
                 </div>
               </el-image>
-              <i
-                v-else
-                class="el-icon-plus"
-                @click="$refs.input.click()"
-              />
+              <i @click="$refs.input.click()" class="el-icon-plus" v-else />
             </div>
+          </el-col>
+        </el-row>
+
+        <el-form-item label="户籍地址">
+          <el-input v-model="form.householdRegistration" />
+        </el-form-item>
+        <el-form-item label="现居住地">
+          <el-input v-model="form.currentResidence" />
+        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="密码" prop="password">
+              <el-input
+                :type="passType?'password':'text'"
+                autocomplete="off"
+                v-model="form.password"
+              >
+                <el-button @click="passType=!passType" icon="el-icon-view" slot="append" />
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="确认密码" prop="checkPassword">
+              <el-input
+                :type="checkPassType?'password':'text'"
+                autocomplete="off"
+                v-model="form.checkPassword"
+              >
+                <el-button @click="checkPassType=!checkPassType" icon="el-icon-view" slot="append" />
+              </el-input>
+            </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="个人简历">
           <el-input
-            v-model="form.personalResume"
+            :autosize="{ minRows: 4, maxRows: 6 }"
             type="textarea"
-            :autosize="{ minRows: 2, maxRows: 6 }"
+            v-model="form.personalResume"
           />
         </el-form-item>
-
         <!-- <el-form-item>
-          <el-button
-            type="primary"
-            @click="onSubmit"
-          >
-            立即创建
-          </el-button>
+          <el-button @click="onSubmit" type="primary">立即创建</el-button>
           <el-button>取消</el-button>
         </el-form-item> -->
       </el-form>
     </div>
-    <networking />
+    <!-- <networking /> -->
   </div>
 </template>
 
 <script>
-import networking from './networking'
+// import networking from './networking'
 import db from './../db.js'
 var JSZip = require('jszip')
 const fs = require('fs')
 export default {
-  components: { networking },
-  data () {
+  // components: { networking },
+  data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback()
@@ -224,16 +306,16 @@ export default {
       checkPassType: true,
       rules: {
         password: [{ validator: validatePass, trigger: 'blur' }],
-        checkPassword: [{ validator: validatePass2, trigger: 'blur' }]
-      }
+        checkPassword: [{ validator: validatePass2, trigger: 'blur' }],
+      },
     }
   },
   computed: {
-    form () {
+    form() {
       return this.$store.getters.getUser
-    }
+    },
   },
-  mounted () {
+  mounted() {
     // 监听与主进程的通信
     this.$ipc.on('action', (event, arg) => {
       switch (arg) {
@@ -256,35 +338,35 @@ export default {
     })
   },
   methods: {
-    openDialogByRemote () {
+    openDialogByRemote() {
       this.$dialog.showMessageBox({
         title: '廉情信息报告表',
         message: '欢迎使用廉情信息报告表',
         detail: '1.1.0版',
-        type: 'info'
+        type: 'info',
       })
     },
-    openDialogByIpc () {
+    openDialogByIpc() {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },
-    openNew () {
+    openNew() {
       this.$store.dispatch('updateUser', db)
     },
-    onSubmit () {
-      this.$refs.form.validate(valid => {
+    onSubmit() {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           console.log('submit!', this.form)
         } else {
           this.$message({
             type: 'error',
-            message: '请检查输入是否有误'
+            message: '请检查输入是否有误',
           })
           return false
         }
       })
     },
     // 图片上传
-    handleAvatarSuccess (e) {
+    handleAvatarSuccess(e) {
       var file = e.target.files[0] // 获取图片资源
       const self = this
       // 只选择图片文件
@@ -302,7 +384,7 @@ export default {
         self.form.imageUrl = arg.target.result
       }
     },
-    downloadZip () {
+    downloadZip() {
       const self = this
       // 初始化一个zip打包对象
       var zip = new JSZip()
@@ -331,14 +413,14 @@ export default {
         document.body.removeChild(eleLink)
       })
     },
-    loadAsyncZip (defaultpath, callback) {
+    loadAsyncZip(defaultpath, callback) {
       const self = this
       const files = this.$dialog.showOpenDialog({
         filters: [{ name: 'WT', extensions: ['wt'] }],
-        properties: ['openFile']
+        properties: ['openFile'],
       })
       if (files) {
-        files.then(res => {
+        files.then((res) => {
           // const buf = Buffer.alloc(1024)
           const path = res.filePaths[0]
           fs.readFile(path, function (err, data) {
@@ -346,37 +428,37 @@ export default {
             JSZip.loadAsync(data).then(function (zip) {
               console.log('🐛:: loadAsyncZip -> zip', zip, zip.files)
               if (zip.files && zip.files.password) {
-                zip.files.password.async('text').then(pwd => {
+                zip.files.password.async('text').then((pwd) => {
                   self
                     .$prompt('请输入文件密码', '密码输入', {
                       confirmButtonText: '确定',
-                      cancelButtonText: '取消'
+                      cancelButtonText: '取消',
                     })
                     .then(({ value }) => {
                       if (String(value) === String(pwd)) {
                         self.$message({
                           type: 'success',
-                          message: '密码正确'
+                          message: '密码正确',
                         })
-                        zip.files['user.json'].async('text').then(res => {
+                        zip.files['user.json'].async('text').then((res) => {
                           self.getJson(res)
                         })
                       } else {
                         self.$message({
                           type: 'error',
-                          message: '密码错误'
+                          message: '密码错误',
                         })
                       }
                     })
                     .catch(() => {
                       self.$message({
                         type: 'info',
-                        message: '取消输入'
+                        message: '取消输入',
                       })
                     })
                 })
               } else {
-                zip.files['user.json'].async('text').then(res => {
+                zip.files['user.json'].async('text').then((res) => {
                   self.getJson(res)
                 })
               }
@@ -385,14 +467,14 @@ export default {
         })
       }
     },
-    getJson (text) {
+    getJson(text) {
       if (text) {
         const jsonData = JSON.parse(text)
         console.log(jsonData)
         this.$store.dispatch('updateUser', jsonData)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
