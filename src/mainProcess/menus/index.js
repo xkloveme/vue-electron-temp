@@ -27,21 +27,21 @@ class MenuManager {
           this.windowManager.mainWindow.win.moveTop()
         }
       },
-      {
-        key: '2',
-        label: $t('trayMenu.openLink'),
-        click: () => {
-          const { shell } = require('electron')
-          shell.openExternal('https://www.electronjs.org/docs')
-        }
-      },
-      {
-        key: '3',
-        label: $t('trayMenu.openDialog'),
-        click: () => {
-          dialog.showMessageBox({ type: 'info', title: $t('trayMenu.dialog.title'), message: $t('trayMenu.dialog.message'), detail: $t('trayMenu.dialog.detail') })
-        }
-      },
+      // {
+      //   key: '2',
+      //   label: $t('trayMenu.openLink'),
+      //   click: () => {
+      //     const { shell } = require('electron')
+      //     shell.openExternal('https://www.electronjs.org/docs')
+      //   }
+      // },
+      // {
+      //   key: '3',
+      //   label: $t('trayMenu.openDialog'),
+      //   click: () => {
+      //     dialog.showMessageBox({ type: 'info', title: $t('trayMenu.dialog.title'), message: $t('trayMenu.dialog.message'), detail: $t('trayMenu.dialog.detail') })
+      //   }
+      // },
       { key: '4', label: $t('trayMenu.exit'), click: () => { app.exit() } }
     ]
     return Menu.buildFromTemplate(template)
