@@ -88,34 +88,39 @@
     </el-table-column>
     <el-table-column
       label="资金数额(出资额)(万元)"
-      width="180"
+      width="160"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.money"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
       label="个人出资额(万)"
+      width="160"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.personalContribution"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>
     </el-table-column>
     <el-table-column
       label="出资比例(%)"
+      width="160"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.fundedRatio"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>

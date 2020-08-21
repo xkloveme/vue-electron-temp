@@ -80,12 +80,14 @@
     </el-table-column>
     <el-table-column
       label="建筑面积(m²)"
+      width="160"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.area"
           size="small"
-          placeholder="请输入内容"
+          style="width:100%"
+          placeholder="请输入"
         />
       </template>
     </el-table-column>
@@ -124,12 +126,14 @@
     </el-table-column>
     <el-table-column
       label="交易价格(万元)"
+       width="160"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.transactionPrice"
           size="small"
-          placeholder="请输入内容"
+          style="width:100%"
+          placeholder="请输入"
         />
       </template>
     </el-table-column>

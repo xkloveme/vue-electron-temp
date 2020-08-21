@@ -66,7 +66,7 @@
       <template scope="scope">
         <el-date-picker
           v-model="scope.row.time"
-          style="width:150px"
+          style="width:100%"
           type="date"
           value-format="timestamp"
           placeholder="选择时间"
@@ -75,11 +75,14 @@
     </el-table-column>
     <el-table-column
       label="有效期"
+      width="180"
     >
       <template scope="scope">
-        <el-input
+        <el-date-picker
           v-model="scope.row.validity"
-          size="small"
+          style="width:100%"
+          type="date"
+          value-format="timestamp"
           placeholder="请输入内容"
         />
       </template>

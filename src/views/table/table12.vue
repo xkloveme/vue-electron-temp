@@ -1,139 +1,90 @@
 <template>
-  <el-table
-    :data="tableData"
-    class="tb-edit"
-    border
-    style="width: 100%"
-    highlight-current-row
-  >
-    <el-table-column
-      label="操作"
-      width="50"
-    >
+  <el-table :data="tableData" border class="tb-edit" highlight-current-row style="width: 100%">
+    <el-table-column label="操作" width="50">
       <template scope="scope">
         <i
-          style="color:#F56C6C"
-          class="el-icon-delete"
           @click="handleDelete(scope.$index, scope.row)"
+          class="el-icon-delete"
+          style="color:#F56C6C"
         />
       </template>
     </el-table-column>
-    <el-table-column
-      label="产权人"
-      width="180"
-    >
+    <el-table-column label="产权人" width="180">
       <template scope="scope">
-        <el-input
-          v-model="scope.row.people"
-          size="small"
-          placeholder="请输入内容"
-        />
+        <el-input placeholder="请输入内容" size="small" v-model="scope.row.people" />
       </template>
     </el-table-column>
-    <el-table-column
-      label="与本人关系"
-    >
+    <el-table-column label="与本人关系">
       <template scope="scope">
-        <el-select
-          v-model="scope.row.relationship"
-          placeholder="请选择"
-        >
+        <el-select placeholder="请选择" v-model="scope.row.relationship">
           <el-option
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
             v-for="item in $utils.relationshipWithMyself"
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
           />
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column
-      prop="organization"
-      label="房产来源(去向)"
-    >
+    <el-table-column label="房产来源(去向)" prop="organization">
       <template scope="scope">
-        <el-select
-          v-model="scope.row.source"
-          placeholder="请选择"
-        >
+        <el-select placeholder="请选择" v-model="scope.row.source">
           <el-option
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
             v-for="item in $utils.houseProperty"
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
           />
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column
-      label="具体地址"
-      width="180"
-    >
+    <el-table-column label="具体地址" width="180">
       <template scope="scope">
-        <el-input
-          v-model="scope.row.address"
-          size="small"
-          placeholder="请输入内容"
-        />
+        <el-input placeholder="请输入内容" size="small" v-model="scope.row.address" />
       </template>
     </el-table-column>
-    <el-table-column
-      label="建筑面积(m²)"
-    >
+    <el-table-column label="建筑面积(m²)" width="160">
       <template scope="scope">
-        <el-input
-          v-model="scope.row.area"
-          size="small"
-          placeholder="请输入内容"
-        />
+        <el-input-number  style="width:100%" placeholder="请输入" size="small" v-model="scope.row.area" />
       </template>
     </el-table-column>
-    <el-table-column
-      label="产权性质"
-    >
+    <el-table-column label="产权性质">
       <template scope="scope">
-        <el-select
-          v-model="scope.row.propertyNature"
-          placeholder="请选择"
-        >
+        <el-select placeholder="请选择" v-model="scope.row.propertyNature">
           <el-option
-            v-for="item in $utils.propertyRight"
             :key="item.key"
             :label="item.value"
             :value="item.key"
+            v-for="item in $utils.propertyRight"
           />
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column
-      label="交易时间"
-      width="180"
-    >
+    <el-table-column label="交易时间" width="180">
       <template scope="scope">
         <el-date-picker
-          v-model="scope.row.transactionTime"
+          placeholder="选择时间"
           style="width:150px"
           type="date"
+          v-model="scope.row.transactionTime"
           value-format="timestamp"
-          placeholder="选择时间"
         />
       </template>
     </el-table-column>
-    <el-table-column
-      label="交易价格(万)"
-    >
+    <el-table-column label="交易价格(万)" width="160">
       <template scope="scope">
-        <el-input
-          v-model="scope.row.transactionPrice"
+        <el-input-number
+          placeholder="请输入"
           size="small"
-          placeholder="请输入内容"
+          style="width:100%"
+          v-model="scope.row.transactionPrice"
         />
       </template>
     </el-table-column>
     <div
+      @click="handleAddLine"
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
-      @click="handleAddLine"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行
@@ -143,26 +94,26 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {}
   },
   computed: {
-    tableData () {
+    tableData() {
       return this.$store.getters.getRecommendation
-    }
+    },
   },
   methods: {
-    handleDelete (index, row) {
+    handleDelete(index, row) {
       if (this.tableData.length > 1) {
         this.tableData.splice(index, 1)
       } else {
         this.$message({
           type: 'info',
-          message: '已经是最后一个了,不能再删了'
+          message: '已经是最后一个了,不能再删了',
         })
       }
     },
-    handleAddLine () {
+    handleAddLine() {
       this.tableData.push({
         people: '', // 产权人
         relationship: '', // 与本人关系
@@ -171,10 +122,10 @@ export default {
         area: '', // 建筑面积
         propertyNature: '', // 产权性质
         transactionTime: '', // 交易时间
-        transactionPrice: '' // 交易价格
+        transactionPrice: '', // 交易价格
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

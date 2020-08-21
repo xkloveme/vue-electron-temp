@@ -45,12 +45,13 @@
       </template>
     </el-table-column>
     <el-table-column
-      label="价格"
+      label="价格(万元)"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.price"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>

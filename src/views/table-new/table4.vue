@@ -47,9 +47,10 @@
       width="180"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.stockNumber"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>
@@ -58,9 +59,10 @@
       label="填报前一交易日市值（万元）"
     >
       <template scope="scope">
-        <el-input
+        <el-input-number
           v-model="scope.row.stockMarketValue"
           size="small"
+          style="width:100%"
           placeholder="请输入内容"
         />
       </template>
@@ -71,7 +73,7 @@
     >
       <div style="text-align:right;border-bottom:1px solid #ebeef5;padding:5px">
         填报前一交易日所有股票的总市值（万元）
-        <el-input
+        <el-input-number
           v-model="allMarketValue"
           size="small"
           style="width:400px"
