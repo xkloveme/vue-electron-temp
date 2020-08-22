@@ -31,6 +31,16 @@ const db = {
   imageUrl: '', // 照片
   other: '', // 超长字符串,类似备注
   tableStatus: {},
+  // 本人、配偶、共同生活子女为所有权人或共有人的房屋出售情况
+  houseSale: [{
+    people: '', // 产权人
+    source: '', // 房产来源
+    address: '', // 具体地址
+    area: '', // 建筑面积
+    propertyNature: '', // 产权性质
+    transactionTime: '', // 交易时间
+    transactionPrice: '' // 交易价格
+  }],
   // 未办证产权
   notRushEstate: [{
     people: '', // 产权人
@@ -238,4 +248,4 @@ const db = {
     desc: '' // 备注
   }]
 }
-export default db
+module.exports = db

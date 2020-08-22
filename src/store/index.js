@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import db from './../db.js'
+var db = require('./../db.js')
 console.log('🐛:: db', db)
+let newDb = JSON.parse(JSON.stringify(db))
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     getTableStatus ({ user }) {
       return user.tableStatus
+    },
+    getHouseSale ({ user }) {
+      return user.houseSale
     },
     getNotRushEstate ({ user }) {
       return user.notRushEstate
@@ -88,7 +92,16 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser (state, user) {
-      state.user = user// 将传参设置给state的city
+      if(user===null){
+        state.user=newDb
+      }else{
+        for (const key in user) {
+          if (user.hasOwnProperty(key)) {
+            state.user[key] = user[key]
+          }
+        }
+      }
+
     },
     setOther (state, other) {
       state.user.other = other// 将传参设置给state的city

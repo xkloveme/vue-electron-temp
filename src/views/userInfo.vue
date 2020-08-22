@@ -278,7 +278,7 @@
 
 <script>
 // import networking from './networking'
-import db from './../db.js'
+// import {db} from './../db.js'
 var JSZip = require('jszip')
 const fs = require('fs')
 export default {
@@ -345,7 +345,7 @@ export default {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },
     openNew() {
-      this.$store.dispatch('updateUser', db)
+      this.$store.dispatch('updateUser', null)
     },
     onSubmit() {
       this.$refs.form.validate((valid) => {
