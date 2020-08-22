@@ -73,6 +73,7 @@ class MainWindow {
               win.webContents.send('action', 'about')
             }
           },
+          { label: '刷新', role: 'reload' },
           { label: '隐藏', role: 'hide' },
           { type: 'separator' },
           { label: '退出', role: 'close', accelerator: 'CmdOrCtrl+Q' }

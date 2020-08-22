@@ -99,7 +99,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getRecommendation
+      return this.$store.getters.getRealEstate
     },
   },
   methods: {
@@ -119,10 +119,10 @@ export default {
         relationship: '', // 与本人关系
         source: '', // 房产来源
         address: '', // 具体地址
-        area: '', // 建筑面积
+        area: 0, // 建筑面积
         propertyNature: '', // 产权性质
         transactionTime: '', // 交易时间
-        transactionPrice: '', // 交易价格
+        transactionPrice: 0, // 交易价格
       })
     },
   },

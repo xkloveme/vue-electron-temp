@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 var db = require('./../db.js')
 console.log('🐛:: db', db)
-let newDb = JSON.parse(JSON.stringify(db))
+var newDb = JSON.parse(JSON.stringify(db))
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -92,6 +92,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser (state, user) {
+      console.log('🐛:: setUser -> user', user,db)
       if(user===null){
         state.user=newDb
       }else{
