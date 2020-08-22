@@ -212,7 +212,7 @@
               style="display:none"
               type="file"
             />
-            <div class="avatar-uploader">
+            <div class="avatar-uploader" @click="$refs.input.click()">
               <el-image
                 :src="form.imageUrl"
                 @click="$refs.input.click()"
