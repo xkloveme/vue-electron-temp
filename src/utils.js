@@ -11,7 +11,11 @@ export const grade = [
   { key: '04', value: '村主要干部' },
   { key: '05', value: '村一般干部' },
   { key: '06', value: '普通党员' },
-  { key: '07', value: '其他' }
+  { key: '07', value: '其他' },
+  { key: '08', value: '正科级' },
+  { key: '09', value: '副科级' },
+  { key: '10', value: '国有企业管理人员' },
+  { key: '11', value: '国有企业其他人员' }
 ]
 // 职位
 export const position = [
