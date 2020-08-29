@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     tableData () {
-      return this.$store.getters.getNetworking
+      return this.$store.getters.getWorkAssessment
     }
   },
   methods: {
@@ -126,11 +126,11 @@ export default {
     },
     handleAddLine () {
       this.tableData.push({
-        relationship: '', // 本人关系
-        name: '',
-        birth: '', // 出生年月
-        politicsStatus: '',
-        work: ''
+        time: '', // 年度
+        assessment: '', // 考核情况
+        agency: '', // 发文机关
+        symbol: '', // 文号
+        desc: ''// 备注
       })
     }
   }
