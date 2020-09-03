@@ -32,7 +32,7 @@ class MainWindow {
     if (!this.win) {
       this.win = new BrowserWindow({
         width: 1300,
-        height: 770,
+        height: 800,
         minWidth: 1200,
         minHeight: 770,
         title: '廉情信息报告表',

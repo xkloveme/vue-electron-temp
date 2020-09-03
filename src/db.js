@@ -21,7 +21,7 @@ const db = {
   objectIdentity:'', // 对象身份
   department: '', // 部门
   partyTime: '', // 入党时间
-  // 枚举值:{1:'区管干部',2:'纪检干部',3:'人大代表(区级及其以上)',4:'党代表(区级及其以上)',5:'政协委员(区级及其以上)'}
+  branch:'', // 所在支部
   identity: [], // 人员身份 枚举
   householdRegistration: '', // 户籍地址
   currentResidence: '', // 现居住地

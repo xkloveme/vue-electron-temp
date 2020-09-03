@@ -120,7 +120,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="工作年限(年)">
+              <el-form-item label="工作年限(年)" prop="workingYears">
                 <el-input placeholder="工作年限(年)" v-model="form.workingYears" />
               </el-form-item>
             </el-col>
@@ -198,8 +198,13 @@
             </el-col>
             <el-col>
               <el-form-item label="人员身份">
-                <el-checkbox-group v-model="form.identity">
-                  <el-checkbox :key="i+1" :label="item" v-for="(item,i) in $utils.identity" />
+                <el-checkbox-group @change="handleChange" v-model="form.identity">
+                  <el-checkbox
+                    :disabled="item.disabled"
+                    :key="i+1"
+                    :label="item.value"
+                    v-for="(item,i) in identityList"
+                  />
                 </el-checkbox-group>
               </el-form-item>
             </el-col>
@@ -212,7 +217,7 @@
               style="display:none"
               type="file"
             />
-            <div class="avatar-uploader" @click="$refs.input.click()">
+            <div @click="$refs.input.click()" class="avatar-uploader">
               <el-image
                 :src="form.imageUrl"
                 @click="$refs.input.click()"
@@ -228,10 +233,19 @@
             </div>
           </el-col>
         </el-row>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="户籍地址">
+              <el-input v-model="form.householdRegistration" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="所在支部">
+              <el-input v-model="form.branch" />
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-        <el-form-item label="户籍地址">
-          <el-input v-model="form.householdRegistration" />
-        </el-form-item>
         <el-form-item label="现居住地">
           <el-input v-model="form.currentResidence" />
         </el-form-item>
@@ -304,10 +318,29 @@ export default {
     return {
       passType: true,
       checkPassType: true,
+      disabled: false,
       rules: {
         name: [{ required: true, message: '请填写姓名', trigger: 'blur' }],
         idCard: [
           { required: true, message: '请填写身份证号', trigger: 'blur' },
+          {
+            min: 18,
+            max: 18,
+            message: '请填写正确的身份证号',
+            trigger: 'blur',
+          },
+          {
+            pattern: /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/,
+            message: '请填写正确的身份证号',
+            trigger: 'blur',
+          },
+        ],
+        workingYears: [
+          {
+            pattern: /^[0-9]?\d+(\.\d{1,3})?$/,
+            message: '请填写正确的工作年限',
+            trigger: 'blur',
+          },
         ],
         password: [{ validator: validatePass, trigger: 'blur' }],
         checkPassword: [{ validator: validatePass2, trigger: 'blur' }],
@@ -317,6 +350,19 @@ export default {
   computed: {
     form() {
       return this.$store.getters.getUser
+    },
+    identityList() {
+      const arr = []
+      for (const key in this.$utils.identity) {
+        if (this.$utils.identity.hasOwnProperty(key)) {
+          arr.push({
+            value: this.$utils.identity[key],
+            label: this.$utils.identity[key],
+            disabled: Number(key) === 6 ? false : this.disabled,
+          })
+        }
+      }
+      return arr
     },
   },
   mounted() {
@@ -341,6 +387,15 @@ export default {
     })
   },
   methods: {
+    // 人员身份逻辑
+    handleChange(val) {
+      if (val.join(',').indexOf('其他') > -1) {
+        this.form.identity = ['其他']
+        this.disabled = true
+      } else {
+        this.disabled = false
+      }
+    },
     openDialogByIpc() {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },

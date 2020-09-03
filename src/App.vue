@@ -50,8 +50,8 @@ img { -webkit-user-drag: none; }
   -moz-osx-font-smoothing: grayscale;
   -moz-user-select: none;
   -webkit-user-select: none;
-  // 如果你想让应用中的所有文字无法被选取，就设为none
-  // If you want all text in the app to be unselectable, set it to none
+  // // 如果你想让应用中的所有文字无法被选取，就设为none
+  // // If you want all text in the app to be unselectable, set it to none
   user-select: none;
 }
 
