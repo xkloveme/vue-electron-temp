@@ -242,7 +242,7 @@ export const workOrganization = [
   { key: '37', value: '锦南新城管委会' },
   { key: '38', value: '城市发展投资集团有限公司' },
   { key: '39', value: '新锦投资集团有限公司' },
-  { key: '40', value: '市规划和自然资源据临安分局' },
+  { key: '40', value: '市规划和自然资源局临安分局' },
   { key: '41', value: '经信局' },
   { key: '42', value: '科技局' },
   { key: '43', value: '商务局' },
