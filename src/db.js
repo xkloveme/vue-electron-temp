@@ -12,6 +12,7 @@ const db = {
   politicsStatus: '', // 政治面貌
   work: '', // 分管工作
   employer: '', // 工作单位
+  community:'',// 村社区
   workingYears:'', // 工作年限
   phone: '', // 联系电话
   duty: '', // 现任职务

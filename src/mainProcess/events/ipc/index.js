@@ -1,4 +1,7 @@
-import { ipcMain, dialog } from 'electron'
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
+import { ipcMain, dialog,BrowserWindow, shell } from 'electron'
 
 class IpcEvents {
   // 创建ipc事件
@@ -25,6 +28,10 @@ class IpcEvents {
     // 语言变更事件 / language change event
     ipcMain.on('appLanguageChange', (sys, lang) => {
       this.appManager.languageChange(lang)
+    })
+     // 创建打印页面
+     ipcMain.on('appCreatePrint', (router) => {
+      this.appManager.createPrintWin(router)
     })
   }
 }

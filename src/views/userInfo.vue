@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center;">
+  <div id="pdf-path" style="text-align: center;">
     <h2>
       报告人基本情况
       <el-tooltip
@@ -19,7 +19,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="性别">
+            <el-form-item label="性别" prop="gender">
               <el-select clearable filterable placeholder="请选择" v-model="form.gender">
                 <el-option :key="item" :label="item" :value="i" v-for="(item,i) in $utils.gender" />
               </el-select>
@@ -33,7 +33,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="政治面貌">
+            <el-form-item label="政治面貌" prop="politicsStatus">
               <el-select placeholder="请选择" v-model="form.politicsStatus">
                 <el-option
                   :key="item"
@@ -52,7 +52,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="联系电话">
+            <el-form-item label="联系电话" prop="phone">
               <el-input v-model="form.phone" />
             </el-form-item>
           </el-col>
@@ -64,9 +64,10 @@
         </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
-            <el-col :span="12">
+            <el-col :span="needCommunity?7:12">
               <el-form-item label="工作单位">
                 <el-select
+                  @change="handleChangeNeedCommunity"
                   clearable
                   filterable
                   placeholder="请选择"
@@ -79,6 +80,19 @@
                     :value="item.key"
                     v-for="item in $utils.workOrganization"
                   />
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="5" v-if="needCommunity">
+              <el-form-item label="村(社区)" label-width="80px" prop="community">
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width:100%"
+                  v-model="form.community"
+                >
+                  <el-option :key="item" :label="item" :value="item" v-for="item in communityType" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -102,7 +116,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="在职状态">
+              <el-form-item label="在职状态" prop="workingStatus">
                 <el-select
                   clearable
                   filterable
@@ -125,7 +139,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="职级">
+              <el-form-item label="职级" prop="grade">
                 <el-select
                   clearable
                   filterable
@@ -143,7 +157,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="职位">
+              <el-form-item label="职位" prop="position">
                 <el-select
                   clearable
                   filterable
@@ -161,7 +175,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="人员来源">
+              <el-form-item label="人员来源" prop="personnelSource">
                 <el-select
                   clearable
                   filterable
@@ -179,7 +193,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="对象身份">
+              <el-form-item label="对象身份" prop="objectIdentity">
                 <el-select
                   clearable
                   filterable
@@ -197,7 +211,7 @@
               </el-form-item>
             </el-col>
             <el-col>
-              <el-form-item label="人员身份">
+              <el-form-item label="人员身份" prop="identity">
                 <el-checkbox-group @change="handleChange" v-model="form.identity">
                   <el-checkbox
                     :disabled="item.disabled"
@@ -280,10 +294,10 @@
             v-model="form.personalResume"
           />
         </el-form-item>
-        <!-- <el-form-item>
-          <el-button @click="onSubmit" type="primary">立即创建</el-button>
+        <el-form-item>
+          <el-button @click="onSubmit" type="primary">打印预览</el-button>
           <el-button>取消</el-button>
-        </el-form-item>-->
+        </el-form-item>
       </el-form>
     </div>
     <!-- <networking /> -->
@@ -319,8 +333,14 @@ export default {
       passType: true,
       checkPassType: true,
       disabled: false,
+      needCommunity: false,
+      communityType: [],
       rules: {
         name: [{ required: true, message: '请填写姓名', trigger: 'blur' }],
+        gender: [{ required: true, message: '请输入性别', trigger: 'change' }],
+        politicsStatus: [
+          { required: true, message: '请选择政治面貌', trigger: 'change' },
+        ],
         idCard: [
           { required: true, message: '请填写身份证号', trigger: 'blur' },
           {
@@ -334,6 +354,33 @@ export default {
             message: '请填写正确的身份证号',
             trigger: 'blur',
           },
+        ],
+        phone: [
+          {
+            required: true,
+            pattern: /^1\d{10}$/,
+            message: '请填写正确的联系电话',
+            trigger: 'blur',
+          },
+        ],
+        community: [
+          { required: true, message: '请选择村(社区)', trigger: 'change' },
+        ],
+        workingStatus: [
+          { required: true, message: '请选择在职状态', trigger: 'change' },
+        ],
+        grade: [{ required: true, message: '请选择职级', trigger: 'change' }],
+        position: [
+          { required: true, message: '请选择职级', trigger: 'change' },
+        ],
+        personnelSource: [
+          { required: true, message: '请选择人员来源', trigger: 'change' },
+        ],
+        objectIdentity: [
+          { required: true, message: '请选择对象身份', trigger: 'change' },
+        ],
+        identity: [
+          { required: true, message: '请选择人员身份', trigger: 'blur' },
         ],
         workingYears: [
           {
@@ -396,6 +443,16 @@ export default {
         this.disabled = false
       }
     },
+    // 工作单位逻辑
+    handleChangeNeedCommunity(val) {
+      let obj = {}
+      this.$utils.communityType.map((comm) => {
+        obj[comm.key] = comm.value
+      })
+      this.needCommunity = !!obj[val]
+      this.communityType = obj[val]
+      this.form.community = ''
+    },
     openDialogByIpc() {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },
@@ -403,17 +460,11 @@ export default {
       this.$store.dispatch('updateUser', null)
     },
     onSubmit() {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          console.log('submit!', this.form)
-        } else {
-          this.$message({
-            type: 'error',
-            message: '请检查输入是否有误',
-          })
-          return false
-        }
-      })
+      // const { href } = this.$router.resolve({
+      //   name: 'Pdf',
+      // })
+      // window.open(href, '_blank')
+      this.$router.push({name:'Pdf'})
     },
     // 图片上传
     handleAvatarSuccess(e) {
@@ -435,6 +486,7 @@ export default {
       }
     },
     downloadZip() {
+      console.log('🐛:: downloadZip -> this.$refs.form', this.$refs.form)
       this.$refs.form.validate((valid) => {
         if (valid) {
           const self = this

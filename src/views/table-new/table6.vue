@@ -8,6 +8,7 @@
   >
     <el-table-column
       label="操作"
+      v-if="!!this.$attrs.options"
       width="50"
     >
       <template scope="scope">
@@ -82,6 +83,7 @@
       <div
         style="text-align:center;"
         @click="handleAddLine"
+      v-if="!!this.$attrs.options"
       >
         <i class="el-icon-circle-plus-outline" />
         添加一行

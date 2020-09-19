@@ -1,6 +1,7 @@
 <template>
   <el-table :data="tableData" border class="tb-edit" highlight-current-row style="width: 100%">
-    <el-table-column label="操作" width="50">
+    <el-table-column label="操作"
+      v-if="!!this.$attrs.options" width="50">
       <template scope="scope">
         <i
           @click="handleDelete(scope.$index, scope.row)"
@@ -83,6 +84,7 @@
     </el-table-column>
     <div
       @click="handleAddLine"
+      v-if="!!this.$attrs.options"
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
     >

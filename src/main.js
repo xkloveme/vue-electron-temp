@@ -11,14 +11,22 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import db from './db'
 import * as utils from './utils'
-
+import dayjs from 'dayjs'
 import $backend from '@/backend'
 const ipc = require('electron').ipcRenderer
 const { dialog } = require('electron').remote
+const formatDay = (value, format = 'YYYY-MM-DD') => {
+  if (value) {
+    return dayjs(value).format(format)
+  } else {
+    return ''
+  }
+}
 Vue.component('svg-icon', SvgIcon)
 Vue.prototype.$backend = $backend
 Vue.prototype.$ipc = ipc
 Vue.prototype.$dialog = dialog
+Vue.prototype.$formatDay = formatDay
 Vue.prototype.$db = db
 Vue.prototype.$utils = utils
 Vue.config.productionTip = false
