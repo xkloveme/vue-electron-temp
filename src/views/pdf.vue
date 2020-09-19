@@ -2,24 +2,25 @@
   <div>
     <div>
       <el-button @click="printPDF" id="print-button" type="primary">打印</el-button>
+      <el-button @click="goBack" id="print-button" >返回</el-button>
     </div>
     <div id="pdf-print">
       <h1 style="font-family:DengXian;text-align:center;">廉情信息报告表</h1>
-      <div style="text-align:center;margin:100px auto;width:444px;line-height:20px;">
+      <div style="text-align:center;margin:150px auto;width:444px;line-height:20px;">
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">报 告 人：</span>
           <input name="name" style="border:none;border-bottom:1px solid #000;" type="text" />
           <span style="font-family:DengXian">（签名）</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">&#xa0;</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">单 位：</span>
           <input
@@ -29,12 +30,12 @@
           />
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">&#xa0;</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">报告日期：</span>
           <span
@@ -51,24 +52,24 @@
           <span style="font-family:DengXian">日</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">&#xa0;</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">审 签 人：</span>
           <input name="name" style="border:none;border-bottom:1px solid #000;" type="text" />
           <span style="font-family:DengXian">（签名）</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">&#xa0;</span>
         </p>
         <p
-          style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
+          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:12pt"
         >
           <span style="font-family:DengXian">审签日期：</span>
           <input
@@ -92,27 +93,27 @@
         </p>
       </div>
       <p
-        style="margin-top:200pt; margin-bottom:30pt;text-align:center;  line-height:115%; widows:0; orphans:0; font-size:10pt"
+        style="margin-top:450pt; text-align:center;  line-height:115%; widows:0; orphans:0; font-size:10pt"
       >
         <span style="font-family:DengXian">廉情信息报告表{{id}}</span>
       </p>
       <p
-        style="margin-top:200pt; margin-bottom:60pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:16pt"
+        style="margin-top:10pt; margin-bottom:80pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:16pt"
       >
         <span style="font-family:DengXian">临安区监察委员会</span>
       </p>
       <p
-        style="margin-top:0pt; margin-bottom:30pt; text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:10pt"
+        style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:10pt"
       >
         <span style="font-family:DengXian">&#xa0;</span>
       </p>
       <p
-        style="margin-top:0pt; margin-bottom:30pt; line-height:115%; widows:0; orphans:0; font-size:9pt"
+        style="line-height:115%; widows:0; orphans:0; "
       >
         <span style="font-family:DengXian">&#xa0;</span>
       </p>
       <p
-        style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:18pt"
+        style="text-align:center; line-height:115%; widows:0; orphans:0; font-size:18pt"
       >
         <span style="font-family:DengXian">报告人基本情况</span>
       </p>
@@ -120,75 +121,75 @@
         <tr style="height:36.4pt">
           <td
             align="center"
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top;vertical-align:middle;"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">姓 名</span>
             </p>
           </td>
           <td
             align="center"
-            style="width:42.8pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:42.8pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
-              <span style="font-family:DengXian">&#xa0;</span>
+              <span style="font-family:DengXian">{{form.name}}</span>
             </p>
           </td>
           <td
-            style="width:30.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:30.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">性别</span>
             </p>
           </td>
           <td
-            style="width:29.45pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:29.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">民族</span>
             </p>
           </td>
           <td
-            style="width:75.95pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:75.95pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:70pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:70pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">政治面貌</span>
             </p>
           </td>
           <td
-            style="width:63.45pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:63.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -196,57 +197,57 @@
         </tr>
         <tr style="height:41.15pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">身份证号</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">联系电话</span>
             </p>
           </td>
           <td
-            style="width:75.95pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:75.95pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:70pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:70pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">从事或分管工作</span>
             </p>
           </td>
           <td
-            style="width:63.45pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:63.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -254,39 +255,39 @@
         </tr>
         <tr style="height:40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">工作单位</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">现任职务</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -294,10 +295,10 @@
           <td
             colspan="2"
             rowspan="6"
-            style="width:124.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -305,39 +306,39 @@
         </tr>
         <tr style="height:40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">工作部门</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">在职状态</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -345,39 +346,39 @@
         </tr>
         <tr style="height:40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">入党时间</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">工作年限（年）</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -385,39 +386,39 @@
         </tr>
         <tr style="height:38.05pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">职级</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">职位</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -425,39 +426,39 @@
         </tr>
         <tr style="height:37.35pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">人员来源</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">对象身份</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -465,20 +466,20 @@
         </tr>
         <tr style="height:40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">人员身份</span>
             </p>
           </td>
           <td
             colspan="6"
-            style="width:278.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:278.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span
                 style="font-family:DengXian"
@@ -488,39 +489,39 @@
         </tr>
         <tr style="height:43.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">户籍地址</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">所在支部</span>
             </p>
           </td>
           <td
             colspan="4"
-            style="width:231pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:231pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -528,20 +529,20 @@
         </tr>
         <tr style="height:40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">现居住地</span>
             </p>
           </td>
           <td
             colspan="8"
-            style="width:413.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:413.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -549,20 +550,20 @@
         </tr>
         <tr style="height:156.65pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">个人简历</span>
             </p>
           </td>
           <td
             colspan="8"
-            style="width:413.2pt; border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top"
+            style="width:413.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top"
           >
             <p
-              style="margin-top:0pt; margin-bottom:30pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:9pt"
+              style="text-align:center; line-height:115%; widows:0; orphans:0; "
             >
               <span style="font-family:DengXian">&#xa0;</span>
             </p>
@@ -625,8 +626,13 @@ export default {
   mounted() {
     console.log(this.$route)
   },
+   computed: {
+    form() {
+      return this.$store.getters.getUser
+    }
+  },
   methods: {
-    go() {
+    goBack() {
       this.$router.go(-1)
     },
     //  webviewReady() {
@@ -828,7 +834,6 @@ export default {
 
 .stl_05 {
   border: 1px solid #ccc;
-  width: 60%;
   margin: 30px auto;
   padding: 20px;
   height: 300px;

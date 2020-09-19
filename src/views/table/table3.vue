@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="time"
       label="受惩处时间"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.time"
           style="width:150px"
@@ -34,10 +36,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="disposition"
       label="所受处分"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.disposition"
           placeholder="请选择"
@@ -52,10 +55,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="organization"
+      prop="dispositionReasons"
       label="受处分原因"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.dispositionReasons"
           size="small"
@@ -67,7 +70,7 @@
       prop="dispositionOrgans"
       label="惩处机关"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.dispositionOrgans"
           size="small"
@@ -79,7 +82,7 @@
       prop="symbol"
       label="文号"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.symbol"
           size="small"
@@ -88,10 +91,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="agency"
+      prop="desc"
       label="备注"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.desc"
           size="small"
@@ -103,7 +106,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

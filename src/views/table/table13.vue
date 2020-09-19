@@ -1,7 +1,6 @@
 <template>
-  <el-table :data="tableData" border class="tb-edit" highlight-current-row style="width: 100%">
-    <el-table-column label="操作"
-      v-if="!!this.$attrs.options" width="50">
+  <el-table :data="tableData" class="tb-edit" highlight-current-row style="width: 100%">
+    <el-table-column label="操作" prop="agency" v-if="!this.$attrs.hiddenOptions" width="50">
       <template scope="scope">
         <i
           @click="handleDelete(scope.$index, scope.row)"
@@ -10,8 +9,8 @@
         />
       </template>
     </el-table-column>
-    <el-table-column label="称谓">
-      <template scope="scope">
+    <el-table-column label="称谓" prop="title">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select placeholder="请选择" v-model="scope.row.title">
           <el-option
             :key="item.key"
@@ -22,23 +21,23 @@
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column label="姓名">
-      <template scope="scope">
+    <el-table-column label="姓名" prop="name">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.name" />
       </template>
     </el-table-column>
-    <el-table-column label="市场主体名称">
-      <template scope="scope">
+    <el-table-column label="市场主体名称" prop="marketSubject">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.marketSubject" />
       </template>
     </el-table-column>
-    <el-table-column label="经营范围(业务范围)" width="180">
-      <template scope="scope">
+    <el-table-column label="经营范围(业务范围)" prop="businessScope" width="180">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.businessScope" />
       </template>
     </el-table-column>
-    <el-table-column label="市场主体类型">
-      <template scope="scope">
+    <el-table-column label="市场主体类型" prop="marketSubjectType">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select placeholder="请选择" v-model="scope.row.marketSubjectType">
           <el-option
             :key="item.key"
@@ -49,8 +48,8 @@
         </el-select>
       </template>
     </el-table-column>
-    <el-table-column label="资金数额(出资额)(万元)" width="160">
-      <template scope="scope">
+    <el-table-column label="资金数额(出资额)(万元)" prop="money" width="160">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           placeholder="请输入"
           size="small"
@@ -59,8 +58,8 @@
         />
       </template>
     </el-table-column>
-    <el-table-column label="个人出资额(万)" width="160">
-      <template scope="scope">
+    <el-table-column label="个人出资额(万)" prop="personalContribution" width="160">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           placeholder="请输入"
           size="small"
@@ -69,8 +68,8 @@
         />
       </template>
     </el-table-column>
-    <el-table-column label="出资比例(%)" width="160">
-      <template scope="scope">
+    <el-table-column label="出资比例(%)" prop="fundedRatio" width="160">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           placeholder="请输入"
           size="small"
@@ -81,9 +80,9 @@
     </el-table-column>
     <div
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

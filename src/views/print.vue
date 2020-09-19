@@ -3,7 +3,7 @@
   <div class="home-title" type="card" v-model="editableTabsValue">
     <div :key="i++" :label="item.title" :name="item.name" v-for="(item,i) in editableTabs">
       <h4>{{i}}、{{item.desc}}</h4>
-      <component :is="item.content" :options="false"/>
+      <component :is="item.content" :hiddenOptions="true"/>
     </div>
   </div>
 </template>

@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="people"
       label="产权人姓名"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.people"
           size="small"
@@ -32,9 +34,10 @@
       </template>
     </el-table-column>
     <!-- <el-table-column
+      prop="agency"
       label="与本人关系"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.relationship"
           placeholder="请选择"
@@ -49,10 +52,10 @@
       </template>
     </el-table-column> -->
     <el-table-column
-      prop="organization"
+      prop="source"
       label="房产来源(去向)"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.source"
           clearable
@@ -68,10 +71,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="address"
       label="具体地址"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.address"
           size="small"
@@ -80,10 +84,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="area"
       label="建筑面积(m²)"
       width="160"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           v-model="scope.row.area"
           size="small"
@@ -93,9 +98,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="propertyNature"
       label="房产性质和功能类型"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.propertyNature"
           clearable
@@ -112,10 +118,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="transactionTime"
       label="交易时间"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.transactionTime"
           style="width:150px"
@@ -126,10 +133,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="transactionPrice"
       label="交易价格(万元)"
       width="160"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           v-model="scope.row.transactionPrice"
           size="small"
@@ -142,7 +150,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

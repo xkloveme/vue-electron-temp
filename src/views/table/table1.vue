@@ -8,10 +8,10 @@
   >
     <el-table-column
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -21,9 +21,10 @@
     </el-table-column>
     <el-table-column
       label="年度"
+      prop="time"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.time"
           style="width:150px"
@@ -32,12 +33,14 @@
           placeholder="选择年"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.time | dateYear}}</template>
     </el-table-column>
     <el-table-column
       label="考核情况"
+      prop="assessment"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.assessment"
           placeholder="请选择"
@@ -55,7 +58,7 @@
       prop="agency"
       label="发文机关"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.agency"
           size="small"
@@ -67,7 +70,7 @@
       prop="symbol"
       label="文号"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.symbol"
           size="small"
@@ -76,10 +79,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="agency"
+      prop="desc"
       label="备注"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.desc"
           size="small"
@@ -91,7 +94,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

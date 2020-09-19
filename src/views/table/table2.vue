@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="time"
       label="时间"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.time"
           style="width:150px"
@@ -34,10 +36,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="name"
       label="名称"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -49,7 +52,7 @@
       prop="organization"
       label="表彰机关"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.organization"
           size="small"
@@ -61,7 +64,7 @@
       prop="symbol"
       label="文号"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.symbol"
           size="small"
@@ -70,10 +73,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="agency"
+      prop="desc"
       label="备注"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.desc"
           size="small"
@@ -85,7 +88,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

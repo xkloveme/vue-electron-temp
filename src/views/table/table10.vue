@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,9 +21,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="title"
       label="称谓"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.title"
           placeholder="请选择"
@@ -37,9 +39,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="name"
       label="姓名"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -48,9 +51,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="isLife"
       label="是否共同生活"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.isLife"
           placeholder="请选择"
@@ -65,10 +69,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="work"
       label="工作、学习单位"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.work"
           size="small"
@@ -77,9 +82,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="duty"
       label="现任职务"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.duty"
           size="small"
@@ -88,9 +94,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="unitNature"
       label="单位性质"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.unitNature"
           placeholder="请选择"
@@ -105,9 +112,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="cardName"
       label="证件名称"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.cardName"
           placeholder="请选择"
@@ -122,9 +130,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="card"
       label="证件号码"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.card"
           size="small"
@@ -136,7 +145,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

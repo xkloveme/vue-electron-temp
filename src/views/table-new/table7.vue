@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="relationship"
       label="与本人关系"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.relationship"
           filterable
@@ -40,10 +42,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="name"
       label="姓名"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -52,10 +55,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="idCard"
       label="身份证号"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.idCard"
           size="small"
@@ -64,9 +68,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="politicsStatus"
       label="政治面貌"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.politicsStatus"
           style="width:100%"
@@ -85,7 +90,7 @@
       prop="work"
       label="工作单位及职务"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.work"
           size="small"
@@ -94,9 +99,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="phone"
       label="联系电话"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.phone"
           size="small"
@@ -108,7 +114,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

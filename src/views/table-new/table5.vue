@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="name"
       label="持有人姓名"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -32,9 +34,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="fundName"
       label="基金名称或代码"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.fundName"
           size="small"
@@ -43,10 +46,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="fundNumber"
       label="基金份额"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           v-model="scope.row.fundNumber"
           size="small"
@@ -56,9 +60,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="fundMarketValue"
       label="填报前一交易日净值（万元）"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number
           v-model="scope.row.fundMarketValue"
           size="small"
@@ -69,6 +74,7 @@
     </el-table-column>
     <div
       slot="append"
+      v-if="!this.$attrs.hiddenOptions"
       style="cursor: pointer;line-height: 30px;"
     >
       <div style="text-align:right;border-bottom:1px solid #ebeef5;padding:5px">
@@ -83,7 +89,7 @@
       <div
         style="text-align:center;"
         @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       >
         <i class="el-icon-circle-plus-outline" />
         添加一行

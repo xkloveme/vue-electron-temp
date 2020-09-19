@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,10 +21,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="agency"
       label="本人关系"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.relationship"
           placeholder="请选择"
@@ -38,10 +40,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="agency"
       label="姓名"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -50,10 +53,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="agency"
       label="出生年月"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.birth"
           style="width:150px"
@@ -64,10 +68,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="agency"
       prop="politicsStatus"
       label="政治面貌"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.politicsStatus"
           placeholder="请选择"
@@ -82,10 +87,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="agency"
       prop="work"
       label="工作单位及职务"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.work"
           size="small"
@@ -97,7 +103,8 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
+      
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

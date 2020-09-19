@@ -7,11 +7,12 @@
     highlight-current-row
   >
     <el-table-column
+      prop="agency"
       label="操作"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
       width="50"
     >
-      <template scope="scope">
+      <template scope="scope" >
         <i
           style="color:#F56C6C"
           class="el-icon-delete"
@@ -20,9 +21,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="title"
       label="称谓"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.title"
           placeholder="请选择"
@@ -37,9 +39,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="name"
       label="姓名"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.name"
           size="small"
@@ -48,10 +51,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="country"
       width="180"
       label="移居国家(地区)"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.country"
           size="small"
@@ -60,10 +64,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="city"
       label="现居住城市"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.city"
           size="small"
@@ -72,10 +77,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="card"
       width="180"
       label="移居国家证件号码"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.card"
           size="small"
@@ -84,9 +90,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="type"
       label="移居类别"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
           v-model="scope.row.type"
           placeholder="请选择"
@@ -101,10 +108,11 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="time"
       label="移居时间"
       width="180"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           v-model="scope.row.time"
           style="width:150px"
@@ -115,9 +123,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="desc"
       label="备注"
     >
-      <template scope="scope">
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
           v-model="scope.row.desc"
           size="small"
@@ -129,7 +138,7 @@
       slot="append"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
-      v-if="!!this.$attrs.options"
+      v-if="!this.$attrs.hiddenOptions"
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行
