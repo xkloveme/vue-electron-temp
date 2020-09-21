@@ -9,7 +9,7 @@
         />
       </template>
     </el-table-column>
-    <el-table-column label="产权人" prop="people" width="180">
+    <el-table-column label="产权人" prop="people" :width="this.$attrs.hiddenOptions?'':180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.people" />
       </template>
@@ -40,7 +40,7 @@
       </template>
        <template scope="scope" v-else>{{scope.row.source | filterSelect($utils.houseProperty)}}</template>
     </el-table-column>
-    <el-table-column label="具体地址" prop="address" width="180">
+    <el-table-column label="具体地址" prop="address" :width="this.$attrs.hiddenOptions?'':180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.address" />
       </template>
@@ -68,7 +68,7 @@
       </template>
       <template scope="scope" v-else>{{scope.row.propertyNature | filterSelect($utils.propertyRight)}}</template>
     </el-table-column>
-    <el-table-column label="交易时间" prop="transactionTime" width="180">
+    <el-table-column label="交易时间" prop="transactionTime" :width="this.$attrs.hiddenOptions?'':180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
           placeholder="选择时间"

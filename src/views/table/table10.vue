@@ -73,7 +73,7 @@
     <el-table-column
       prop="work"
       label="工作、学习单位"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input

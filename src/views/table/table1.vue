@@ -22,7 +22,7 @@
     <el-table-column
       label="年度"
       prop="time"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
@@ -38,7 +38,7 @@
     <el-table-column
       label="考核情况"
       prop="assessment"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select

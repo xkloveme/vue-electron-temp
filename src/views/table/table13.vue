@@ -32,7 +32,7 @@
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.marketSubject" />
       </template>
     </el-table-column>
-    <el-table-column label="经营范围(业务范围)" prop="businessScope" width="180">
+    <el-table-column label="经营范围(业务范围)" prop="businessScope" :width="this.$attrs.hiddenOptions?'':180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input placeholder="请输入内容" size="small" v-model="scope.row.businessScope" />
       </template>

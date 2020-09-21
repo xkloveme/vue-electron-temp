@@ -54,7 +54,7 @@
     <el-table-column
       prop="time"
       label="被追究时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
@@ -70,7 +70,7 @@
     <el-table-column
       prop="reasons"
       label="被追究刑事责任原因"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input

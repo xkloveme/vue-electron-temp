@@ -23,7 +23,7 @@
     <el-table-column
       prop="change"
       label="变化情况"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
@@ -43,7 +43,7 @@
     <el-table-column
       prop="time"
       label="变化时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

@@ -23,7 +23,7 @@
     <el-table-column
       prop="brand"
       label="品牌型号"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -36,7 +36,7 @@
     <el-table-column
       prop="time"
       label="购买时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

@@ -23,7 +23,7 @@
     <el-table-column
       prop="agency"
       label="本人关系"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
@@ -42,7 +42,7 @@
     <el-table-column
       prop="agency"
       label="姓名"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -55,7 +55,7 @@
     <el-table-column
       prop="agency"
       label="出生年月"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

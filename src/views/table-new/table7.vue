@@ -23,7 +23,7 @@
     <el-table-column
       prop="relationship"
       label="与本人关系"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
@@ -45,7 +45,7 @@
     <el-table-column
       prop="name"
       label="姓名"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -58,7 +58,7 @@
     <el-table-column
       prop="idCard"
       label="身份证号"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input

@@ -23,7 +23,7 @@
     <el-table-column
       prop="title"
       label="称谓"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
@@ -43,7 +43,7 @@
     <el-table-column
       prop="name"
       label="姓名"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -80,7 +80,7 @@
     <el-table-column
       prop="spouseWork"
       label="配偶工作(学习)单位"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -105,7 +105,7 @@
     <el-table-column
       prop="time"
       label="登记时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

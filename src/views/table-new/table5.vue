@@ -23,7 +23,7 @@
     <el-table-column
       prop="name"
       label="持有人姓名"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -48,7 +48,7 @@
     <el-table-column
       prop="fundNumber"
       label="基金份额"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input-number

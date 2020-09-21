@@ -23,7 +23,7 @@
     <el-table-column
       prop="startTime"
       label="起止日期(起)"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
@@ -39,7 +39,7 @@
     <el-table-column
       prop="endTime"
       label="起止日期(止)"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

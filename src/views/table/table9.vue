@@ -53,7 +53,7 @@
     </el-table-column>
     <el-table-column
       prop="country"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
       label="移居国家(地区)"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -67,7 +67,7 @@
     <el-table-column
       prop="city"
       label="现居住城市"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -79,7 +79,7 @@
     </el-table-column>
     <el-table-column
       prop="card"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
       label="移居国家证件号码"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -112,7 +112,7 @@
     <el-table-column
       prop="time"
       label="移居时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

@@ -23,7 +23,7 @@
     <el-table-column
       prop="people"
       label="产权人姓名"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -74,7 +74,7 @@
     <el-table-column
       prop="address"
       label="具体地址"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
@@ -120,7 +120,7 @@
     <el-table-column
       prop="transactionTime"
       label="交易时间"
-      width="180"
+      :width="this.$attrs.hiddenOptions?'':180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker

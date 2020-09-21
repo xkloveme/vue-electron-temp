@@ -201,17 +201,3 @@ export default {
   methods: {},
 }
 </script>
-
-<style >
-.home-title > .is-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-  z-index: 99;
-}
-.home-title > .el-tabs__content {
-  margin-top: 50px;
-}
-</style>
