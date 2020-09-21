@@ -38,6 +38,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.title | filterSelect($utils.childrenType)}}</template>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -115,6 +116,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <div
       slot="append"

@@ -38,6 +38,7 @@
           />
         </el-select>
       </template>
+       <template scope="scope" v-else>{{scope.row.change | filterSelect($utils.marriage)}}</template>
     </el-table-column>
     <el-table-column
       prop="time"
@@ -53,6 +54,7 @@
           placeholder="选择时间"
         />
       </template>
+       <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="reasons"

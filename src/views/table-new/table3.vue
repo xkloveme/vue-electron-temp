@@ -69,6 +69,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.source | filterSelect($utils.houseProperty)}}</template>
     </el-table-column>
     <el-table-column
       prop="address"
@@ -130,6 +131,7 @@
           placeholder="选择时间"
         />
       </template>
+       <template scope="scope" v-else>{{scope.row.transactionTime | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="transactionPrice"

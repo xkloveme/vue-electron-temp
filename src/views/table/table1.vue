@@ -33,7 +33,7 @@
           placeholder="选择年"
         />
       </template>
-      <template scope="scope" v-else>{{scope.row.time | dateYear}}</template>
+      <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       label="考核情况"
@@ -53,6 +53,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.assessment | filterSelect($utils.assessment)}}</template>
     </el-table-column>
     <el-table-column
       prop="agency"

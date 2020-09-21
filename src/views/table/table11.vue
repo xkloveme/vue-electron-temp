@@ -37,6 +37,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.title | filterSelect($utils.familiesType)}}</template>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -64,6 +65,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="reasons"
@@ -95,6 +97,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.status | filterSelect($utils.punishStage)}}</template>
     </el-table-column>
     <el-table-column
       prop="result"

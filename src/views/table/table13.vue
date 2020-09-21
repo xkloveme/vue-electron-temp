@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" class="tb-edit" highlight-current-row style="width: 100%">
+  <el-table :data="tableData" border class="tb-edit" highlight-current-row style="width: 100%">
     <el-table-column label="操作" prop="agency" v-if="!this.$attrs.hiddenOptions" width="50">
       <template scope="scope">
         <i
@@ -20,6 +20,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.title | filterSelect($utils.relationshipWithMyself)}}</template>
     </el-table-column>
     <el-table-column label="姓名" prop="name">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -47,6 +48,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.marketSubjectType | filterSelect($utils.marketEntities)}}</template>
     </el-table-column>
     <el-table-column label="资金数额(出资额)(万元)" prop="money" width="160">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">

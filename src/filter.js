@@ -20,6 +20,20 @@ const install = Vue => {
     value ? formatDate(value, 'YYYY') : ''
   )
   Vue.filter('dateMonth', value => value ? formatDate(value, 'YYYY-MM') : '')
+  Vue.filter('filterSelect', (value,option) => {
+    let str = ''
+    // console.log('🐛:: Object.prototype.toString.call(option)', Object.prototype.toString.call(option))
+    if(Object.prototype.toString.call(option)==="[object Object]"){
+      str= option[value]
+    }else{
+      option.map(item=>{
+        if(item.key===value){
+          str=item.value
+        }
+      })
+    }
+    return str
+  })
 }
 
 if (typeof window !== 'undefined' && window.Vue) {

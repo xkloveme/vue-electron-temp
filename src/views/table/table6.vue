@@ -34,6 +34,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.startTime | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="endTime"
@@ -49,6 +50,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.endTime | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="country"

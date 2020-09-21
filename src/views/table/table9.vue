@@ -37,6 +37,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.title | filterSelect($utils.familiesType)}}</template>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -106,6 +107,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.type | filterSelect($utils.migrate)}}</template>
     </el-table-column>
     <el-table-column
       prop="time"
@@ -121,6 +123,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="desc"

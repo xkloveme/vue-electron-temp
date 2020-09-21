@@ -38,6 +38,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.name | filterSelect($utils.identification)}}</template>
     </el-table-column>
     <el-table-column
       prop="number"
@@ -78,6 +79,7 @@
           placeholder="选择时间"
         />
       </template>
+      <template scope="scope" v-else>{{scope.row.time | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="validity"
@@ -93,6 +95,7 @@
           placeholder="请输入内容"
         />
       </template>
+       <template scope="scope" v-else>{{scope.row.validity | dateMonth}}</template>
     </el-table-column>
     <el-table-column
       prop="custodyInstitutions"

@@ -25,6 +25,7 @@
           />
         </el-select>
       </template>
+       <template scope="scope" v-else>{{scope.row.relationship | filterSelect($utils.relationshipWithMyself)}}</template>
     </el-table-column>
     <el-table-column label="房产来源(去向)" prop="source">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -37,6 +38,7 @@
           />
         </el-select>
       </template>
+       <template scope="scope" v-else>{{scope.row.source | filterSelect($utils.houseProperty)}}</template>
     </el-table-column>
     <el-table-column label="具体地址" prop="address" width="180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -64,6 +66,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.propertyNature | filterSelect($utils.propertyRight)}}</template>
     </el-table-column>
     <el-table-column label="交易时间" prop="transactionTime" width="180">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -75,6 +78,7 @@
           value-format="timestamp"
         />
       </template>
+       <template scope="scope" v-else>{{scope.row.transactionTime | dateMonth}}</template>
     </el-table-column>
     <el-table-column label="交易价格(万)" prop="transactionPrice" width="160">
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">

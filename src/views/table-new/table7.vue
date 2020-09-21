@@ -40,6 +40,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.relationship | filterSelect(list)}}</template>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -85,6 +86,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.politicsStatus | filterSelect($utils.politicsStatus)}}</template>
     </el-table-column>
     <el-table-column
       prop="work"

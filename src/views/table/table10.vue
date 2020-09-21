@@ -37,6 +37,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.title | filterSelect($utils.familiesType10)}}</template>
     </el-table-column>
     <el-table-column
       prop="name"
@@ -67,6 +68,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.isLife | filterSelect($utils.livingTogether)}}</template>
     </el-table-column>
     <el-table-column
       prop="work"
@@ -110,6 +112,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.unitNature | filterSelect($utils.unitProperties)}}</template>
     </el-table-column>
     <el-table-column
       prop="cardName"
@@ -128,6 +131,7 @@
           />
         </el-select>
       </template>
+      <template scope="scope" v-else>{{scope.row.cardName | filterSelect($utils.identification10)}}</template>
     </el-table-column>
     <el-table-column
       prop="card"
