@@ -55,48 +55,48 @@ class MainWindow {
       this.setWindowMenu(this.win)
     }
   }
-  initMiniBrowserPage () {
-    if (!process.env.IS_TEST) {
-      // 开发环境下自启动开发者工具
-      // start developer tools in the development environment
-      this.pdfwin.webContents.openDevTools({ mode: 'right' })
-    }
-    // this.pdfwin.loadURL(`app://./index.html#/pdf`)
-    createProtocol('app')
-    this.pdfwin.loadURL(router)
-    // this.pdfwin.loadURL(`https://bilibili.com/`)
+  // initMiniBrowserPage () {
+  //   if (!process.env.IS_TEST) {
+  //     // 开发环境下自启动开发者工具
+  //     // start developer tools in the development environment
+  //     this.pdfwin.webContents.openDevTools({ mode: 'right' })
+  //   }
+  //   // this.pdfwin.loadURL(`app://./index.html#/pdf`)
+  //   createProtocol('app')
+  //   this.pdfwin.loadURL(router)
+  //   // this.pdfwin.loadURL(`https://bilibili.com/`)
 
-    this.pdfwin.on('closed', () => {
-      this.pdfwin = null
-    })
-  }
-  createMiniWindow (router) {
-    console.log('🐛:: MainWindow -> createMiniWindow -> router', router)
-    this.router=router
-    if (!this.pdfwin) {
-      this.pdfwin = new BrowserWindow({
-        width: 1300,
-        height: 1000,
-        minWidth: 1200,
-        minHeight: 770,
-        // parent: this.win,
-        title: '廉情信息报告打印',
-        frame: true,
-        webPreferences: {
-          // 设为false允许跨域
-          webSecurity: false,
-          nodeIntegration: true
-        }
-      })
-      // this.pdfwin.loadURL(`app://./index.html/#/pdf`)
-      // this.pdfwin.loadURL(`https://bilibili.com/`)
-      // this.pdfwin.on('closed', () => {
-      //   this.pdfwin = null
-      // })
-      // 初始化浏览器页面
-      this.initMiniBrowserPage()
-    }
-  }
+  //   this.pdfwin.on('closed', () => {
+  //     this.pdfwin = null
+  //   })
+  // }
+  // createMiniWindow (router) {
+  //   console.log('🐛:: MainWindow -> createMiniWindow -> router', router)
+  //   this.router=router
+  //   if (!this.pdfwin) {
+  //     this.pdfwin = new BrowserWindow({
+  //       width: 1300,
+  //       height: 1000,
+  //       minWidth: 1200,
+  //       minHeight: 770,
+  //       // parent: this.win,
+  //       title: '廉情信息报告打印',
+  //       frame: true,
+  //       webPreferences: {
+  //         // 设为false允许跨域
+  //         webSecurity: false,
+  //         nodeIntegration: true
+  //       }
+  //     })
+  //     // this.pdfwin.loadURL(`app://./index.html/#/pdf`)
+  //     // this.pdfwin.loadURL(`https://bilibili.com/`)
+  //     // this.pdfwin.on('closed', () => {
+  //     //   this.pdfwin = null
+  //     // })
+  //     // 初始化浏览器页面
+  //     this.initMiniBrowserPage()
+  //   }
+  // }
 
   setWindowMenu (win) {
     // if (process.platform === 'darwin') {
