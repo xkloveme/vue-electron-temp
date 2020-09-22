@@ -8,8 +8,8 @@ class MainWindow {
     // win代表electron窗口实例
     // win is this electron window instance
     this.win = win
-    this.pdfwin = win
-    this.router = 'pdf'
+    // this.pdfwin = win
+    // this.router = 'pdf'
   }
 
   initBrowserPage () {
