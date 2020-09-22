@@ -35,10 +35,10 @@ class AppManager {
 
     // 初始化创建打印页面
   // Initialize the app, create windows and tray
-  createPrintWin (router) {
-    console.log('🐛:: AppManager -> createPrintWin -> router', router)
-    this.windowManager.createPrintWin(router)
-  }
+  // createPrintWin (router) {
+  //   console.log('🐛:: AppManager -> createPrintWin -> router', router)
+  //   this.windowManager.createPrintWin(router)
+  // }
 
   languageChange (lang) {
     this.translator.changeLang(lang)

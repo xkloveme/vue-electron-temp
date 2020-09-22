@@ -30,9 +30,9 @@ class IpcEvents {
       this.appManager.languageChange(lang)
     })
      // 创建打印页面
-     ipcMain.on('appCreatePrint', (router) => {
-      this.appManager.createPrintWin(router)
-    })
+    //  ipcMain.on('appCreatePrint', (router) => {
+    //   this.appManager.createPrintWin(router)
+    // })
   }
 }
 

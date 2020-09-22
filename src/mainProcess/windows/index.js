@@ -12,8 +12,8 @@ class WindowManager {
     this.mainWindow.createWindow()
   }
   // 创建打印窗口
-  createPrintWin (router) {
-    this.mainWindow.createMiniWindow(router)
-  }
+  // createPrintWin (router) {
+  //   this.mainWindow.createMiniWindow(router)
+  // }
 }
 export default WindowManager
