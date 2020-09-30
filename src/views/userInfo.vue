@@ -1,5 +1,5 @@
 <template>
-  <div id="pdf-path" style="text-align: center;">
+  <div id="pdf-path" style="text-align: center">
     <h2>
       报告人基本情况
       <el-tooltip
@@ -20,15 +20,30 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="性别" prop="gender">
-              <el-select clearable filterable placeholder="请选择" v-model="form.gender">
-                <el-option :key="item" :label="item" :value="i" v-for="(item,i) in $utils.gender" />
+              <el-select
+                clearable
+                filterable
+                placeholder="请选择"
+                v-model="form.gender"
+              >
+                <el-option
+                  :key="item"
+                  :label="item"
+                  :value="i"
+                  v-for="(item, i) in $utils.gender"
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="民族">
               <el-select placeholder="请选择" v-model="form.nation">
-                <el-option :key="item" :label="item" :value="item" v-for="item in $utils.nation" />
+                <el-option
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                  v-for="item in $utils.nation"
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -39,7 +54,7 @@
                   :key="item"
                   :label="item"
                   :value="i"
-                  v-for="(item,i) in $utils.politicsStatus"
+                  v-for="(item, i) in $utils.politicsStatus"
                 />
               </el-select>
             </el-form-item>
@@ -64,14 +79,14 @@
         </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
-            <el-col :span="needCommunity?7:12">
+            <el-col :span="needCommunity ? 7 : 12">
               <el-form-item label="工作单位">
                 <el-select
                   @change="handleChangeNeedCommunity"
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.employer"
                 >
                   <el-option
@@ -84,15 +99,24 @@
               </el-form-item>
             </el-col>
             <el-col :span="5" v-if="needCommunity">
-              <el-form-item label="村(社区)" label-width="80px" prop="community">
+              <el-form-item
+                label="村(社区)"
+                label-width="80px"
+                prop="community"
+              >
                 <el-select
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.community"
                 >
-                  <el-option :key="item" :label="item" :value="item" v-for="item in communityType" />
+                  <el-option
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                    v-for="item in communityType"
+                  />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -108,7 +132,7 @@
               <el-form-item label="入党时间">
                 <el-date-picker
                   placeholder="选择年月"
-                  style="width:100%"
+                  style="width: 100%"
                   type="month"
                   v-model="form.partyTime"
                   value-format="timestamp"
@@ -121,21 +145,24 @@
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.workingStatus"
                 >
                   <el-option
                     :key="item"
                     :label="item"
                     :value="i"
-                    v-for="(item,i) in $utils.workingStatus"
+                    v-for="(item, i) in $utils.workingStatus"
                   />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="工作年限(年)" prop="workingYears">
-                <el-input placeholder="工作年限(年)" v-model="form.workingYears" />
+                <el-input
+                  placeholder="工作年限(年)"
+                  v-model="form.workingYears"
+                />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -144,7 +171,7 @@
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.grade"
                 >
                   <el-option
@@ -162,7 +189,7 @@
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.position"
                 >
                   <el-option
@@ -180,7 +207,7 @@
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.personnelSource"
                 >
                   <el-option
@@ -198,7 +225,7 @@
                   clearable
                   filterable
                   placeholder="请选择"
-                  style="width:100%"
+                  style="width: 100%"
                   v-model="form.objectIdentity"
                 >
                   <el-option
@@ -212,12 +239,15 @@
             </el-col>
             <el-col>
               <el-form-item label="人员身份" prop="identity">
-                <el-checkbox-group @change="handleChange" v-model="form.identity">
+                <el-checkbox-group
+                  @change="handleChange"
+                  v-model="form.identity"
+                >
                   <el-checkbox
                     :disabled="item.disabled"
-                    :key="i+1"
+                    :key="i + 1"
                     :label="item.value"
-                    v-for="(item,i) in identityList"
+                    v-for="(item, i) in identityList"
                   />
                 </el-checkbox-group>
               </el-form-item>
@@ -228,7 +258,7 @@
               @change="handleAvatarSuccess"
               accept="image/*"
               ref="input"
-              style="display:none"
+              style="display: none"
               type="file"
             />
             <div @click="$refs.input.click()" class="avatar-uploader">
@@ -267,22 +297,30 @@
           <el-col :span="12">
             <el-form-item label="密码" prop="password">
               <el-input
-                :type="passType?'password':'text'"
+                :type="passType ? 'password' : 'text'"
                 autocomplete="off"
                 v-model="form.password"
               >
-                <el-button @click="passType=!passType" icon="el-icon-view" slot="append" />
+                <el-button
+                  @click="passType = !passType"
+                  icon="el-icon-view"
+                  slot="append"
+                />
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="确认密码" prop="checkPassword">
               <el-input
-                :type="checkPassType?'password':'text'"
+                :type="checkPassType ? 'password' : 'text'"
                 autocomplete="off"
                 v-model="form.checkPassword"
               >
-                <el-button @click="checkPassType=!checkPassType" icon="el-icon-view" slot="append" />
+                <el-button
+                  @click="checkPassType = !checkPassType"
+                  icon="el-icon-view"
+                  slot="append"
+                />
               </el-input>
             </el-form-item>
           </el-col>
@@ -306,7 +344,7 @@
 
 <script>
 // import networking from './networking'
-// import {db} from './../db.js'
+import { isIdentityCard, isLicensePlate } from './../common.js'
 var JSZip = require('jszip')
 const fs = require('fs')
 export default {
@@ -464,7 +502,7 @@ export default {
       //   name: 'Pdf',
       // })
       // window.open(href, '_blank')
-      this.$router.push({name:'Pdf'})
+      this.$router.push({ name: 'Pdf' })
     },
     // 图片上传
     handleAvatarSuccess(e) {
@@ -487,6 +525,24 @@ export default {
     },
     downloadZip() {
       console.log('🐛:: downloadZip -> this.$refs.form', this.$refs.form)
+      let arr = []
+      // 添加全局正则,检验车牌号和身份证号
+      this.form.car.map((item) => {
+        if (item.carNumber) {
+          arr.push(isLicensePlate(item.carNumber))
+        }
+      })
+      this.form.networking.map((item) => {
+        if (item.idCard) {
+          arr.push(isIdentityCard(item.idCard))
+        }
+      })
+      if (!arr.every((x) => x)) {
+        return this.$message({
+          type: 'error',
+          message: '请检查车牌号和身份证号输入是否有误',
+        })
+      }
       this.$refs.form.validate((valid) => {
         if (valid) {
           const self = this
