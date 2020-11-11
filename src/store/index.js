@@ -104,14 +104,21 @@ export default new Vuex.Store({
       }
 
     },
+    // 生成唯一id
+    setUid (state, uid) {
+      state.user.uid = uid
+    },
+    setVersion (state, version) {
+      state.user.version = version
+    },
     setOther (state, other) {
-      state.user.other = other// 将传参设置给state的city
+      state.user.other = other
     },
     setStockAllMarketValue (state, allMarketValue) {
-      state.user.stock.allMarketValue = allMarketValue// 将传参设置给state的city
+      state.user.stock.allMarketValue = allMarketValue
     },
     setStockDesc (state, desc) {
-      state.user.stock.desc = desc// 将传参设置给state的city
+      state.user.stock.desc = desc
     },
     setFundAllMarketValue (state, allMarketValue) {
       state.user.fund.allMarketValue = allMarketValue
@@ -125,6 +132,12 @@ export default new Vuex.Store({
       // 跟后台打交道
       // 调用mutaions里面的方法
       commit('setUser', user)
+    },
+    updateUid ({ commit, state }, uid) {
+      commit('setUid', uid)
+    },
+    updateVersion ({ commit, state }, version) {
+      commit('setVersion', version)
     },
     updateOther ({ commit, state }, other) {
       commit('setOther', other)

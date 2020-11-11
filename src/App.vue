@@ -20,6 +20,9 @@ export default {
       else this.win.restore()
       this.originSize = !this.originSize
     }
+  },
+  mounted(){
+    this.$store.dispatch('updateVersion', this.$version)
   }
 }
 </script>

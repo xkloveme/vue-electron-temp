@@ -1,9 +1,11 @@
 /**
  * checkPassword,是对password的校验,
  * other,是其他项类似备注的,
- * tableStatus是表的标示,有无此类情况格式类似tableStatus:{table1:1,table2:0},1为有0为没有
+ * tableStatus是表的标示,有无此类情况格式类似tableStatus:{table1:1,table2:0},1为有2为没有
  */
 const db = {
+  uid:'', // 生成数据表唯一id
+  version: '', // 版本号
   name: '', // 姓名
   gender: '', // 性别
   idCard: '', // 身份证号

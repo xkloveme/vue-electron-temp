@@ -10,7 +10,7 @@
         <el-radio label="1" style="margin-left:30px" v-model="tableStatus[item.content]">有此类情况</el-radio>
         <el-radio label="2" v-model="tableStatus[item.content]">无此类情况</el-radio>
       </p>
-      <component :is="item.content" />
+      <component :is="item.content" v-show="tableStatus[item.content]!=='2'"/>
     </el-tab-pane>
   </el-tabs>
 </template>
