@@ -442,6 +442,9 @@ export default {
         this.form.idCard.slice(-8)
       )
     },
+     tableStatus() {
+      return this.$store.getters.getTableStatus
+    },
     identityList() {
       const arr = []
       for (const key in this.$utils.identity) {
@@ -547,6 +550,12 @@ export default {
         return this.$message({
           type: 'error',
           message: '请检查车牌号和身份证号输入是否有误',
+        })
+      }
+      if(Object.keys(this.tableStatus).length!==22){
+        return this.$message({
+          type: 'error',
+          message: '请检查是否选择有无此类情况',
         })
       }
       this.$refs.form.validate((valid) => {

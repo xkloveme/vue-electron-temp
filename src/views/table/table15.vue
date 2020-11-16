@@ -5,6 +5,7 @@
     :rows="20"
     placeholder="请输入内容"
   />
+  <!-- <el-button @click="onSubmit" type="primary">提交</el-button> -->
 </template>
 
 <script>
@@ -23,6 +24,9 @@ export default {
     }
   },
   methods: {
+    onSubmit(){
+      this.$emit('onSubmit')
+    }
   }
 }
 </script>
