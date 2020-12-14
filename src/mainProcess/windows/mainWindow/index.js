@@ -134,14 +134,14 @@ class MainWindow {
               win.webContents.send('action', 'open')
             }
           },
-          {
-            label: '保存',
-            role: 'save',
-            accelerator: 'CmdOrCtrl+S',
-            click () {
-              win.webContents.send('action', 'save')
-            }
-          },
+          // {
+          //   label: '保存',
+          //   role: 'save',
+          //   accelerator: 'CmdOrCtrl+S',
+          //   click () {
+          //     win.webContents.send('action', 'save')
+          //   }
+          // },
           {
             label: '新建',
             role: 'newSave',

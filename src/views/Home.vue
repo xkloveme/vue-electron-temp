@@ -1,16 +1,34 @@
 /* eslint-disable */
 <template>
-  <el-tabs class="home-title" type="card" v-model="editableTabsValue">
-    <el-tab-pane :key="i++" :label="item.title" :name="item.name" v-for="(item,i) in editableTabs">
+  <el-tabs class="home-title" disabled type="card" v-model="editableTabsValue">
+    <el-tab-pane
+      :key="i++"
+      disabled
+      :label="item.title"
+      :name="item.name"
+      v-for="(item, i) in editableTabs"
+    >
       <p v-if="item.desc">
-        {{ i-1 }}、{{ item.desc }}
-        <el-tooltip v-if="item.note" :content="item.note" class="item" effect="dark">
+        {{ i - 1 }}、{{ item.desc }}
+        <el-tooltip
+          v-if="item.note"
+          :content="item.note"
+          class="item"
+          effect="dark"
+        >
           <i class="el-icon-question" />
         </el-tooltip>
-        <el-radio label="1" style="margin-left:30px" v-model="tableStatus[item.content]">有此类情况</el-radio>
-        <el-radio label="2" v-model="tableStatus[item.content]">无此类情况</el-radio>
+        <el-radio
+          label="1"
+          style="margin-left: 30px"
+          v-model="tableStatus[item.content]"
+          >有此类情况</el-radio
+        >
+        <el-radio label="2" v-model="tableStatus[item.content]"
+          >无此类情况</el-radio
+        >
       </p>
-      <component :is="item.content" v-show="tableStatus[item.content]!=='2'"/>
+      <component :is="item.content" :tableStatus="tableStatus[item.content]"/>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -66,7 +84,7 @@ export default {
   },
   data() {
     return {
-      editableTabsValue: '0',
+      // editableTabsValue: '0',
       editableTabs: [
         {
           title: '基本信息',
@@ -203,6 +221,14 @@ export default {
   computed: {
     tableStatus() {
       return this.$store.getters.getTableStatus
+    },
+    editableTabsValue: {
+      get: function () {
+        return this.$store.getters.getStatus
+      },
+      set: function (value) {
+        this.$store.dispatch('setStatus', value)
+      },
     },
   },
   methods: {},

@@ -1,6 +1,7 @@
 <template>
   <el-table
     :data="tableData"
+v-show="tableStatus !== '2'"
     class="tb-edit"
     border
     style="width: 100%"

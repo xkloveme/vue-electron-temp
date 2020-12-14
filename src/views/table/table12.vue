@@ -1,109 +1,162 @@
 <template>
-  <el-table :data="tableData" border class="tb-edit" highlight-current-row style="width: 100%">
-    <el-table-column label="操作" prop="agency" v-if="!this.$attrs.hiddenOptions" width="50">
-      <template scope="scope">
-        <i
-          @click="handleDelete(scope.$index, scope.row)"
-          class="el-icon-delete"
-          style="color:#F56C6C"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column label="产权人" prop="people" :width="this.$attrs.hiddenOptions?'':180">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input placeholder="请输入内容" size="small" v-model="scope.row.people" />
-      </template>
-    </el-table-column>
-    <el-table-column label="与本人关系" prop="relationship">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select placeholder="请选择" v-model="scope.row.relationship">
-          <el-option
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
-            v-for="item in $utils.relationshipWithMyself"
-          />
-        </el-select>
-      </template>
-       <template scope="scope" v-else>{{scope.row.relationship | filterSelect($utils.relationshipWithMyself)}}</template>
-    </el-table-column>
-    <el-table-column label="房产来源(去向)" prop="source">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select placeholder="请选择" v-model="scope.row.source">
-          <el-option
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
-            v-for="item in $utils.houseProperty"
-          />
-        </el-select>
-      </template>
-       <template scope="scope" v-else>{{scope.row.source | filterSelect($utils.houseProperty)}}</template>
-    </el-table-column>
-    <el-table-column label="具体地址" prop="address" :width="this.$attrs.hiddenOptions?'':180">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input placeholder="请输入内容" size="small" v-model="scope.row.address" />
-      </template>
-    </el-table-column>
-    <el-table-column label="建筑面积(m²)" prop="area" width="160">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input-number
-          placeholder="请输入"
-          size="small"
-          style="width:100%"
-          v-model="scope.row.area"
-        />
-      </template>
-    </el-table-column>
-    <el-table-column label="产权性质" prop="propertyNature">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select placeholder="请选择" v-model="scope.row.propertyNature">
-          <el-option
-            :key="item.key"
-            :label="item.value"
-            :value="item.key"
-            v-for="item in $utils.propertyRight"
-          />
-        </el-select>
-      </template>
-      <template scope="scope" v-else>{{scope.row.propertyNature | filterSelect($utils.propertyRight)}}</template>
-    </el-table-column>
-    <el-table-column label="交易时间" prop="transactionTime" :width="this.$attrs.hiddenOptions?'':180">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-date-picker
-          placeholder="选择时间"
-          style="width:150px"
-          type="date"
-          v-model="scope.row.transactionTime"
-          value-format="timestamp"
-        />
-      </template>
-       <template scope="scope" v-else>{{scope.row.transactionTime | dateMonth}}</template>
-    </el-table-column>
-    <el-table-column label="交易价格(万)" prop="transactionPrice" width="160">
-      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input-number
-          placeholder="请输入"
-          size="small"
-          style="width:100%"
-          v-model="scope.row.transactionPrice"
-        />
-      </template>
-    </el-table-column>
-    <div
-      @click="handleAddLine"
-      slot="append"
-      style="cursor: pointer;line-height: 30px;text-align:center;"
-      v-if="!this.$attrs.hiddenOptions"
+  <div>
+    <el-table
+      :data="tableData"
+      v-show="tableStatus !== '2'"
+      border
+      class="tb-edit"
+      highlight-current-row
+      style="width: 100%"
     >
-      <i class="el-icon-circle-plus-outline" />
-      添加一行
-    </div>
-  </el-table>
+      <el-table-column
+        label="操作"
+        prop="agency"
+        v-if="!this.$attrs.hiddenOptions"
+        width="50"
+      >
+        <template scope="scope">
+          <i
+            @click="handleDelete(scope.$index, scope.row)"
+            class="el-icon-delete"
+            style="color: #f56c6c"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="产权人"
+        prop="people"
+        :width="this.$attrs.hiddenOptions ? '' : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model="scope.row.people"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="与本人关系" prop="relationship">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select placeholder="请选择" v-model="scope.row.relationship">
+            <el-option
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.relationshipWithMyself"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.relationship | filterSelect($utils.relationshipWithMyself)
+        }}</template>
+      </el-table-column>
+      <el-table-column label="房产来源(去向)" prop="source">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select placeholder="请选择" v-model="scope.row.source">
+            <el-option
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.houseProperty"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.source | filterSelect($utils.houseProperty)
+        }}</template>
+      </el-table-column>
+      <el-table-column
+        label="具体地址"
+        prop="address"
+        :width="this.$attrs.hiddenOptions ? '' : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model="scope.row.address"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="建筑面积(m²)" prop="area" width="160">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model="scope.row.area"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="产权性质" prop="propertyNature">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select placeholder="请选择" v-model="scope.row.propertyNature">
+            <el-option
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.propertyRight"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.propertyNature | filterSelect($utils.propertyRight)
+        }}</template>
+      </el-table-column>
+      <el-table-column
+        label="交易时间"
+        prop="transactionTime"
+        :width="this.$attrs.hiddenOptions ? '' : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            placeholder="选择时间"
+            style="width: 150px"
+            type="date"
+            v-model="scope.row.transactionTime"
+            value-format="timestamp"
+          />
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.transactionTime | dateMonth
+        }}</template>
+      </el-table-column>
+      <el-table-column label="交易价格(万)" prop="transactionPrice" width="160">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model="scope.row.transactionPrice"
+          />
+        </template>
+      </el-table-column>
+      <div
+        @click="handleAddLine"
+        slot="append"
+        style="cursor: pointer; line-height: 30px; text-align: center"
+        v-if="!this.$attrs.hiddenOptions"
+      >
+        <i class="el-icon-circle-plus-outline" />
+        添加一行
+      </div>
+    </el-table>
+    <el-row type="flex" style="margin: 30px" justify="center">
+      <el-button @click="handleGoPrevPage">上一项</el-button>
+      <el-button @click="handleEmpty" type="primary">重置</el-button>
+      <el-button @click="handleGoNextPage">下一项</el-button>
+    </el-row>
+  </div>
 </template>
 
 <script>
 export default {
+  props: {
+    tableStatus: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {}
   },
@@ -120,6 +173,59 @@ export default {
         this.$message({
           type: 'info',
           message: '已经是最后一个了,不能再删了',
+        })
+      }
+    },
+    // 上一项
+    handleGoPrevPage() {
+      this.$store.dispatch('updateStatus', '11')
+    },
+    // 清空
+    handleEmpty() {
+      this.$store.dispatch('updateUser', {
+        realEstate: [
+          {
+            people: '', // 产权人
+            relationship: '', // 与本人关系
+            source: '', // 房产来源
+            address: '', // 具体地址
+            area: 0, // 建筑面积
+            propertyNature: '', // 产权性质
+            transactionTime: '', // 交易时间
+            transactionPrice: 0, // 交易价格
+          },
+        ],
+      })
+    },
+    // 下一项
+    handleGoNextPage() {
+      if (this.tableStatus === '1') {
+        let arr = []
+        this.tableData.map((item) => {
+          arr.push(item.people)
+          arr.push(item.relationship)
+          arr.push(item.source)
+          arr.push(item.address)
+          arr.push(item.area)
+          arr.push(item.propertyNature)
+          arr.push(item.transactionTime)
+          arr.push(item.transactionPrice)
+        })
+        if (!arr.every((x) => x)) {
+          return this.$message({
+            type: 'error',
+            message:
+              '请检查产权人、与本人关系、房产来源、具体地址、建筑面积、产权性质、交易时间、交易价格是否有误',
+          })
+        }
+        this.$store.dispatch('updateStatus', '13')
+        console.log(this.tableStatus)
+      } else if (this.tableStatus === '2') {
+        this.$store.dispatch('updateStatus', '13')
+      } else if (this.tableStatus === '') {
+        return this.$message({
+          type: 'error',
+          message: '请检查是否选择有无此类情况',
         })
       }
     },

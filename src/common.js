@@ -3,6 +3,10 @@
 export const isIdentityCard = function(str) {
   return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(str);
 }
+// 身份证号
+export const isIdCard = function(str) {
+  return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str);
+}
 
 // 车牌号
 export const isLicensePlate = function(str) {

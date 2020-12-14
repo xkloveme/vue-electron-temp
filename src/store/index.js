@@ -7,9 +7,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    status:'0',
     user: db
   },
   getters: {
+    // 获取当前状态,默认为0,共有0-22种
+    getStatus (state) {
+      return state.status
+    },
     // 参数列表state指的是state数据
     getUser (state) {
       return state.user
@@ -102,7 +107,10 @@ export default new Vuex.Store({
           }
         }
       }
-
+    },
+     // 设置状态
+     setStatus (state, value) {
+      state.status = value
     },
     // 生成唯一id
     setUid (state, uid) {
@@ -132,6 +140,9 @@ export default new Vuex.Store({
       // 跟后台打交道
       // 调用mutaions里面的方法
       commit('setUser', user)
+    },
+    updateStatus ({ commit, state }, value) {
+      commit('setStatus', value)
     },
     updateUid ({ commit, state }, uid) {
       commit('setUid', uid)
