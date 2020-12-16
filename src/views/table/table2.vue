@@ -90,7 +90,7 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center">
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>

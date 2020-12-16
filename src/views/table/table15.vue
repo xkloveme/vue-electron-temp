@@ -6,7 +6,7 @@
       :rows="20"
       placeholder="请输入内容"
     />
-    <el-row type="flex" style="margin: 30px" justify="center">
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">导出</el-button>

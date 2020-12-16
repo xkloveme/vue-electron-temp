@@ -58,11 +58,11 @@ const db = {
   // 宅基地
   homestead: [{
     people: '', // 产权人
-    relationship: '', // 与本人关系
+    // relationship: '', // 与本人关系
     source: '', // 房产来源
     address: '', // 具体地址
     area: '', // 建筑面积
-    propertyNature: '', // 产权性质
+    // propertyNature: '', // 产权性质
     transactionTime: '', // 交易时间
     transactionPrice: '' // 交易价格
   }],

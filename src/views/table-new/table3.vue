@@ -152,7 +152,7 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center">
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -196,14 +196,12 @@ export default {
       this.$store.dispatch('updateUser', {
         homestead: [
           {
-            people: '', // 产权人
-            relationship: '', // 与本人关系
-            source: '', // 房产来源
-            address: '', // 具体地址
-            area: '', // 建筑面积
-            propertyNature: '', // 产权性质
-            transactionTime: '', // 交易时间
-            transactionPrice: '', // 交易价格
+              people: '', // 产权人
+        source: '', // 房产来源
+        address: '', // 具体地址
+        area: '', // 建筑面积
+        transactionTime: '', // 交易时间
+        transactionPrice: '', // 交易价格
           },
         ],
       })
@@ -214,11 +212,9 @@ export default {
         let arr = []
         this.tableData.map((item) => {
           arr.push(item.people)
-          arr.push(item.relationship)
           arr.push(item.source)
           arr.push(item.address)
           arr.push(item.area)
-          arr.push(item.propertyNature)
           arr.push(item.transactionTime)
           arr.push(item.transactionPrice)
         })
@@ -243,11 +239,9 @@ export default {
     handleAddLine() {
       this.tableData.push({
         people: '', // 产权人
-        relationship: '', // 与本人关系
         source: '', // 房产来源
         address: '', // 具体地址
         area: '', // 建筑面积
-        propertyNature: '', // 产权性质
         transactionTime: '', // 交易时间
         transactionPrice: '', // 交易价格
       })
