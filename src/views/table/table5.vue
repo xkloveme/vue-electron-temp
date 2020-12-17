@@ -188,11 +188,7 @@ export default {
           arr.push(item.time)
           arr.push(item.validity)
           arr.push(item.custodyInstitutions)
-          if (item.name === '01') {
-            arr.push(isIdentityCard(item.number))
-          } else {
-            arr.push(item.number)
-          }
+          arr.push(item.number)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

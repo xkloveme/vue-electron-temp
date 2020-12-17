@@ -4,6 +4,8 @@
       v-model="other"
       type="textarea"
       :rows="20"
+      maxlength="1000"
+      show-word-limit
       placeholder="请输入内容"
     />
     <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
