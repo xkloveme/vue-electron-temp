@@ -186,8 +186,8 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.name)
           arr.push(item.fundName)
-          arr.push(item.fundNumber)
-          arr.push(item.fundMarketValue)
+          arr.push(item.fundNumber>0)
+          arr.push(item.fundMarketValue>0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

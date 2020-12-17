@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { isLicensePlate } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -161,8 +162,8 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.brand)
           arr.push(item.time)
-          arr.push(item.price)
-          arr.push(item.carNumber)
+          arr.push(item.price>0)
+          arr.push(isLicensePlate(item.carNumber))
         })
         if (!arr.every((x) => x)) {
           return this.$message({

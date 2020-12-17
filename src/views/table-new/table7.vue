@@ -128,6 +128,7 @@
 </template>
 
 <script>
+import { isIdentityCard } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -190,7 +191,7 @@ export default {
           arr.push(item.politicsStatus)
           arr.push(item.phone)
           arr.push(item.work)
-          arr.push(item.idCard)
+          arr.push(isIdentityCard(item.idCard))
         })
         if (!arr.every((x) => x)) {
           return this.$message({

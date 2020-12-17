@@ -118,7 +118,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -127,6 +132,7 @@
 </template>
 
 <script>
+import { isIdentityCard } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -178,11 +184,15 @@ export default {
         let arr = []
         this.tableData.map((item) => {
           arr.push(item.name)
-          arr.push(item.number)
           arr.push(item.licensing)
           arr.push(item.time)
           arr.push(item.validity)
           arr.push(item.custodyInstitutions)
+          if (item.name === '01') {
+            arr.push(isIdentityCard(item.number))
+          } else {
+            arr.push(item.number)
+          }
         })
         if (!arr.every((x) => x)) {
           return this.$message({

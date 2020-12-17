@@ -193,9 +193,9 @@ export default {
           arr.push(item.marketSubject)
           arr.push(item.businessScope)
           arr.push(item.marketSubjectType)
-          arr.push(item.money)
-          arr.push(item.personalContribution)
-          arr.push(item.fundedRatio)
+          arr.push(item.money>0)
+          arr.push(item.personalContribution>0)
+          arr.push(item.fundedRatio>0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

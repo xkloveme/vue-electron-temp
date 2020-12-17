@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { isIdCard } from '@/common.js'
+import { isIdentityCard } from '@/common.js'
 export default {
   props: {
     tableStatus: {
@@ -202,7 +202,7 @@ export default {
           arr.push(item.unitNature)
           arr.push(item.cardName)
           if (item.cardName === '01') {
-            arr.push(isIdCard(item.card))
+            arr.push(isIdentityCard(item.card))
           } else {
             arr.push(item.card)
           }

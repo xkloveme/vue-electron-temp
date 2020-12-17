@@ -210,8 +210,8 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.name)
           arr.push(item.stockName)
-          arr.push(item.stockNumber)
-          arr.push(item.stockMarketValue)
+          arr.push(item.stockNumber>0)
+          arr.push(item.stockMarketValue>0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

@@ -190,7 +190,7 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '13')
+      this.$store.dispatch('updateStatus', '14')
     },
     // 清空
     handleEmpty() {
@@ -216,10 +216,10 @@ export default {
           arr.push(item.people)
           arr.push(item.source)
           arr.push(item.address)
-          arr.push(item.area)
+          arr.push(item.area>0)
           arr.push(item.propertyNature)
           arr.push(item.transactionTime)
-          arr.push(item.transactionPrice)
+          arr.push(item.transactionPrice>0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
