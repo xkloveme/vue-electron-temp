@@ -1,7 +1,7 @@
 {
   "name": "collection",
   "productName": "廉情信息报告表",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service electron:serve",
