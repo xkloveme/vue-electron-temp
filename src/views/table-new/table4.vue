@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,20 +24,20 @@
       <el-table-column
         prop="name"
         label="持有人姓名"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="stockName" label="股票名称或代码">
+      <el-table-column prop="stockName" label="股票名称或代码" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.stockName"
+            v-model.trim="scope.row.stockName"
             size="small"
             placeholder="请输入内容"
           />
@@ -47,11 +46,11 @@
       <el-table-column
         prop="stockNumber"
         label="持股数量"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model="scope.row.stockNumber"
+            v-model.trim="scope.row.stockNumber"
             size="small"
             style="width: 100%"
             placeholder="请输入内容"
@@ -61,20 +60,21 @@
       <el-table-column
         prop="stockMarketValue"
         label="填报前一交易日市值（万元）"
+        :width="this.$attrs.hiddenOptions ? 200 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model="scope.row.stockMarketValue"
+            v-model.trim="scope.row.stockMarketValue"
             size="small"
             @change="inputChange"
             style="width: 100%"
             placeholder="请输入内容"
           />
         </template>
+        <span v-else>{{scope.row.stockMarketValue}}</span>
       </el-table-column>
       <div
         slot="append"
-        v-if="!this.$attrs.hiddenOptions"
         style="cursor: pointer; line-height: 30px"
       >
         <div
@@ -86,12 +86,14 @@
         >
           填报前一交易日所有股票的总市值（万元）
           <el-input-number
-            v-model="allMarketValue"
+            v-model.trim="allMarketValue"
+            v-if="!this.$attrs.hiddenOptions"
             @change="inputChange"
             size="small"
             style="width: 400px"
             placeholder="请输入内容"
           />
+          <span v-else>{{allMarketValue}}</span>
         </div>
         <div
           style="
@@ -102,11 +104,13 @@
         >
           备注
           <el-input
-            v-model="desc"
+            v-model.trim="desc"
             size="small"
+            v-if="!this.$attrs.hiddenOptions"
             style="width: 400px"
             placeholder="请输入内容"
           />
+          <span v-else>{{desc}}</span>
         </div>
         <div
           style="text-align: center"
@@ -118,7 +122,12 @@
         </div>
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -170,7 +179,7 @@ export default {
       }
     },
     inputChange(currentValue, oldValue) {
-      if(currentValue>100){
+      if (currentValue > 100) {
         this.$alert('单位为万元,请仔细核对', '⚠️注意⚠️', {
           confirmButtonText: '确定',
           callback: (action) => {
@@ -210,8 +219,8 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.name)
           arr.push(item.stockName)
-          arr.push(item.stockNumber>0)
-          arr.push(item.stockMarketValue>0)
+          arr.push(item.stockNumber > 0)
+          arr.push(item.stockMarketValue > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

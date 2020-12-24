@@ -103,7 +103,7 @@ export default new Vuex.Store({
       }else{
         for (const key in user) {
           if (user.hasOwnProperty(key)) {
-            state.user[key] = user[key]
+            state.user[key] = user[key].replace(/\s*/g,"")
           }
         }
       }

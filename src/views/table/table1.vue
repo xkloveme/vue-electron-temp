@@ -4,15 +4,11 @@
       :data="tableData"
       class="tb-edit"
       v-show="tableStatus !== '2'"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-        width="50"
-      >
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <i
             style="color: #f56c6c"
@@ -24,11 +20,11 @@
       <el-table-column
         label="年度"
         prop="time"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="year"
             value-format="timestamp"
@@ -42,7 +38,7 @@
       <el-table-column
         label="考核情况"
         prop="assessment"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.assessment" placeholder="请选择">
@@ -58,28 +54,28 @@
           scope.row.assessment | filterSelect($utils.assessment)
         }}</template>
       </el-table-column>
-      <el-table-column prop="agency" label="发文机关">
+      <el-table-column prop="agency" label="发文机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.agency"
+            v-model.trim="scope.row.agency"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="symbol" label="文号">
+      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.symbol"
+            v-model.trim="scope.row.symbol"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注">
+      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.desc"
+            v-model.trim="scope.row.desc"
             size="small"
             placeholder="请输入内容"
           />
@@ -95,7 +91,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -156,24 +157,24 @@ export default {
     },
     // 下一项
     handleGoNextPage() {
-      if(this.tableStatus==='1'){
-      let arr = []
-      this.tableData.map((item) => {
-        arr.push(item.time)
-        arr.push(item.assessment)
-        arr.push(item.agency)
-      })
-      if (!arr.every((x) => x)) {
-        return this.$message({
-          type: 'error',
-          message: '请检查年度、考核情况、发文机关是否有误',
+      if (this.tableStatus === '1') {
+        let arr = []
+        this.tableData.map((item) => {
+          arr.push(item.time)
+          arr.push(item.assessment)
+          arr.push(item.agency)
         })
-      }
-      this.$store.dispatch('updateStatus', '2')
-      console.log(this.tableStatus)
-      }else if (this.tableStatus==='2'){
+        if (!arr.every((x) => x)) {
+          return this.$message({
+            type: 'error',
+            message: '请检查年度、考核情况、发文机关是否有误',
+          })
+        }
         this.$store.dispatch('updateStatus', '2')
-      }else if (this.tableStatus===''){
+        console.log(this.tableStatus)
+      } else if (this.tableStatus === '2') {
+        this.$store.dispatch('updateStatus', '2')
+      } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
           message: '请检查是否选择有无此类情况',

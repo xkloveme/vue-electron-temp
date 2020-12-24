@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,7 +24,7 @@
       <el-table-column
         prop="name"
         label="证件名称"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.name" placeholder="请选择">
@@ -44,20 +43,20 @@
       <el-table-column
         prop="number"
         label="证件号码"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.number"
+            v-model.trim="scope.row.number"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="licensing" label="发证机关">
+      <el-table-column prop="licensing" label="发证机关" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.licensing"
+            v-model.trim="scope.row.licensing"
             size="small"
             placeholder="请输入内容"
           />
@@ -66,11 +65,11 @@
       <el-table-column
         prop="time"
         label="发证时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 100%"
             type="date"
             value-format="timestamp"
@@ -84,11 +83,11 @@
       <el-table-column
         prop="validity"
         label="有效期"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.validity"
+            v-model.trim="scope.row.validity"
             style="width: 100%"
             type="date"
             value-format="timestamp"
@@ -99,10 +98,10 @@
           scope.row.validity | dateMonth
         }}</template>
       </el-table-column>
-      <el-table-column prop="custodyInstitutions" label="保管机构">
+      <el-table-column prop="custodyInstitutions" label="保管机构" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.custodyInstitutions"
+            v-model.trim="scope.row.custodyInstitutions"
             size="small"
             placeholder="请输入内容"
           />

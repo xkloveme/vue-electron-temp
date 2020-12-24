@@ -3,7 +3,7 @@
     <el-table
       :data="tableData"
       v-show="tableStatus !== '2'"
-      border
+      :border="!this.$attrs.hiddenOptions"
       class="tb-edit"
       highlight-current-row
       style="width: 100%"
@@ -12,7 +12,6 @@
         label="操作"
         prop="agency"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,13 +24,13 @@
       <el-table-column
         label="产权人姓名"
         prop="people"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入内容"
             size="small"
-            v-model="scope.row.people"
+            v-model.trim="scope.row.people"
           />
         </template>
       </el-table-column>
@@ -41,7 +40,7 @@
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
-          v-model="scope.row.relationship"
+          v-model.trim="scope.row.relationship"
           placeholder="请选择"
         >
           <el-option
@@ -53,7 +52,7 @@
         </el-select>
       </template>
     </el-table-column>-->
-      <el-table-column label="房产来源(去向)" prop="organization">
+      <el-table-column label="房产来源(去向)" prop="organization" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select clearable placeholder="请选择" v-model="scope.row.source">
             <el-option
@@ -71,33 +70,33 @@
       <el-table-column
         label="具体地址"
         prop="address"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入内容"
             size="small"
-            v-model="scope.row.address"
+            v-model.trim="scope.row.address"
           />
         </template>
       </el-table-column>
-      <el-table-column label="建筑面积(m²)" prop="area" width="160">
+      <el-table-column label="建筑面积(m²)" prop="area" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
             size="small"
             style="width: 100%"
-            v-model="scope.row.area"
+            v-model.trim="scope.row.area"
           />
         </template>
       </el-table-column>
-      <el-table-column label="房产性质和功能类型" prop="propertyNature">
+      <el-table-column label="房产性质和功能类型" prop="propertyNature" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select
             clearable
             placeholder="请选择"
             style="width: 100%"
-            v-model="scope.row.propertyNature"
+            v-model.trim="scope.row.propertyNature"
           >
             <el-option
               :key="item.key"
@@ -114,14 +113,14 @@
       <el-table-column
         label="交易时间"
         prop="transactionTime"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
             placeholder="选择时间"
             style="width: 150px"
             type="month"
-            v-model="scope.row.transactionTime"
+            v-model.trim="scope.row.transactionTime"
             value-format="timestamp"
           />
         </template>
@@ -132,14 +131,14 @@
       <el-table-column
         label="交易价格(万元)"
         prop="transactionPrice"
-        width="160"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
             size="small"
             style="width: 100%"
-            v-model="scope.row.transactionPrice"
+            v-model.trim="scope.row.transactionPrice"
           />
         </template>
       </el-table-column>
@@ -153,7 +152,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -216,10 +220,10 @@ export default {
           arr.push(item.people)
           arr.push(item.source)
           arr.push(item.address)
-          arr.push(item.area>0)
+          arr.push(item.area > 0)
           arr.push(item.propertyNature)
           arr.push(item.transactionTime)
-          arr.push(item.transactionPrice>0)
+          arr.push(item.transactionPrice > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

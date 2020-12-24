@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,11 +24,11 @@
       <el-table-column
         prop="time"
         label="时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -43,38 +42,38 @@
       <el-table-column
         prop="name"
         label="名称"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="organization" label="表彰机关">
+      <el-table-column prop="organization" label="表彰机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.organization"
+            v-model.trim="scope.row.organization"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="symbol" label="文号">
+      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.symbol"
+            v-model.trim="scope.row.symbol"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注">
+      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.desc"
+            v-model.trim="scope.row.desc"
             size="small"
             placeholder="请输入内容"
           />
@@ -90,7 +89,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>

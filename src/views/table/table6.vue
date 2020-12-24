@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,11 +24,11 @@
       <el-table-column
         prop="startTime"
         label="起止日期(起)"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.startTime"
+            v-model.trim="scope.row.startTime"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -43,11 +42,11 @@
       <el-table-column
         prop="endTime"
         label="起止日期(止)"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.endTime"
+            v-model.trim="scope.row.endTime"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -58,37 +57,37 @@
           scope.row.endTime | dateMonth
         }}</template>
       </el-table-column>
-      <el-table-column prop="country" label="所到国家(地区)">
+      <el-table-column prop="country" label="所到国家(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.country"
+            v-model.trim="scope.row.country"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="reasons" label="出国(境)事由">
+      <el-table-column prop="reasons" label="出国(境)事由" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.reasons"
+            v-model.trim="scope.row.reasons"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="approvalAuthority" label="审批机构">
+      <el-table-column prop="approvalAuthority" label="审批机构" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.approvalAuthority"
+            v-model.trim="scope.row.approvalAuthority"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="agency" label="委托代办机构">
+      <el-table-column prop="agency" label="委托代办机构" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.agency"
+            v-model.trim="scope.row.agency"
             size="small"
             placeholder="请输入内容"
           />
@@ -104,7 +103,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>

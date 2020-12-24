@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,7 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
+        
       >
         <template scope="scope">
           <i
@@ -40,7 +40,7 @@
       <el-table-column prop="name" label="姓名">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
@@ -68,7 +68,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.work"
+            v-model.trim="scope.row.work"
             size="small"
             placeholder="请输入内容"
           />
@@ -77,7 +77,7 @@
       <el-table-column prop="duty" label="现任职务">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.duty"
+            v-model.trim="scope.row.duty"
             size="small"
             placeholder="请输入内容"
           />
@@ -116,7 +116,7 @@
       <el-table-column prop="card" label="证件号码">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.card"
+            v-model.trim="scope.row.card"
             size="small"
             placeholder="请输入内容"
           />

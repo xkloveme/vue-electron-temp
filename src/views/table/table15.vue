@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input
-      v-model="other"
+      v-model.trim="other"
       type="textarea"
       :rows="20"
       maxlength="1000"

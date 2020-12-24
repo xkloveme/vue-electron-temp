@@ -1,419 +1,1042 @@
 <template>
   <div>
     <div>
-      <el-button @click="printPDF" id="print-button" type="primary">打印</el-button>
+      <el-button @click="printPDF" id="print-button" type="primary"
+        >打印</el-button
+      >
       <el-button @click="goBack" id="print-button">返回</el-button>
     </div>
     <div ref="pdfDom">
-      <h1 style="font-family:DengXian;text-align:center;font-size:32pt">廉情信息报告表</h1>
-      <div style="text-align:center;margin:300px auto;width:500px;">
+      <h1 style="font-family: DengXian; text-align: center; font-size: 32pt">
+        廉情信息报告表
+      </h1>
+      <div style="text-align: center; margin: 300px auto; width: 500px">
         <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
         >
-          <span style="font-family:DengXian">报 告 人：</span>
-          <input name="name" style="border:none;border-bottom:1px solid #000;" type="text" />
-          <span style="font-family:DengXian">（签名）</span>
-        </p>
-        <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
-        >
-          <span style="font-family:DengXian">&#xa0;</span>
-        </p>
-        <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
-        >
-          <span style="font-family:DengXian">单 位：</span>
+          <span style="font-family: DengXian">报 告 人：</span>
           <input
             name="name"
-            style="width:222px;border:none;border-bottom:1px solid #000;"
+            style="border: none; border-bottom: 1px solid #000"
+            type="text"
+          />
+          <span style="font-family: DengXian">（签名）</span>
+        </p>
+        <p
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
+        >
+          <span style="font-family: DengXian">&#xa0;</span>
+        </p>
+        <p
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
+        >
+          <span style="font-family: DengXian">单 位：</span>
+          <input
+            name="name"
+            style="width: 222px; border: none; border-bottom: 1px solid #000"
             type="text"
           />
         </p>
         <p
-          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:16pt"
+          style="
+            text-indent: 72pt;
+            text-align: center;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
         >
-          <span style="font-family:DengXian">&#xa0;</span>
+          <span style="font-family: DengXian">&#xa0;</span>
         </p>
         <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
         >
-          <span style="font-family:DengXian">报告日期：</span>
+          <span style="font-family: DengXian">报告日期：</span>
           <span
-            style="font-family:DengXian;text-decoration:underline;margin:10px"
-          >{{$formatDay(new Date(),'YYYY')}}</span>
-          <span style="font-family:DengXian">年</span>
+            style="
+              font-family: DengXian;
+              text-decoration: underline;
+              margin: 10px;
+            "
+            >{{ $formatDay(new Date(), 'YYYY') }}</span
+          >
+          <span style="font-family: DengXian">年</span>
           <span
-            style="font-family:DengXian;text-decoration:underline;padding:10px;"
-          >{{$formatDay(new Date(),'MM')}}</span>
-          <span style="font-family:DengXian">月</span>
+            style="
+              font-family: DengXian;
+              text-decoration: underline;
+              padding: 10px;
+            "
+            >{{ $formatDay(new Date(), 'MM') }}</span
+          >
+          <span style="font-family: DengXian">月</span>
           <span
-            style="font-family:DengXian;text-decoration:underline;padding:10px;"
-          >{{$formatDay(new Date(),'DD')}}</span>
-          <span style="font-family:DengXian">日</span>
+            style="
+              font-family: DengXian;
+              text-decoration: underline;
+              padding: 10px;
+            "
+            >{{ $formatDay(new Date(), 'DD') }}</span
+          >
+          <span style="font-family: DengXian">日</span>
         </p>
         <p
-          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:16pt"
+          style="
+            text-indent: 72pt;
+            text-align: center;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
         >
-          <span style="font-family:DengXian">&#xa0;</span>
+          <span style="font-family: DengXian">&#xa0;</span>
         </p>
         <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
         >
-          <span style="font-family:DengXian">审 签 人：</span>
-          <input name="name" style="border:none;border-bottom:1px solid #000;" type="text" />
-          <span style="font-family:DengXian">（签名）</span>
-        </p>
-        <p
-          style="text-indent:72pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:16pt"
-        >
-          <span style="font-family:DengXian">&#xa0;</span>
-        </p>
-        <p
-          style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:16pt"
-        >
-          <span style="font-family:DengXian">审签日期：</span>
+          <span style="font-family: DengXian">审 签 人：</span>
           <input
             name="name"
-            style="width:50px;border:none;border-bottom:1px solid #000;"
+            style="border: none; border-bottom: 1px solid #000"
             type="text"
           />
-          <span style="font-family:DengXian">年</span>
+          <span style="font-family: DengXian">（签名）</span>
+        </p>
+        <p
+          style="
+            text-indent: 72pt;
+            text-align: center;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
+        >
+          <span style="font-family: DengXian">&#xa0;</span>
+        </p>
+        <p
+          style="
+            text-indent: 72pt;
+            text-align: justify;
+            line-height: 115%;
+            widows: 0;
+            orphans: 0;
+            font-size: 16pt;
+          "
+        >
+          <span style="font-family: DengXian">审签日期：</span>
           <input
             name="name"
-            style="width:50px;border:none;border-bottom:1px solid #000;"
+            style="width: 50px; border: none; border-bottom: 1px solid #000"
             type="text"
           />
-          <span style="font-family:DengXian">月</span>
+          <span style="font-family: DengXian">年</span>
           <input
             name="name"
-            style="width:50px;border:none;border-bottom:1px solid #000;"
+            style="width: 50px; border: none; border-bottom: 1px solid #000"
             type="text"
           />
-          <span style="font-family:DengXian">日</span>
+          <span style="font-family: DengXian">月</span>
+          <input
+            name="name"
+            style="width: 50px; border: none; border-bottom: 1px solid #000"
+            type="text"
+          />
+          <span style="font-family: DengXian">日</span>
         </p>
       </div>
-      <p style=" text-align:center;  line-height:115%; widows:0; orphans:0; font-size:12pt">
-        <span style="font-family:DengXian">廉情信息报告表{{id}}</span>
+      <p
+        style="
+          text-align: center;
+          line-height: 115%;
+          widows: 0;
+          orphans: 0;
+          font-size: 12pt;
+        "
+      >
+        <span style="font-family: DengXian">廉情信息报告表{{ id }}</span>
       </p>
       <p
-        style="margin-top:10pt; margin-bottom:80pt; text-align:center; line-height:115%; widows:0; orphans:0; font-size:20pt"
+        style="
+          margin-top: 20pt;
+          margin-bottom: 80pt;
+          text-align: center;
+          line-height: 115%;
+          widows: 0;
+          orphans: 0;
+          font-size: 20pt;
+        "
       >
-        <span style="font-family:DengXian">临安区监察委员会</span>
+        <span style="font-family: DengXian">临安区监察委员会</span>
       </p>
       <p
-        style="text-indent:72pt; text-align:justify; line-height:115%; widows:0; orphans:0; font-size:10pt"
+        style="
+          text-indent: 72pt;
+          margin-top: 10pt;
+          text-align: justify;
+          line-height: 115%;
+          widows: 0;
+          orphans: 0;
+          font-size: 10pt;
+        "
       >
-        <span style="font-family:DengXian">&#xa0;</span>
+        <span style="font-family: DengXian">&#xa0;</span>
       </p>
-      <p style="line-height:115%; widows:0; orphans:0; ">
-        <span style="font-family:DengXian">&#xa0;</span>
+      <p style="line-height: 115%; widows: 0; orphans: 0">
+        <span style="font-family: DengXian">&#xa0;</span>
       </p>
-      <p style="text-align:center; line-height:115%; widows:0; orphans:0; font-size:30pt">
-        <span style="font-family:DengXian">报告人基本情况</span>
+      <p
+        style="
+          text-align: center;
+          line-height: 115%;
+          widows: 0;
+          orphans: 0;
+          font-size: 30pt;
+        "
+      >
+        <span style="font-family: DengXian">报告人基本情况</span>
       </p>
-      <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;">
-        <tr style="height:36.4pt">
+      <table
+        cellpadding="0"
+        cellspacing="0"
+        style="border-collapse: collapse; width: 100%"
+      >
+        <tr style="height: 36.4pt">
           <td
             align="center"
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">姓 名</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">姓 名</span>
             </p>
           </td>
           <td
             align="center"
-            style="width:42.8pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 42.8pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.name}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.name }}</span>
             </p>
           </td>
           <td
-            style="width:30.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 30.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">性别</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">性别</span>
             </p>
           </td>
           <td
-            style="width:29.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 29.45pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.gender | filterSelect($utils.gender)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.gender | filterSelect($utils.gender)
+              }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">民族</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">民族</span>
             </p>
           </td>
           <td
-            style="width:75.95pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 75.95pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.nation | filterSelect($utils.nation)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.nation | filterSelect($utils.nation)
+              }}</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:70pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 70pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">政治面貌</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">政治面貌</span>
             </p>
           </td>
           <td
-            style="width:63.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 63.45pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span
-                style="font-family:DengXian"
-              >{{form.politicsStatus | filterSelect($utils.politicsStatus)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.politicsStatus | filterSelect($utils.politicsStatus)
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:41.15pt">
+        <tr style="height: 41.15pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">身份证号</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">身份证号</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.idCard}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.idCard }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">联系电话</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">联系电话</span>
             </p>
           </td>
           <td
-            style="width:75.95pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 75.95pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.phone}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.phone }}</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:70pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 70pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">从事或分管工作</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">从事或分管工作</span>
             </p>
           </td>
           <td
-            style="width:63.45pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 63.45pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.work}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.work }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:40.8pt">
+        <tr style="height: 40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">工作单位</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">工作单位</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span
-                style="font-family:DengXian"
-              >{{form.employer | filterSelect($utils.workOrganization)}}{{form.community}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian"
+                >{{ form.employer | filterSelect($utils.workOrganization)
+                }}{{ form.community }}</span
+              >
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">现任职务</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">现任职务</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 96pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.duty}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.duty }}</span>
             </p>
           </td>
           <td
             colspan="2"
             rowspan="6"
-            style="width:124.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">
-                <el-image :src="form.imageUrl" class="avatar" fit="fit" v-if="form.imageUrl"></el-image>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">
+                <el-image
+                  :src="form.imageUrl"
+                  class="avatar"
+                  fit="fit"
+                  v-if="form.imageUrl"
+                ></el-image>
               </span>
             </p>
           </td>
         </tr>
-        <tr style="height:40.8pt">
+        <tr style="height: 40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">工作部门</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">工作部门</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.department}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.department }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">在职状态</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">在职状态</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 96pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span
-                style="font-family:DengXian"
-              >{{form.workingStatus | filterSelect($utils.workingStatus)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.workingStatus | filterSelect($utils.workingStatus)
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:40.8pt">
+        <tr style="height: 40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">入党时间</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">入党时间</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.partyTime | dateMonth}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.partyTime | dateMonth
+              }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">工作年限（年）</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">工作年限（年）</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 96pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.workingYears}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.workingYears }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:38.05pt">
+        <tr style="height: 38.05pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">职级</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">职级</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.grade | filterSelect($utils.grade)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.grade | filterSelect($utils.grade)
+              }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">职位</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">职位</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 96pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.position | filterSelect($utils.position)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.position | filterSelect($utils.position)
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:37.35pt">
+        <tr style="height: 37.35pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">人员来源</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">人员来源</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span
-                style="font-family:DengXian"
-              >{{form.personnelSource | filterSelect($utils.personnelSource)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.personnelSource | filterSelect($utils.personnelSource)
+              }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">对象身份</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">对象身份</span>
             </p>
           </td>
           <td
             colspan="2"
-            style="width:96pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 96pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span
-                style="font-family:DengXian"
-              >{{form.objectIdentity | filterSelect($utils.objectIdentity)}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.objectIdentity | filterSelect($utils.objectIdentity)
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:40.8pt">
+        <tr style="height: 40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">人员身份</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">人员身份</span>
             </p>
           </td>
           <td
             colspan="6"
-            style="width:278.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 278.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">
                 <!-- <el-checkbox-group v-model="form.identity">
                   <el-checkbox
                     :key="i+1"
@@ -421,109 +1044,236 @@
                     v-for="(item,i) in $utils.identity"
                   >☑{{item}}</el-checkbox>
                 </el-checkbox-group> -->
-                <span :key="i+1" :label="item" v-for="(item,i) in $utils.identity">{{form.identity.indexOf(item)>-1?'☑':'□'}}{{item}}</span>
+                <span
+                  :key="i + 1"
+                  :label="item"
+                  v-for="(item, i) in $utils.identity"
+                  >{{ form.identity.indexOf(item) > -1 ? '☑' : '□'
+                  }}{{ item }}</span
+                >
               </span>
             </p>
           </td>
         </tr>
-        <tr style="height:43.8pt">
+        <tr style="height: 43.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">户籍地址</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">户籍地址</span>
             </p>
           </td>
           <td
             colspan="3"
-            style="width:124.05pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 124.05pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.householdRegistration}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.householdRegistration
+              }}</span>
             </p>
           </td>
           <td
-            style="width:36.55pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.55pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">所在支部</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">所在支部</span>
             </p>
           </td>
           <td
             colspan="4"
-            style="width:231pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 231pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.branch}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{ form.branch }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:40.8pt">
+        <tr style="height: 40.8pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">现居住地</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">现居住地</span>
             </p>
           </td>
           <td
             colspan="8"
-            style="width:413.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 413.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.currentResidence}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.currentResidence
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:156.65pt">
+        <tr style="height: 156.65pt">
           <td
-            style="width:36.1pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">个人简历</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">个人简历</span>
             </p>
           </td>
           <td
             colspan="8"
-            style="width:413.2pt; border-style:solid; border-width:0.75pt;  vertical-align:top;vertical-align:middle;"
+            style="
+              width: 413.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            "
           >
-            <p style="text-align:center; line-height:115%; widows:0; orphans:0; ">
-              <span style="font-family:DengXian">{{form.personalResume}}</span>
+            <p
+              style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              "
+            >
+              <span style="font-family: DengXian">{{
+                form.personalResume
+              }}</span>
             </p>
           </td>
         </tr>
-        <tr style="height:0pt">
-          <td style="width:46.9pt"></td>
-          <td style="width:53.6pt"></td>
-          <td style="width:41pt"></td>
-          <td style="width:40.25pt"></td>
-          <td style="width:47.35pt"></td>
-          <td style="width:86.75pt"></td>
-          <td style="width:20.05pt"></td>
-          <td style="width:60.75pt"></td>
-          <td style="width:74.25pt"></td>
+        <tr style="height: 0pt">
+          <td style="width: 46.9pt"></td>
+          <td style="width: 53.6pt"></td>
+          <td style="width: 41pt"></td>
+          <td style="width: 40.25pt"></td>
+          <td style="width: 47.35pt"></td>
+          <td style="width: 86.75pt"></td>
+          <td style="width: 20.05pt"></td>
+          <td style="width: 60.75pt"></td>
+          <td style="width: 74.25pt"></td>
         </tr>
       </table>
       <div>
         <print></print>
         <div class="stl_05 stl_06">
-          <div class="stl_01" style="text-align: center;">
+          <div class="stl_01" style="text-align: center">
             <span class="stl_10 stl_08 stl_11">本人承诺 &nbsp;</span>
           </div>
-          <div class="stl_01" style="top:37.7462em; left:10.72em;">
-            <span
-              class="stl_18 stl_08 stl_19"
-            >《填表须知》和每项表格下方的填表说明，本人已认真阅读。所填的相关内容已与配偶，子女进行了认真核实。我郑重承诺，以上所填内容真实、准确、完整，并自愿接受组织审查。</span>
+          <div class="stl_01" style="top: 37.7462em; left: 10.72em">
+            <span class="stl_18 stl_08 stl_19"
+              >《填表须知》和每项表格下方的填表说明，本人已认真阅读。所填的相关内容已与配偶，子女进行了认真核实。我郑重承诺，以上所填内容真实、准确、完整，并自愿接受组织审查。</span
+            >
           </div>
           <div
             class="stl_01"
-            style="top:46.5563em; left:34.31em;text-align: right;margin-right:30%;margin-top:100px;"
+            style="
+              top: 46.5563em;
+              left: 34.31em;
+              text-align: right;
+              margin-right: 30%;
+              margin-top: 100px;
+            "
           >
             <span class="stl_18 stl_08 stl_11">本人签名： &nbsp;</span>
           </div>
           <div
             class="stl_01"
-            style="top:48.3163em; left:36.31em;text-align: right;margin-right:30%"
+            style="
+              top: 48.3163em;
+              left: 36.31em;
+              text-align: right;
+              margin-right: 30%;
+            "
           >
             <span class="stl_18 stl_08 stl_11">日期： &nbsp;</span>
           </div>
@@ -729,6 +1479,10 @@ export default {
 
 <style scoped>
 @media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
   body {
     background: none;
     margin: 0;

@@ -15,7 +15,7 @@
         <el-row :gutter="0">
           <el-col :span="6">
             <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" />
+              <el-input v-model.trim="form.name" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -24,7 +24,7 @@
                 clearable
                 filterable
                 placeholder="请选择"
-                v-model="form.gender"
+                v-model.trim="form.gender"
               >
                 <el-option
                   :key="item"
@@ -63,17 +63,17 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份证号" prop="idCard">
-              <el-input v-model="form.idCard" />
+              <el-input v-model.trim="form.idCard" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="联系电话" prop="phone">
-              <el-input v-model="form.phone" />
+              <el-input v-model.trim="form.phone" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="从事或分管工作">
-              <el-input v-model="form.work" />
+              <el-input v-model.trim="form.work" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -87,7 +87,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.employer"
+                  v-model.trim="form.employer"
                 >
                   <el-option
                     :key="item.key"
@@ -109,7 +109,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.community"
+                  v-model.trim="form.community"
                 >
                   <el-option
                     :key="item"
@@ -122,19 +122,19 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="现任职务">
-                <el-input v-model="form.duty" />
+                <el-input v-model.trim="form.duty" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="工作部门">
-                <el-input v-model="form.department" />
+                <el-input v-model.trim="form.department" />
               </el-form-item>
               <el-form-item label="入党时间">
                 <el-date-picker
                   placeholder="选择年月"
                   style="width: 100%"
                   type="month"
-                  v-model="form.partyTime"
+                  v-model.trim="form.partyTime"
                   value-format="timestamp"
                 />
               </el-form-item>
@@ -146,7 +146,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.workingStatus"
+                  v-model.trim="form.workingStatus"
                 >
                   <el-option
                     :key="item"
@@ -161,7 +161,7 @@
               <el-form-item label="工作年限(年)" prop="workingYears">
                 <el-input
                   placeholder="工作年限(年)"
-                  v-model="form.workingYears"
+                  v-model.trim="form.workingYears"
                 />
               </el-form-item>
             </el-col>
@@ -172,7 +172,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.grade"
+                  v-model.trim="form.grade"
                 >
                   <el-option
                     :key="item.key"
@@ -190,7 +190,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.position"
+                  v-model.trim="form.position"
                 >
                   <el-option
                     :key="item.key"
@@ -208,7 +208,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.personnelSource"
+                  v-model.trim="form.personnelSource"
                 >
                   <el-option
                     :key="item.key"
@@ -226,7 +226,7 @@
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model="form.objectIdentity"
+                  v-model.trim="form.objectIdentity"
                 >
                   <el-option
                     :key="item.key"
@@ -241,7 +241,7 @@
               <el-form-item label="人员身份" prop="identity">
                 <el-checkbox-group
                   @change="handleChange"
-                  v-model="form.identity"
+                  v-model.trim="form.identity"
                 >
                   <el-checkbox
                     :disabled="item.disabled"
@@ -280,18 +280,18 @@
         <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="户籍地址">
-              <el-input v-model="form.householdRegistration" />
+              <el-input v-model.trim="form.householdRegistration" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="所在支部">
-              <el-input v-model="form.branch" />
+              <el-input v-model.trim="form.branch" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-form-item label="现居住地">
-          <el-input v-model="form.currentResidence" />
+          <el-input v-model.trim="form.currentResidence" />
         </el-form-item>
         <el-row>
           <el-col :span="12">
@@ -299,7 +299,7 @@
               <el-input
                 :type="passType ? 'password' : 'text'"
                 autocomplete="off"
-                v-model="form.password"
+                v-model.trim="form.password"
               >
                 <el-button
                   @click="passType = !passType"
@@ -314,7 +314,7 @@
               <el-input
                 :type="checkPassType ? 'password' : 'text'"
                 autocomplete="off"
-                v-model="form.checkPassword"
+                v-model.trim="form.checkPassword"
               >
                 <el-button
                   @click="checkPassType = !checkPassType"
@@ -329,7 +329,7 @@
           <el-input
             :autosize="{ minRows: 4, maxRows: 6 }"
             type="textarea"
-            v-model="form.personalResume"
+            v-model.trim="form.personalResume"
           />
         </el-form-item>
         <el-form-item>

@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,11 +24,11 @@
       <el-table-column
         prop="relationship"
         label="与本人关系"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select
-            v-model="scope.row.relationship"
+            v-model.trim="scope.row.relationship"
             filterable
             clearable
             placeholder="请选择"
@@ -49,11 +48,11 @@
       <el-table-column
         prop="name"
         label="姓名"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
@@ -62,20 +61,20 @@
       <el-table-column
         prop="idCard"
         label="身份证号"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.idCard"
+            v-model.trim="scope.row.idCard"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="politicsStatus" label="政治面貌">
+      <el-table-column prop="politicsStatus" label="政治面貌" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select
-            v-model="scope.row.politicsStatus"
+            v-model.trim="scope.row.politicsStatus"
             style="width: 100%"
             placeholder="请选择"
           >
@@ -91,19 +90,19 @@
           scope.row.politicsStatus | filterSelect($utils.politicsStatus)
         }}</template>
       </el-table-column>
-      <el-table-column prop="work" label="工作单位及职务">
+      <el-table-column prop="work" label="工作单位及职务" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.work"
+            v-model.trim="scope.row.work"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="phone" label="联系电话">
+      <el-table-column prop="phone" label="联系电话" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.phone"
+            v-model.trim="scope.row.phone"
             size="small"
             placeholder="请输入内容"
           />
@@ -119,7 +118,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -196,7 +200,8 @@ export default {
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误',
+            message:
+              '请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '22')

@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,7 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
+        
       >
         <template scope="scope">
           <i
@@ -40,7 +40,7 @@
       <el-table-column prop="name" label="姓名">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
@@ -53,7 +53,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.country"
+            v-model.trim="scope.row.country"
             size="small"
             placeholder="请输入内容"
           />
@@ -66,7 +66,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.city"
+            v-model.trim="scope.row.city"
             size="small"
             placeholder="请输入内容"
           />
@@ -79,7 +79,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.card"
+            v-model.trim="scope.row.card"
             size="small"
             placeholder="请输入内容"
           />
@@ -107,7 +107,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -121,7 +121,7 @@
       <el-table-column prop="desc" label="备注">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.desc"
+            v-model.trim="scope.row.desc"
             size="small"
             placeholder="请输入内容"
           />

@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,11 +24,11 @@
       <el-table-column
         prop="time"
         label="受惩处时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -43,7 +42,7 @@
       <el-table-column
         prop="disposition"
         label="所受处分"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.disposition" placeholder="请选择">
@@ -59,37 +58,37 @@
           scope.row.disposition | filterSelect($utils.punishment)
         }}</template>
       </el-table-column>
-      <el-table-column prop="dispositionReasons" label="受处分原因">
+      <el-table-column prop="dispositionReasons" :width="this.$attrs.hiddenOptions ? 200 : null" label="受处分原因">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.dispositionReasons"
+            v-model.trim="scope.row.dispositionReasons"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="dispositionOrgans" label="惩处机关">
+      <el-table-column prop="dispositionOrgans" label="惩处机关" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.dispositionOrgans"
+            v-model.trim="scope.row.dispositionOrgans"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="symbol" label="文号">
+      <el-table-column prop="symbol" label="文号" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.symbol"
+            v-model.trim="scope.row.symbol"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注">
+      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.desc"
+            v-model.trim="scope.row.desc"
             size="small"
             placeholder="请输入内容"
           />
@@ -105,7 +104,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -172,8 +176,7 @@ export default {
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message:
-              '请检查受惩罚时间、所受处分、受处分原因、惩处机关是否有误',
+            message: '请检查受惩罚时间、所受处分、受处分原因、惩处机关是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '4')

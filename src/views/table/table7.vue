@@ -4,14 +4,14 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       highlight-current-row
     >
       <el-table-column
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
+        
       >
         <template scope="scope">
           <i
@@ -47,7 +47,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
@@ -56,7 +56,7 @@
       <el-table-column prop="spouseName" label="配偶姓名">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.spouseName"
+            v-model.trim="scope.row.spouseName"
             size="small"
             placeholder="请输入内容"
           />
@@ -65,7 +65,7 @@
       <el-table-column prop="spouseCountry" label="配偶国籍(地区)">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.spouseCountry"
+            v-model.trim="scope.row.spouseCountry"
             size="small"
             placeholder="请输入内容"
           />
@@ -78,7 +78,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.spouseWork"
+            v-model.trim="scope.row.spouseWork"
             size="small"
             placeholder="请输入内容"
           />
@@ -87,7 +87,7 @@
       <el-table-column prop="spouseDuty" label="配偶职务">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.spouseDuty"
+            v-model.trim="scope.row.spouseDuty"
             size="small"
             placeholder="请输入内容"
           />
@@ -100,7 +100,7 @@
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="date"
             value-format="timestamp"

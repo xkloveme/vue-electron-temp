@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,20 +24,20 @@
       <el-table-column
         prop="name"
         label="持有人姓名"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="fundName" label="基金名称或代码">
+      <el-table-column prop="fundName" label="基金名称或代码" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.fundName"
+            v-model.trim="scope.row.fundName"
             size="small"
             placeholder="请输入内容"
           />
@@ -47,11 +46,11 @@
       <el-table-column
         prop="fundNumber"
         label="基金份额"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model="scope.row.fundNumber"
+            v-model.trim="scope.row.fundNumber"
             size="small"
             style="width: 100%"
             placeholder="请输入内容"
@@ -61,20 +60,21 @@
       <el-table-column
         prop="fundMarketValue"
         label="填报前一交易日净值（万元）"
+        :width="this.$attrs.hiddenOptions ? 200 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model="scope.row.fundMarketValue"
+            v-model.trim="scope.row.fundMarketValue"
             @change="inputChange"
             size="small"
             style="width: 100%"
             placeholder="请输入内容"
           />
         </template>
+        <span v-else>{{scope.row.fundMarketValue}}</span>
       </el-table-column>
       <div
         slot="append"
-        v-if="!this.$attrs.hiddenOptions"
         style="cursor: pointer; line-height: 30px"
       >
         <div
@@ -86,12 +86,14 @@
         >
           填报前一交易日所有基金的总净值（万元）
           <el-input-number
-            v-model="allMarketValue"
+            v-model.trim="allMarketValue"
+            v-if="!this.$attrs.hiddenOptions"
             size="small"
             @change="inputChange"
             style="width: 400px"
             placeholder="请输入内容"
           />
+           <span v-else>{{allMarketValue}}</span>
         </div>
         <div
           style="text-align: center"
@@ -103,7 +105,12 @@
         </div>
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -186,8 +193,8 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.name)
           arr.push(item.fundName)
-          arr.push(item.fundNumber>0)
-          arr.push(item.fundMarketValue>0)
+          arr.push(item.fundNumber > 0)
+          arr.push(item.fundMarketValue > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({

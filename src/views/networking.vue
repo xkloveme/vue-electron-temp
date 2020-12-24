@@ -11,7 +11,7 @@ v-show="tableStatus !== '2'"
       prop="agency"
       label="操作"
       
-      width="50"
+      
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <i
@@ -28,7 +28,7 @@ v-show="tableStatus !== '2'"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
-          v-model="scope.row.relationship"
+          v-model.trim="scope.row.relationship"
           placeholder="请选择"
         >
           <el-option
@@ -47,7 +47,7 @@ v-show="tableStatus !== '2'"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
-          v-model="scope.row.name"
+          v-model.trim="scope.row.name"
           size="small"
           placeholder="请输入内容"
         />
@@ -60,7 +60,7 @@ v-show="tableStatus !== '2'"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-date-picker
-          v-model="scope.row.birth"
+          v-model.trim="scope.row.birth"
           style="width:150px"
           type="month"
           value-format="timestamp"
@@ -75,7 +75,7 @@ v-show="tableStatus !== '2'"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select
-          v-model="scope.row.politicsStatus"
+          v-model.trim="scope.row.politicsStatus"
           placeholder="请选择"
         >
           <el-option
@@ -94,7 +94,7 @@ v-show="tableStatus !== '2'"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-input
-          v-model="scope.row.work"
+          v-model.trim="scope.row.work"
           size="small"
           placeholder="请输入内容"
         />

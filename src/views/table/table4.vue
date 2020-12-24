@@ -4,7 +4,7 @@
       :data="tableData"
       v-show="tableStatus !== '2'"
       class="tb-edit"
-      border
+      :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -25,7 +24,7 @@
       <el-table-column
         prop="change"
         label="变化情况"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.change" placeholder="请选择">
@@ -44,11 +43,11 @@
       <el-table-column
         prop="time"
         label="变化时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model="scope.row.time"
+            v-model.trim="scope.row.time"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -59,10 +58,10 @@
           scope.row.time | dateMonth
         }}</template>
       </el-table-column>
-      <el-table-column prop="reasons" label="变化原因">
+      <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model="scope.row.reasons"
+            v-model.trim="scope.row.reasons"
             size="small"
             placeholder="请输入内容"
           />
@@ -78,7 +77,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -141,8 +145,7 @@ export default {
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message:
-              '请检查变化情况、变化时间、变化原因是否有误',
+            message: '请检查变化情况、变化时间、变化原因是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '5')

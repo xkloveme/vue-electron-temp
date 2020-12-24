@@ -3,7 +3,7 @@
     <el-table
       :data="tableData"
       v-show="tableStatus !== '2'"
-      border
+      :border="!this.$attrs.hiddenOptions"
       class="tb-edit"
       highlight-current-row
       style="width: 100%"
@@ -12,7 +12,6 @@
         label="操作"
         prop="agency"
         v-if="!this.$attrs.hiddenOptions"
-        width="50"
       >
         <template scope="scope">
           <i
@@ -22,7 +21,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="称谓" prop="title">
+      <el-table-column label="称谓" prop="title" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select placeholder="请选择" v-model="scope.row.title">
             <el-option
@@ -37,38 +36,38 @@
           scope.row.title | filterSelect($utils.relationshipWithMyself)
         }}</template>
       </el-table-column>
-      <el-table-column label="姓名" prop="name">
+      <el-table-column label="姓名" prop="name" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入内容"
             size="small"
-            v-model="scope.row.name"
+            v-model.trim="scope.row.name"
           />
         </template>
       </el-table-column>
-      <el-table-column label="市场主体名称" prop="marketSubject">
+      <el-table-column label="市场主体名称" prop="marketSubject" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入内容"
             size="small"
-            v-model="scope.row.marketSubject"
+            v-model.trim="scope.row.marketSubject"
           />
         </template>
       </el-table-column>
       <el-table-column
         label="经营范围(业务范围)"
         prop="businessScope"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入内容"
             size="small"
-            v-model="scope.row.businessScope"
+            v-model.trim="scope.row.businessScope"
           />
         </template>
       </el-table-column>
-      <el-table-column label="市场主体类型" prop="marketSubjectType">
+      <el-table-column label="市场主体类型" prop="marketSubjectType" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select placeholder="请选择" v-model="scope.row.marketSubjectType">
             <el-option
@@ -83,37 +82,37 @@
           scope.row.marketSubjectType | filterSelect($utils.marketEntities)
         }}</template>
       </el-table-column>
-      <el-table-column label="资金数额(出资额)(万元)" prop="money" width="160">
+      <el-table-column label="资金数额(出资额)(万元)" prop="money" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
             size="small"
             style="width: 100%"
-            v-model="scope.row.money"
+            v-model.trim="scope.row.money"
           />
         </template>
       </el-table-column>
       <el-table-column
         label="个人出资额(万)"
         prop="personalContribution"
-        width="160"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
             size="small"
             style="width: 100%"
-            v-model="scope.row.personalContribution"
+            v-model.trim="scope.row.personalContribution"
           />
         </template>
       </el-table-column>
-      <el-table-column label="出资比例(%)" prop="fundedRatio" width="160">
+      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
             size="small"
             style="width: 100%"
-            v-model="scope.row.fundedRatio"
+            v-model.trim="scope.row.fundedRatio"
           />
         </template>
       </el-table-column>
@@ -127,7 +126,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -193,9 +197,9 @@ export default {
           arr.push(item.marketSubject)
           arr.push(item.businessScope)
           arr.push(item.marketSubjectType)
-          arr.push(item.money>0)
-          arr.push(item.personalContribution>0)
-          arr.push(item.fundedRatio>0)
+          arr.push(item.money > 0)
+          arr.push(item.personalContribution > 0)
+          arr.push(item.fundedRatio > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
