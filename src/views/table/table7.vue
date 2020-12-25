@@ -11,7 +11,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        
       >
         <template scope="scope">
           <i
@@ -24,7 +23,7 @@
       <el-table-column
         prop="title"
         label="称谓"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
@@ -43,7 +42,7 @@
       <el-table-column
         prop="name"
         label="姓名"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -53,7 +52,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseName" label="配偶姓名">
+      <el-table-column prop="spouseName" label="配偶姓名" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseName"
@@ -62,7 +61,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseCountry" label="配偶国籍(地区)">
+      <el-table-column prop="spouseCountry" label="配偶国籍(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseCountry"
@@ -74,7 +73,7 @@
       <el-table-column
         prop="spouseWork"
         label="配偶工作(学习)单位"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -84,7 +83,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseDuty" label="配偶职务">
+      <el-table-column prop="spouseDuty" label="配偶职务" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseDuty"
@@ -96,7 +95,7 @@
       <el-table-column
         prop="time"
         label="登记时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker

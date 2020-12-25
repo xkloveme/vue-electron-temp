@@ -224,6 +224,7 @@
       </p>
       <p
         style="
+        margin-top: 20pt;
           text-align: center;
           line-height: 115%;
           widows: 0;
@@ -1479,10 +1480,6 @@ export default {
 
 <style scoped>
 @media print {
-  @page {
-    margin: 0;
-    size: auto;
-  }
   body {
     background: none;
     margin: 0;

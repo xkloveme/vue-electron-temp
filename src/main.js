@@ -22,7 +22,7 @@ Vue.prototype.$ipc = ipc
 Vue.prototype.$dialog = dialog
 Vue.prototype.$db = db
 Vue.prototype.$utils = utils
-Vue.prototype.$version = '1.2.4'
+Vue.prototype.$version = '1.2.5'
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'mini' })
 Vue.use(filter)
