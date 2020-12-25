@@ -117,7 +117,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.transactionTime | dateMonth
+          scope.row.transactionTime | dateDay
         }}</template>
       </el-table-column>
       <el-table-column label="交易价格(万)" prop="transactionPrice" :width="this.$attrs.hiddenOptions ? 80 : null">

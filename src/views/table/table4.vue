@@ -55,7 +55,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.time | dateMonth
+          scope.row.time | dateDay
         }}</template>
       </el-table-column>
       <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">

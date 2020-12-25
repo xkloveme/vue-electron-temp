@@ -36,7 +36,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.startTime | dateMonth
+          scope.row.startTime | dateDay
         }}</template>
       </el-table-column>
       <el-table-column
@@ -54,7 +54,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.endTime | dateMonth
+          scope.row.endTime | dateDay
         }}</template>
       </el-table-column>
       <el-table-column prop="country" label="所到国家(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">

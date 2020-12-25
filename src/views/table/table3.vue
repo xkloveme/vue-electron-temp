@@ -36,7 +36,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.time | dateMonth
+          scope.row.time | dateDay
         }}</template>
       </el-table-column>
       <el-table-column

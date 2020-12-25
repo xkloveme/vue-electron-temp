@@ -77,7 +77,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.time | dateMonth
+          scope.row.time | dateDay
         }}</template>
       </el-table-column>
       <el-table-column
@@ -95,7 +95,7 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.validity | dateMonth
+          scope.row.validity | dateDay
         }}</template>
       </el-table-column>
       <el-table-column prop="custodyInstitutions" label="保管机构" :width="this.$attrs.hiddenOptions ? 200 : null">

@@ -776,7 +776,7 @@
               "
             >
               <span style="font-family: DengXian">{{
-                form.partyTime | dateMonth
+                form.partyTime | dateDay
               }}</span>
             </p>
           </td>
