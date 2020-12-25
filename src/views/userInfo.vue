@@ -329,7 +329,7 @@
           <el-input
             :autosize="{ minRows: 4, maxRows: 6 }"
             type="textarea"
-            v-model.trim="form.personalResume"
+            v-model="form.personalResume"
           />
         </el-form-item>
         <el-form-item>

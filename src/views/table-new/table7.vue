@@ -90,7 +90,7 @@
           scope.row.politicsStatus | filterSelect($utils.politicsStatus)
         }}</template>
       </el-table-column>
-      <el-table-column prop="work" label="工作单位及职务" :width="this.$attrs.hiddenOptions ? 200 : null">
+      <el-table-column prop="work" label="工作单位及职务" :width="this.$attrs.hiddenOptions ? 150 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.work"

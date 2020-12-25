@@ -24,7 +24,7 @@
       <el-table-column
         label="产权人"
         prop="people"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
+        :width="this.$attrs.hiddenOptions ? 80 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -34,7 +34,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="与本人关系" prop="relationship" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column label="与本人关系" prop="relationship" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select placeholder="请选择" v-model="scope.row.relationship">
             <el-option
@@ -77,7 +77,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="建筑面积(m²)" prop="area" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column label="建筑面积(m²)" prop="area" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
@@ -87,7 +87,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="产权性质" prop="propertyNature" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column label="产权性质" prop="propertyNature" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select placeholder="请选择" v-model="scope.row.propertyNature">
             <el-option
@@ -105,7 +105,7 @@
       <el-table-column
         label="交易时间"
         prop="transactionTime"
-        :width="this.$attrs.hiddenOptions ? 80 : 180"
+        :width="this.$attrs.hiddenOptions ? 50 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker

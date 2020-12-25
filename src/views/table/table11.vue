@@ -66,7 +66,7 @@
       <el-table-column
         prop="reasons"
         label="被追究刑事责任原因"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        :width="this.$attrs.hiddenOptions ? 150 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input

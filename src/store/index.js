@@ -125,6 +125,18 @@ export default new Vuex.Store({
     setStockAllMarketValue (state, allMarketValue) {
       state.user.stock.allMarketValue = allMarketValue
     },
+    // 股票
+    setStockList (state, list) {
+      state.user.stock.list = list
+    },
+    // 基金
+    setFundList (state, list) {
+      state.user.fund.list = list
+    },
+    // 期货
+    setFuturesList (state, list) {
+      state.user.futures.list = list
+    },
     setStockDesc (state, desc) {
       state.user.stock.desc = desc
     },
@@ -156,6 +168,17 @@ export default new Vuex.Store({
     updateStockAllMarketValue ({ commit, state }, allMarketValue) {
       commit('setStockAllMarketValue', allMarketValue)
     },
+    // 股票、基金、期货
+    updateStockList ({ commit, state }, list) {
+      commit('setStockList', list)
+    },
+    updateFundList  ({ commit, state }, list) {
+      commit('setFundList', list)
+    },
+    updateFuturesList ({ commit, state }, list) {
+      commit('setFuturesList', list)
+    },
+    //
     updateStockDesc ({ commit, state }, desc) {
       commit('setStockDesc', desc)
     },

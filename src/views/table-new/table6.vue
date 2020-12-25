@@ -33,14 +33,24 @@
             placeholder="请输入内容"
           />
         </template>
+        <template scope="scope" v-else>
+          <span>{{ scope.row.name }}</span>
+        </template>
       </el-table-column>
-      <el-table-column prop="futuresName" label="期货名称或代码" :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column
+        prop="futuresName"
+        label="期货名称或代码"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.futuresName"
             size="small"
             placeholder="请输入内容"
           />
+        </template>
+        <template scope="scope" v-else>
+          <span>{{ scope.row.futuresName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -55,6 +65,9 @@
             style="width: 100%"
             placeholder="请输入内容"
           />
+        </template>
+        <template scope="scope" v-else>
+          <span>{{ scope.row.futuresNumber }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -71,12 +84,11 @@
             placeholder="请输入内容"
           />
         </template>
-        <span v-else>{{scope.row.futuresMarketValue}}</span>
+        <template scope="scope" v-else>
+          <span>{{ scope.row.futuresMarketValue }}</span>
+        </template>
       </el-table-column>
-      <div
-        slot="append"
-        style="cursor: pointer; line-height: 30px"
-      >
+      <div slot="append" style="cursor: pointer; line-height: 30px">
         <div
           style="
             text-align: right;
@@ -93,7 +105,7 @@
             placeholder="请输入内容"
             v-if="!this.$attrs.hiddenOptions"
           />
-          <span v-else>{{allMarketValue}}</span>
+          <span v-else>{{ allMarketValue }}</span>
         </div>
         <div
           style="text-align: center"

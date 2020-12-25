@@ -43,7 +43,7 @@
       <el-table-column
         prop="number"
         label="证件号码"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        :width="this.$attrs.hiddenOptions ? 150 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input

@@ -61,7 +61,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 150 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.symbol"
@@ -70,7 +70,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 150 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.desc"

@@ -21,7 +21,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="称谓" prop="title" :width="this.$attrs.hiddenOptions ? 80 : null">
+      <el-table-column label="称谓" prop="title" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select placeholder="请选择" v-model="scope.row.title">
             <el-option
@@ -57,7 +57,7 @@
       <el-table-column
         label="经营范围(业务范围)"
         prop="businessScope"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
+        :width="this.$attrs.hiddenOptions ? 80 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -82,7 +82,7 @@
           scope.row.marketSubjectType | filterSelect($utils.marketEntities)
         }}</template>
       </el-table-column>
-      <el-table-column label="资金数额(出资额)(万元)" prop="money" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column label="资金数额(出资额)(万元)" prop="money" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"
@@ -95,7 +95,7 @@
       <el-table-column
         label="个人出资额(万)"
         prop="personalContribution"
-        :width="this.$attrs.hiddenOptions ? 100 : null"
+        :width="this.$attrs.hiddenOptions ? 80 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
@@ -106,7 +106,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"

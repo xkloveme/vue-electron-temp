@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        
       >
         <template scope="scope">
           <i
@@ -22,7 +21,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="称谓">
+      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
@@ -37,7 +36,7 @@
           scope.row.title | filterSelect($utils.familiesType10)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名">
+      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.name"
@@ -46,7 +45,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="isLife" label="是否共同生活">
+      <el-table-column prop="isLife" label="是否共同生活" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.isLife" placeholder="请选择">
             <el-option
@@ -64,7 +63,7 @@
       <el-table-column
         prop="work"
         label="工作、学习单位"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -74,7 +73,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="duty" label="现任职务">
+      <el-table-column prop="duty" label="现任职务" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.duty"
@@ -83,7 +82,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="unitNature" label="单位性质">
+      <el-table-column prop="unitNature" label="单位性质" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.unitNature" placeholder="请选择">
             <el-option
@@ -98,7 +97,7 @@
           scope.row.unitNature | filterSelect($utils.unitProperties)
         }}</template>
       </el-table-column>
-      <el-table-column prop="cardName" label="证件名称">
+      <el-table-column prop="cardName" label="证件名称" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.cardName" placeholder="请选择">
             <el-option
@@ -113,7 +112,7 @@
           scope.row.cardName | filterSelect($utils.identification10)
         }}</template>
       </el-table-column>
-      <el-table-column prop="card" label="证件号码">
+      <el-table-column prop="card" label="证件号码" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.card"
@@ -132,7 +131,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>

@@ -33,6 +33,9 @@
             placeholder="请输入内容"
           />
         </template>
+         <template scope="scope" v-else>
+          <span>{{ scope.row.name }}</span>
+        </template>
       </el-table-column>
       <el-table-column prop="fundName" label="基金名称或代码" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -41,6 +44,9 @@
             size="small"
             placeholder="请输入内容"
           />
+        </template>
+         <template scope="scope" v-else>
+          <span >{{ scope.row.fundName }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -55,6 +61,9 @@
             style="width: 100%"
             placeholder="请输入内容"
           />
+        </template>
+         <template scope="scope" v-else>
+          <span >{{ scope.row.fundNumber }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -71,7 +80,9 @@
             placeholder="请输入内容"
           />
         </template>
-        <span v-else>{{scope.row.fundMarketValue}}</span>
+        <template scope="scope" v-else>
+        <span >{{scope.row.fundMarketValue}}</span>
+        </template>
       </el-table-column>
       <div
         slot="append"

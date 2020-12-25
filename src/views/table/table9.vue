@@ -12,7 +12,6 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
-        
       >
         <template scope="scope">
           <i
@@ -22,7 +21,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="称谓">
+      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
@@ -37,7 +36,7 @@
           scope.row.title | filterSelect($utils.familiesType)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名">
+      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.name"
@@ -48,7 +47,7 @@
       </el-table-column>
       <el-table-column
         prop="country"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 50 : 180"
         label="移居国家(地区)"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -62,7 +61,7 @@
       <el-table-column
         prop="city"
         label="现居住城市"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 50 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -74,7 +73,7 @@
       </el-table-column>
       <el-table-column
         prop="card"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
         label="移居国家证件号码"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -85,7 +84,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="type" label="移居类别">
+      <el-table-column prop="type" label="移居类别" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.type" placeholder="请选择">
             <el-option
@@ -103,7 +102,7 @@
       <el-table-column
         prop="time"
         label="移居时间"
-        :width="this.$attrs.hiddenOptions ? '' : 180"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
@@ -118,7 +117,7 @@
           scope.row.time | dateMonth
         }}</template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注">
+      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.desc"
@@ -137,7 +136,12 @@
         添加一行
       </div>
     </el-table>
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>

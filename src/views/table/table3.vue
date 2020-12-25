@@ -58,7 +58,7 @@
           scope.row.disposition | filterSelect($utils.punishment)
         }}</template>
       </el-table-column>
-      <el-table-column prop="dispositionReasons" :width="this.$attrs.hiddenOptions ? 200 : null" label="受处分原因">
+      <el-table-column prop="dispositionReasons" :width="this.$attrs.hiddenOptions ? 150 : null" label="受处分原因">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.dispositionReasons"
