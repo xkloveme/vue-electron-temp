@@ -80,7 +80,7 @@
         <el-row :gutter="10">
           <el-col :span="20">
             <el-col :span="needCommunity ? 7 : 12">
-              <el-form-item label="工作单位">
+              <el-form-item label="工作单位" prop="employer">
                 <el-select
                   @change="handleChangeNeedCommunity"
                   clearable
@@ -375,6 +375,7 @@ export default {
       communityType: [],
       rules: {
         name: [{ required: true, message: '请填写姓名', trigger: 'blur' }],
+        employer: [{ required: true, message: '请填写工作单位', trigger: 'blur' }],
         gender: [{ required: true, message: '请输入性别', trigger: 'change' }],
         politicsStatus: [
           { required: true, message: '请选择政治面貌', trigger: 'change' },
@@ -485,7 +486,14 @@ export default {
     handleGoNextPage() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$store.dispatch('updateStatus', '1')
+          if(this.form.imageUrl){
+            this.$store.dispatch('updateStatus', '1')
+          }else{
+            this.$message({
+            type: 'error',
+            message: '请检查照片是否传入',
+          })
+          }
         } else {
           this.$message({
             type: 'error',
