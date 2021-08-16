@@ -22,28 +22,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="change"
-        label="变化情况"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.change" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.marriage"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.change | filterSelect($utils.marriage)
-        }}</template>
-      </el-table-column>
-      <el-table-column
         prop="time"
-        label="变化时间"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        label="受惩处时间"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
@@ -52,16 +33,63 @@
             type="date"
             value-format="timestamp"
             placeholder="选择时间"
+            
           />
         </template>
         <template scope="scope" v-else>{{
           scope.row.time | dateDay
         }}</template>
       </el-table-column>
-      <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column
+        prop="disposition"
+        label="所受处分"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select v-model="scope.row.disposition" placeholder="请选择">
+            <el-option
+              v-for="item in $utils.punishment"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.disposition | filterSelect($utils.punishment)
+        }}</template>
+      </el-table-column>
+      <el-table-column prop="dispositionReasons" :width="this.$attrs.hiddenOptions ? 150 : null" label="受处分原因">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.reasons"
+            v-model.trim="scope.row.dispositionReasons"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="dispositionOrgans" label="惩处机关" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.dispositionOrgans"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <!-- <el-table-column prop="symbol" label="文号" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.symbol"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column> -->
+      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.desc"
             size="small"
             placeholder="请输入内容"
           />
@@ -103,7 +131,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getMarriage
+      return this.$store.getters.getPunishment
     },
   },
   methods: {
@@ -119,16 +147,19 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '3')
+      this.$store.dispatch('updateStatusSubtract', '2')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        marriage: [
+        punishment: [
           {
-            change: '', // 变化情况
             time: '',
-            reasons: '',
+            disposition: '', // 所受处分
+            dispositionReasons: '', // 所受处分原因
+            dispositionOrgans: '', // 所受处分机关
+            symbol: '', // 文号
+            desc: '',
           },
         ],
       })
@@ -138,20 +169,21 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.change)
           arr.push(item.time)
-          arr.push(item.reasons)
+          arr.push(item.disposition)
+          arr.push(item.dispositionReasons)
+          arr.push(item.dispositionOrgans)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查变化情况、变化时间、变化原因是否有误',
+            message: '请检查受惩罚时间、所受处分、受处分原因、惩处机关是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '4')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '4')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -161,9 +193,12 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        change: '', // 变化情况
         time: '',
-        reasons: '',
+        disposition: '', // 所受处分
+        dispositionReasons: '', // 所受处分原因
+        dispositionOrgans: '', // 所受处分机关
+        symbol: '', // 文号
+        desc: '',
       })
     },
   },

@@ -76,7 +76,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="status" label="处理阶段" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <!-- <el-table-column prop="status" label="处理阶段" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.status" placeholder="请选择">
             <el-option
@@ -90,7 +90,7 @@
         <template scope="scope" v-else>{{
           scope.row.status | filterSelect($utils.punishStage)
         }}</template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column prop="result" label="处理结果" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -152,7 +152,7 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '10')
+      this.$store.dispatch('updateStatusSubtract', '10')
     },
     // 清空
     handleEmpty() {
@@ -178,14 +178,13 @@ export default {
           arr.push(item.name)
           arr.push(item.time)
           arr.push(item.reasons)
-          arr.push(item.status)
           arr.push(item.result)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查称谓、姓名、被追究时间、被追究责任原因、处理阶段、处理结果是否有误',
+              '请检查称谓、姓名、被追究时间、被追究责任原因、处理结果是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '12')

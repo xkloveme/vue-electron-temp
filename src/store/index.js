@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    status:'0',
+    status: 0,
     user: db
   },
   getters: {
@@ -33,6 +33,10 @@ export default new Vuex.Store({
     },
     getHomestead ({ user }) {
       return user.homestead
+    },
+    // 工作简历
+    getResume ({ user }) {
+      return user.resume
     },
     // 股票
     getStock ({ user }) {
@@ -97,10 +101,10 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser (state, user) {
-      console.log('🐛:: setUser -> user', user,db)
-      if(user===null){
-        state.user=newDb
-      }else{
+      console.log('🐛:: setUser -> user', user, db)
+      if (user === null) {
+        state.user = newDb
+      } else {
         for (const key in user) {
           if (user.hasOwnProperty(key)) {
             state.user[key] = user[key]
@@ -108,9 +112,15 @@ export default new Vuex.Store({
         }
       }
     },
-     // 设置状态
-     setStatus (state, value) {
-      state.status = value
+    // 设置状态
+    setStatus (state) {
+      if (Number(state.status) >= 21) {
+      } else {
+        state.status++
+      }
+    },
+    setStatusSubtract (state) {
+      state.status--
     },
     // 生成唯一id
     setUid (state, uid) {
@@ -124,6 +134,10 @@ export default new Vuex.Store({
     },
     setStockAllMarketValue (state, allMarketValue) {
       state.user.stock.allMarketValue = allMarketValue
+    },
+    // 工作简历
+    setResumeList (state, list) {
+      state.user.resume = list
     },
     // 股票
     setStockList (state, list) {
@@ -154,7 +168,10 @@ export default new Vuex.Store({
       commit('setUser', user)
     },
     updateStatus ({ commit, state }, value) {
-      commit('setStatus', value)
+      commit('setStatus')
+    },
+    updateStatusSubtract ({ commit, state }, value) {
+      commit('setStatusSubtract')
     },
     updateUid ({ commit, state }, uid) {
       commit('setUid', uid)
@@ -172,7 +189,7 @@ export default new Vuex.Store({
     updateStockList ({ commit, state }, list) {
       commit('setStockList', list)
     },
-    updateFundList  ({ commit, state }, list) {
+    updateFundList ({ commit, state }, list) {
       commit('setFundList', list)
     },
     updateFuturesList ({ commit, state }, list) {
@@ -188,6 +205,5 @@ export default new Vuex.Store({
     updateFuturesAllMarketValue ({ commit, state }, allMarketValue) {
       commit('setFuturesAllMarketValue', allMarketValue)
     }
-  },
-  modules: {}
+  }
 })

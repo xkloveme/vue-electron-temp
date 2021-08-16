@@ -77,6 +77,18 @@
             </el-form-item>
           </el-col>
         </el-row>
+      <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="全日制学历">
+              <el-input v-model.trim="form.fullTimeEducation" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="在职学历">
+              <el-input v-model.trim="form.onTimeEducation" />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
             <el-col :span="needCommunity ? 7 : 12">
@@ -325,12 +337,15 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="个人简历">
+        <!-- <el-form-item label="个人简历">
           <el-input
             :autosize="{ minRows: 4, maxRows: 6 }"
             type="textarea"
             v-model="form.personalResume"
           />
+        </el-form-item> -->
+        <el-form-item label="工作简历">
+          <resume :hiddenOptions="false"/>
         </el-form-item>
         <el-form-item>
           <el-button @click="onSubmit" type="primary">打印预览</el-button>
@@ -338,17 +353,17 @@
         </el-form-item>
       </el-form>
     </div>
-    <!-- <networking /> -->
+
   </div>
 </template>
 
 <script>
-// import networking from './networking'
+import resume from './resume'
 import { isIdentityCard, isLicensePlate } from './../common.js'
 var JSZip = require('jszip')
 const fs = require('fs')
 export default {
-  // components: { networking },
+  components: { resume },
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -583,7 +598,6 @@ export default {
       }
       this.$refs.form.validate((valid) => {
         if (valid) {
-          
         } else {
           this.$message({
             type: 'error',

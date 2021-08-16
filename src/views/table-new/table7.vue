@@ -168,7 +168,7 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '20')
+      this.$store.dispatch('updateStatusSubtract', '20')
     },
     // 清空
     handleEmpty() {

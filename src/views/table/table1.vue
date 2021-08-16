@@ -2,14 +2,18 @@
   <div>
     <el-table
       :data="tableData"
-      class="tb-edit"
       v-show="tableStatus !== '2'"
+      class="tb-edit"
       :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+      <el-table-column
+        prop="agency"
+        label="操作"
+        v-if="!this.$attrs.hiddenOptions"
+      >
+        <template scope="scope">
           <i
             style="color: #f56c6c"
             class="el-icon-delete"
@@ -18,32 +22,19 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="年度"
-        prop="time"
+        prop="relationship"
+        label="与本人关系"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-date-picker
-            v-model.trim="scope.row.time"
-            style="width: 150px"
-            type="year"
-            value-format="timestamp"
-            placeholder="选择年"
-          />
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateYear
-        }}</template>
-      </el-table-column>
-      <el-table-column
-        label="考核情况"
-        prop="assessment"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.assessment" placeholder="请选择">
+          <el-select
+            v-model.trim="scope.row.relationship"
+            filterable
+            clearable
+            placeholder="请选择"
+          >
             <el-option
-              v-for="item in $utils.assessment"
+              v-for="item in list"
               :key="item.key"
               :label="item.value"
               :value="item.key"
@@ -51,31 +42,67 @@
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.assessment | filterSelect($utils.assessment)
+          scope.row.relationship | filterSelect(list)
         }}</template>
       </el-table-column>
-      <el-table-column prop="agency" label="发文机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
+      <el-table-column
+        prop="name"
+        label="姓名"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.agency"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 150 : 180">
+      <el-table-column
+        prop="idCard"
+        label="身份证号"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.symbol"
+            v-model.trim="scope.row.idCard"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 150 : 180">
+      <el-table-column prop="politicsStatus" label="政治面貌" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select
+            v-model.trim="scope.row.politicsStatus"
+            style="width: 100%"
+            placeholder="请选择"
+          >
+            <el-option
+              v-for="(item, i) in $utils.politicsStatus"
+              :key="item"
+              :label="item"
+              :value="i"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.politicsStatus | filterSelect($utils.politicsStatus)
+        }}</template>
+      </el-table-column>
+      <el-table-column prop="work" label="工作单位及职务" :width="this.$attrs.hiddenOptions ? 150 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.desc"
+            v-model.trim="scope.row.work"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="phone" label="联系电话" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.phone"
             size="small"
             placeholder="请输入内容"
           />
@@ -105,6 +132,7 @@
 </template>
 
 <script>
+import { isIdentityCard } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -117,16 +145,17 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getWorkAssessment
+      return this.$store.getters.getNetworking
+    },
+    list() {
+      if (this.$store.getters.getUser.gender === '2') {
+        return this.$utils.womenRelationship
+      } else {
+        return this.$utils.manRelationship
+      }
     },
   },
   methods: {
-    // handleCurrentChange (row, event, column) {
-    //   console.log(row, event, column, event.currentTarget)
-    // },
-    // handleEdit (index, row) {
-    //   console.log(index, row)
-    // },
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
         this.tableData.splice(index, 1)
@@ -139,18 +168,19 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '0')
+      this.$store.dispatch('updateStatusSubtract', '20')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        workAssessment: [
+        networking: [
           {
-            time: '', // 年度
-            assessment: '', // 考核情况
-            agency: '', // 发文机关
-            symbol: '', // 文号
-            desc: '', // 备注
+            relationship: '', // 本人关系
+            name: '',
+            politicsStatus: '', // 政治面貌
+            phone: '',
+            work: '',
+            idCard: '',
           },
         ],
       })
@@ -160,20 +190,24 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.time)
-          arr.push(item.assessment)
-          arr.push(item.agency)
+          arr.push(item.relationship)
+          arr.push(item.name)
+          arr.push(item.politicsStatus)
+          arr.push(item.phone)
+          arr.push(item.work)
+          arr.push(isIdentityCard(item.idCard))
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查年度、考核情况、发文机关是否有误',
+            message:
+              '请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '2')
+        this.$store.dispatch('updateStatus', '22')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '2')
+        this.$store.dispatch('updateStatus', '22')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -183,11 +217,12 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        time: '', // 年度
-        assessment: '', // 考核情况
-        agency: '', // 发文机关
-        symbol: '', // 文号
-        desc: '', // 备注
+        relationship: '', // 本人关系
+        name: '',
+        politicsStatus: '', // 政治面貌
+        phone: '',
+        work: '',
+        idCard: '',
       })
     },
   },

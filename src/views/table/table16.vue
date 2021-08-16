@@ -3,133 +3,132 @@
     <el-table
       :data="tableData"
       v-show="tableStatus !== '2'"
-      class="tb-edit"
       :border="!this.$attrs.hiddenOptions"
-      style="width: 100%"
+      class="tb-edit"
       highlight-current-row
+      style="width: 100%"
     >
       <el-table-column
-        prop="agency"
         label="操作"
+        prop="agency"
         v-if="!this.$attrs.hiddenOptions"
       >
         <template scope="scope">
           <i
-            style="color: #f56c6c"
-            class="el-icon-delete"
             @click="handleDelete(scope.$index, scope.row)"
+            class="el-icon-delete"
+            style="color: #f56c6c"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column label="称谓" prop="title" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.title" placeholder="请选择">
+          <el-select placeholder="请选择" v-model="scope.row.title">
             <el-option
-              v-for="item in $utils.familiesType"
               :key="item.key"
               :label="item.value"
               :value="item.key"
+              v-for="item in $utils.relationshipWithMyself"
             />
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.title | filterSelect($utils.familiesType)
+          scope.row.title | filterSelect($utils.relationshipWithMyself)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column label="姓名" prop="name" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
+            placeholder="请输入内容"
+            size="small"
             v-model.trim="scope.row.name"
-            size="small"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="统一社会信用代码" prop="creditCode" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
             placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.creditCode"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="市场主体名称" prop="marketSubject" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.marketSubject"
           />
         </template>
       </el-table-column>
       <el-table-column
-        prop="country"
+        label="经营范围(业务范围)"
+        prop="businessScope"
         :width="this.$attrs.hiddenOptions ? 80 : 180"
-        label="移居国家(地区)"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.country"
-            size="small"
             placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.businessScope"
           />
         </template>
       </el-table-column>
-      <el-table-column
-        prop="city"
-        label="现居住城市"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-      >
+      <el-table-column label="市场主体类型" prop="marketSubjectType" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.city"
-            size="small"
-            placeholder="请输入内容"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="card"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-        label="移居国家证件号码"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.card"
-            size="small"
-            placeholder="请输入内容"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="type" label="移居类别" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.type" placeholder="请选择">
+          <el-select placeholder="请选择" v-model="scope.row.marketSubjectType">
             <el-option
-              v-for="item in $utils.migrate"
               :key="item.key"
               :label="item.value"
               :value="item.key"
+              v-for="item in $utils.marketEntities"
             />
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.type | filterSelect($utils.migrate)
+          scope.row.marketSubjectType | filterSelect($utils.marketEntities)
         }}</template>
       </el-table-column>
-      <el-table-column
-        prop="time"
-        label="移居时间"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-      >
+      <el-table-column label="资金数额(出资额)(万元)" prop="money" :width="this.$attrs.hiddenOptions ? 80 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-date-picker
-            v-model.trim="scope.row.time"
-            style="width: 150px"
-            type="date"
-            value-format="timestamp"
-            placeholder="选择时间"
+          <el-input-number
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.money"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        label="个人出资额(万)"
+        prop="personalContribution"
+        :width="this.$attrs.hiddenOptions ? 80 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.desc"
+          <el-input-number
+            placeholder="请输入"
             size="small"
-            placeholder="请输入内容"
+            style="width: 100%"
+            v-model.trim="scope.row.personalContribution"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.fundedRatio"
           />
         </template>
       </el-table-column>
       <div
+        @click="handleAddLine"
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
-        @click="handleAddLine"
         v-if="!this.$attrs.hiddenOptions"
       >
         <i class="el-icon-circle-plus-outline" />
@@ -162,7 +161,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getChildMoved
+      return this.$store.getters.getPartnership
     },
   },
   methods: {
@@ -178,20 +177,22 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '8')
+      this.$store.dispatch('updateStatusSubtract', '12')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        childMoved: [
+        partnership: [
           {
             title: '', // 称谓
-            name: '', // 姓名
-            country: '', // 移居国家
-            city: '', // 居住城市
-            card: '', // 移居国家证件号码
-            time: '', // 移居时间
-            desc: '',
+            name: '',
+            creditCode:'', // 统一社会信用代码
+            marketSubject: '', // 市场主体
+            businessScope: '', // 经营范围
+            marketSubjectType: '', // 市场主体类型
+            money: '', // 资金数额
+            personalContribution: '', // 个人出资数额
+            fundedRatio: '', // 出资比例
           },
         ],
       })
@@ -203,22 +204,25 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.title)
           arr.push(item.name)
-          arr.push(item.country)
-          arr.push(item.city)
-          arr.push(item.card)
-          arr.push(item.time)
+          arr.push(item.creditCode)
+          arr.push(item.marketSubject)
+          arr.push(item.businessScope)
+          arr.push(item.marketSubjectType)
+          arr.push(item.money > 0)
+          arr.push(item.personalContribution > 0)
+          arr.push(item.fundedRatio > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查称谓、姓名、移居国家、居住城市、移居国家证件号码、移居时间是否有误',
+              '请检查称谓、姓名、统一社会信用代码、市场主体、经营范围、市场主体类型、资金数额、个人出资数额、出资比例是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '10')
+        this.$store.dispatch('updateStatus', '14')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '10')
+        this.$store.dispatch('updateStatus', '14')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -229,12 +233,14 @@ export default {
     handleAddLine() {
       this.tableData.push({
         title: '', // 称谓
-        name: '', // 姓名
-        country: '', // 移居国家
-        city: '', // 居住城市
-        card: '', // 移居国家证件号码
-        time: '', // 移居时间
-        desc: '',
+        name: '',
+        creditCode:'', // 统一社会信用代码
+        marketSubject: '', // 市场主体
+        businessScope: '', // 经营范围
+        marketSubjectType: '', // 市场主体类型
+        money: '', // 资金数额
+        personalContribution: '', // 个人出资数额
+        fundedRatio: '', // 出资比例
       })
     },
   },

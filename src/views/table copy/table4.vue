@@ -58,7 +58,7 @@
           scope.row.time | dateDay
         }}</template>
       </el-table-column>
-      <!-- <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.reasons"
@@ -66,7 +66,7 @@
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -140,12 +140,12 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.change)
           arr.push(item.time)
-          // arr.push(item.reasons)
+          arr.push(item.reasons)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查变化情况、变化时间是否有误',
+            message: '请检查变化情况、变化时间、变化原因是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '5')

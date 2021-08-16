@@ -10,8 +10,6 @@ v-show="tableStatus !== '2'"
     <el-table-column
       prop="agency"
       label="操作"
-      
-      
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <i
@@ -105,7 +103,6 @@ v-show="tableStatus !== '2'"
       style="cursor: pointer;line-height: 30px;text-align:center;"
       @click="handleAddLine"
       v-if="!this.$attrs.hiddenOptions"
-      
     >
       <i class="el-icon-circle-plus-outline" />
       添加一行

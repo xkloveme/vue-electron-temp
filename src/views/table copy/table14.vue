@@ -12,6 +12,7 @@
         prop="agency"
         label="操作"
         v-if="!this.$attrs.hiddenOptions"
+        
       >
         <template scope="scope">
           <i
@@ -22,28 +23,22 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="change"
-        label="变化情况"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        prop="brand"
+        label="品牌型号"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.change" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.marriage"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
+          <el-input
+            v-model.trim="scope.row.brand"
+            size="small"
+            placeholder="请输入内容"
+          />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.change | filterSelect($utils.marriage)
-        }}</template>
       </el-table-column>
       <el-table-column
         prop="time"
-        label="变化时间"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        label="购买时间"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
@@ -58,15 +53,43 @@
           scope.row.time | dateDay
         }}</template>
       </el-table-column>
-      <!-- <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column prop="price" label="价格(万元)" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            v-model.trim="scope.row.price"
+            size="small"
+            style="width: 100%"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="carNumber" label="车牌号码" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.reasons"
+            v-model.trim="scope.row.carNumber"
             size="small"
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
+      <el-table-column prop="color" label="颜色" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.color"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.desc"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -77,12 +100,7 @@
         添加一行
       </div>
     </el-table>
-    <el-row
-      type="flex"
-      style="margin: 30px"
-      justify="center"
-      v-if="!this.$attrs.hiddenOptions"
-    >
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -91,6 +109,7 @@
 </template>
 
 <script>
+import { isLicensePlate } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -103,7 +122,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getMarriage
+      return this.$store.getters.getCar
     },
   },
   methods: {
@@ -119,16 +138,19 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '3')
+      this.$store.dispatch('updateStatusSubtract', '13')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        marriage: [
+        car: [
           {
-            change: '', // 变化情况
-            time: '',
-            reasons: '',
+            brand: '', // 品牌
+            time: '', // 购买时间
+            price: '', // 价格
+            carNumber: '', // 车牌号
+            color: '',
+            desc: '', // 备注
           },
         ],
       })
@@ -138,20 +160,21 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.change)
+          arr.push(item.brand)
           arr.push(item.time)
-          // arr.push(item.reasons)
+          arr.push(item.price>0)
+          arr.push(isLicensePlate(item.carNumber))
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查变化情况、变化时间是否有误',
+            message: '请检查品牌、购买时间、价格、车牌号是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '15')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '15')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -161,9 +184,12 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        change: '', // 变化情况
-        time: '',
-        reasons: '',
+        brand: '', // 品牌
+        time: '', // 购买时间
+        price: '', // 价格
+        carNumber: '', // 车牌号
+        color: '',
+        desc: '', // 备注
       })
     },
   },

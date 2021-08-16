@@ -15,6 +15,10 @@ import $backend from '@/backend'
 import filter from './filter.js'
 const ipc = require('electron').ipcRenderer
 const { dialog } = require('electron').remote
+import pkg from './../package.json'
+const version = pkg.version
+import LicenseKeyboard from 'vue-license-keyboard';
+import 'vue-license-keyboard/lib/vue-license-keyboard.css';
 
 Vue.component('svg-icon', SvgIcon)
 Vue.prototype.$backend = $backend
@@ -22,10 +26,11 @@ Vue.prototype.$ipc = ipc
 Vue.prototype.$dialog = dialog
 Vue.prototype.$db = db
 Vue.prototype.$utils = utils
-Vue.prototype.$version = '1.3.0'
+Vue.prototype.$version = version
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'mini' })
 Vue.use(filter)
+Vue.use(LicenseKeyboard)
 // Navigation guard (interceptor) , executes code before each jump of the router
 // 导航守卫（拦截器），在router每次跳转前执行
 router.beforeEach((to, from, next) => {

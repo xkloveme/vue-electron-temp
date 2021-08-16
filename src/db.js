@@ -10,6 +10,8 @@ const db = {
   gender: '', // 性别
   idCard: '', // 身份证号
   workingStatus: '',
+  fullTimeEducation:"",//全日制学历
+  onTimeEducation:"",//在职学历
   nation: '', // 民族
   politicsStatus: '', // 政治面貌
   work: '', // 分管工作
@@ -29,6 +31,14 @@ const db = {
   householdRegistration: '', // 户籍地址
   currentResidence: '', // 现居住地
   personalResume: '', // 个人简历
+  resume:[{
+    time:[],
+    startTime:'',//开始时间
+    endTime:'',//结束时间
+    unitName:'',//单位
+    department: '', // 科室
+    job: ''// 职务
+  }], // 工作简历
   password: '',
   checkPassword: '',
   imageUrl: '', // 照片
@@ -37,7 +47,8 @@ const db = {
   // 本人、配偶、共同生活子女为所有权人或共有人的房屋出售情况
   houseSale: [{
     people: '', // 产权人
-    source: '', // 房产来源
+    whereabouts: '', // 房产来源
+    source: '', // 房产去向
     address: '', // 具体地址
     area: '', // 建筑面积
     propertyNature: '', // 产权性质
@@ -48,6 +59,7 @@ const db = {
   notRushEstate: [{
     people: '', // 产权人
     relationship: '', // 与本人关系
+    caseNo:'',    // 网签合同编号或网签备案号
     source: '', // 房产来源
     address: '', // 具体地址
     area: '', // 建筑面积
@@ -58,6 +70,7 @@ const db = {
   // 宅基地
   homestead: [{
     people: '', // 产权人
+    realEstateCertificate:'',//不动产权证
     // relationship: '', // 与本人关系
     source: '', // 房产来源
     address: '', // 具体地址
@@ -219,11 +232,12 @@ const db = {
     status: '', // 处理阶段
     result: '' // 处理结果
   }],
-  // 配偶子女房产情况
+  // 配偶子女房产情况----本人、配偶、子女的房产情况
   realEstate: [{
     people: '', // 产权人
     relationship: '', // 与本人关系
     source: '', // 房产来源
+    realEstateCertificate:'', // 不动产权证
     address: '', // 具体地址
     area: '', // 建筑面积
     propertyNature: '', // 产权性质
@@ -234,6 +248,7 @@ const db = {
   partnership: [{
     title: '', // 称谓
     name: '',
+    creditCode:'', // 统一社会信用代码
     marketSubject: '', // 市场主体
     businessScope: '', // 经营范围
     marketSubjectType: '', // 市场主体类型

@@ -22,28 +22,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="change"
-        label="变化情况"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.change" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.marriage"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.change | filterSelect($utils.marriage)
-        }}</template>
-      </el-table-column>
-      <el-table-column
         prop="time"
-        label="变化时间"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        label="时间"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
@@ -58,15 +39,46 @@
           scope.row.time | dateDay
         }}</template>
       </el-table-column>
-      <!-- <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column
+        prop="name"
+        label="名称"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.reasons"
+            v-model.trim="scope.row.name"
             size="small"
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
+      <el-table-column prop="organization" label="表彰机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.organization"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="symbol" label="文号"  :width="this.$attrs.hiddenOptions ? 150 : 180">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.symbol"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 150 : 180">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.desc"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -103,7 +115,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getMarriage
+      return this.$store.getters.getRecommendation
     },
   },
   methods: {
@@ -119,16 +131,18 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '3')
+      this.$store.dispatch('updateStatusSubtract', '1')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        marriage: [
+        recommendation: [
           {
-            change: '', // 变化情况
             time: '',
-            reasons: '',
+            name: '',
+            organization: '', // 表彰机关
+            symbol: '', // 文号
+            desc: '', // 备注
           },
         ],
       })
@@ -138,20 +152,20 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.change)
           arr.push(item.time)
-          // arr.push(item.reasons)
+          arr.push(item.name)
+          arr.push(item.organization)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查变化情况、变化时间是否有误',
+            message: '请检查时间、名称、表彰机关是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '3')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '3')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -161,9 +175,11 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        change: '', // 变化情况
         time: '',
-        reasons: '',
+        name: '',
+        organization: '', // 表彰机关
+        symbol: '', // 文号
+        desc: '', // 备注
       })
     },
   },

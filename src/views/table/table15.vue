@@ -1,25 +1,175 @@
 <template>
   <div>
-    <el-input
-      v-model.trim="other"
-      type="textarea"
-      :rows="20"
-      maxlength="1000"
-      show-word-limit
-      placeholder="请输入内容"
-    />
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-table :data="tableData"
+      v-show="tableStatus !== '2'"
+      :border="!this.$attrs.hiddenOptions"
+      class="tb-edit"
+      highlight-current-row
+      style="width: 100%">
+      <el-table-column label="操作"
+        prop="agency"
+        v-if="!this.$attrs.hiddenOptions">
+        <template scope="scope">
+          <i @click="handleDelete(scope.$index, scope.row)"
+            class="el-icon-delete"
+            style="color: #f56c6c" />
+        </template>
+      </el-table-column>
+      <el-table-column label="产权人姓名"
+        prop="people"
+        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-input placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.people" />
+        </template>
+      </el-table-column>
+      <!-- <el-table-column
+      prop="agency"
+      label="与本人关系"
+    >
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+        <el-select
+          v-model.trim="scope.row.relationship"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in $utils.relationshipWithMyself"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          />
+        </el-select>
+      </template>
+    </el-table-column>-->
+      <el-table-column label="房产来源"
+        prop="whereabouts"
+        :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-select clearable
+            placeholder="请选择"
+            v-model="scope.row.whereabouts">
+            <el-option :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.houseProperty" />
+          </el-select>
+        </template>
+        <template scope="scope"
+          v-else>{{
+          scope.row.whereabouts | filterSelect($utils.houseProperty)
+        }}</template>
+      </el-table-column>
+      <el-table-column label="房产去向"
+        prop="organization"
+        :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-select clearable
+            placeholder="请选择"
+            v-model="scope.row.source">
+            <el-option :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.houseProperty" />
+          </el-select>
+        </template>
+        <template scope="scope"
+          v-else>{{
+          scope.row.source | filterSelect($utils.houseProperty)
+        }}</template>
+      </el-table-column>
+      <el-table-column label="具体地址"
+        prop="address"
+        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-input placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.address" />
+        </template>
+      </el-table-column>
+      <el-table-column label="建筑面积(m²)"
+        prop="area"
+        :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-input-number placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.area" />
+        </template>
+      </el-table-column>
+      <el-table-column label="房产性质和功能类型"
+        prop="propertyNature"
+        :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-select clearable
+            placeholder="请选择"
+            style="width: 100%"
+            v-model.trim="scope.row.propertyNature">
+            <el-option :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.propertyRight" />
+          </el-select>
+        </template>
+        <template scope="scope"
+          v-else>{{
+          scope.row.propertyNature | filterSelect($utils.propertyRight)
+        }}</template>
+      </el-table-column>
+      <el-table-column label="交易时间"
+        prop="transactionTime"
+        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker placeholder="选择时间"
+            style="width: 150px"
+            type="month"
+            v-model.trim="scope.row.transactionTime"
+            value-format="timestamp" />
+        </template>
+        <template scope="scope"
+          v-else>{{
+          scope.row.transactionTime | dateMonth
+        }}</template>
+      </el-table-column>
+      <el-table-column label="交易价格(万元)"
+        prop="transactionPrice"
+        :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope"
+          v-if="!this.$attrs.hiddenOptions">
+          <el-input-number placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.transactionPrice" />
+        </template>
+      </el-table-column>
+      <div @click="handleAddLine"
+        slot="append"
+        style="cursor: pointer; line-height: 30px; text-align: center"
+        v-if="!this.$attrs.hiddenOptions">
+        <i class="el-icon-circle-plus-outline" />
+        添加一行
+      </div>
+    </el-table>
+    <el-row type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
-      <el-button @click="handleEmpty" type="primary">重置</el-button>
-      <el-button @click="handleGoNextPage">导出</el-button>
+      <el-button @click="handleEmpty"
+        type="primary">重置</el-button>
+      <el-button @click="handleGoNextPage">下一项</el-button>
     </el-row>
   </div>
-  <!-- <el-button @click="onSubmit" type="primary">提交</el-button> -->
 </template>
 
 <script>
-var JSZip = require('jszip')
-// const fs = require('fs')
 export default {
   props: {
     tableStatus: {
@@ -27,89 +177,89 @@ export default {
       default: '',
     },
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    form() {
-      return this.$store.getters.getUser
-    },
-    id() {
-      return (
-        this.$formatDay(new Date(), 'YYYYMMDDHHmmss') +
-        this.form.idCard.slice(-8)
-      )
-    },
-    other: {
-      get: function () {
-        return this.$store.getters.getOther
-      },
-      set: function (newValue) {
-        this.$store.dispatch('updateOther', newValue)
-      },
+    tableData () {
+      return this.$store.getters.getHouseSale
     },
   },
   methods: {
-    onSubmit() {
-      // this.$emit('onSubmit')
-      const self = this
-      // 初始化一个zip打包对象
-      var zip = new JSZip()
-      this.$store.dispatch('updateUid', this.id)
-      // 创建一个被用来打包的文件
-      zip.file('user.json', JSON.stringify(this.form))
-      if (this.form.password) {
-        zip.file('password', this.form.password)
+    handleDelete (index, row) {
+      if (this.tableData.length > 1) {
+        this.tableData.splice(index, 1)
+      } else {
+        this.$message({
+          type: 'info',
+          message: '已经是最后一个了,不能再删了',
+        })
       }
-      // 创建一个名为images的新的文件目录
-      // var img = zip.folder('images')
-      // 这个images文件目录中创建一个base64数据为imgData的图像，图像名是smile.gif
-      // img.file('smile.gif', imgData, { base64: true })
-      // 把打包内容异步转成blob二进制格式
-      zip.generateAsync({ type: 'blob' }).then(function (content) {
-        var filename = self.form.name + self.form.idCard + '.wt'
-        // 创建隐藏的可下载链接
-        var eleLink = document.createElement('a')
-        eleLink.download = filename
-        eleLink.style.display = 'none'
-        // 下载内容转变成blob地址
-        eleLink.href = URL.createObjectURL(content)
-        // 触发点击
-        document.body.appendChild(eleLink)
-        eleLink.click()
-        // 然后移除
-        document.body.removeChild(eleLink)
-      })
     },
     // 上一项
-    handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '21')
+    handleGoPrevPage () {
+      this.$store.dispatch('updateStatusSubtract', '14')
     },
     // 清空
-    handleEmpty() {
+    handleEmpty () {
       this.$store.dispatch('updateUser', {
-        other: '',
+        houseSale: [
+          {
+            people: '', // 产权人
+            whereabouts: '',//房产来源
+            source: '', // 房产去向
+            address: '', // 具体地址
+            area: '', // 建筑面积
+            propertyNature: '', // 产权性质
+            transactionTime: '', // 交易时间
+            transactionPrice: '', // 交易价格
+          },
+        ],
       })
     },
     // 下一项
-    handleGoNextPage() {
+    handleGoNextPage () {
       if (this.tableStatus === '1') {
-        if (!this.other) {
+        let arr = []
+        this.tableData.map((item) => {
+          arr.push(item.people)
+          arr.push(item.source)
+          arr.push(item.whereabouts)
+          arr.push(item.address)
+          arr.push(item.area > 0)
+          arr.push(item.propertyNature)
+          arr.push(item.transactionTime)
+          arr.push(item.transactionPrice > 0)
+        })
+        if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查填写内容是否有误',
+            message:
+              '请检查产权人、房产来源、房产去向、具体地址、建筑面积、产权性质、交易时间、交易价格是否有误',
           })
         }
-        this.onSubmit()
+        this.$store.dispatch('updateStatus', '16')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.onSubmit()
+        this.$store.dispatch('updateStatus', '16')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
           message: '请检查是否选择有无此类情况',
         })
       }
+    },
+    handleAddLine () {
+      this.tableData.push({
+        people: '', // 产权人
+        whereabouts: '',//房产来源
+        source: '', // 房产去向
+        address: '', // 具体地址
+        area: '', // 建筑面积
+        propertyNature: '', // 产权性质
+        transactionTime: '', // 交易时间
+        transactionPrice: '', // 交易价格
+      })
     },
   },
 }

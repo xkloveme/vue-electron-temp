@@ -841,15 +841,15 @@ export const relationshipWithMyself = [
   { key: "03", value: "儿子" },
   { key: "04", value: "女儿" },
 ];
-// 表12 房产来源（去向）
+// 表12 房产去向
 export const houseProperty = [
   { key: "01", value: "购买" },
   { key: "02", value: "继承" },
   { key: "03", value: "接受赠与" },
   { key: "04", value: "其他来源" },
-  { key: "05", value: "出售" },
-  { key: "06", value: "赠与他人" },
-  { key: "07", value: "其他去向" },
+  // { key: "05", value: "出售" },
+  // { key: "06", value: "赠与他人" },
+  // { key: "07", value: "其他去向" },
 ];
 // 表12 产权性质
 export const propertyRight = [

@@ -22,32 +22,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="change"
-        label="变化情况"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.change" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.marriage"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.change | filterSelect($utils.marriage)
-        }}</template>
-      </el-table-column>
-      <el-table-column
-        prop="time"
-        label="变化时间"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
+        prop="startTime"
+        label="起止日期(起)"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
-            v-model.trim="scope.row.time"
+            v-model.trim="scope.row.startTime"
             style="width: 150px"
             type="date"
             value-format="timestamp"
@@ -55,10 +36,37 @@
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.time | dateDay
+          scope.row.startTime | dateDay
         }}</template>
       </el-table-column>
-      <!-- <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
+      <el-table-column
+        prop="endTime"
+        label="起止日期(止)"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            v-model.trim="scope.row.endTime"
+            style="width: 150px"
+            type="date"
+            value-format="timestamp"
+            placeholder="选择时间"
+          />
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.endTime | dateDay
+        }}</template>
+      </el-table-column>
+      <el-table-column prop="country" label="所到国家(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.country"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="reasons" label="出国(境)事由" :width="this.$attrs.hiddenOptions ? 150 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.reasons"
@@ -66,7 +74,25 @@
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
+      <el-table-column prop="approvalAuthority" label="审批机构" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.approvalAuthority"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="agency" label="委托代办机构" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.agency"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -103,7 +129,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getMarriage
+      return this.$store.getters.getTravelAbroad
     },
   },
   methods: {
@@ -119,16 +145,19 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '3')
+      this.$store.dispatch('updateStatusSubtract', '5')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        marriage: [
+        travelAbroad: [
           {
-            change: '', // 变化情况
-            time: '',
-            reasons: '',
+            startTime: '',
+            endTime: '',
+            country: '',
+            reasons: '', // 出国事由
+            approvalAuthority: '', // 审批机构
+            agency: '', // 代办机构
           },
         ],
       })
@@ -138,20 +167,24 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.change)
-          arr.push(item.time)
-          // arr.push(item.reasons)
+          arr.push(item.startTime)
+          arr.push(item.endTime)
+          arr.push(item.country)
+          arr.push(item.reasons)
+          arr.push(item.approvalAuthority)
+          arr.push(item.agency)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查变化情况、变化时间是否有误',
+            message:
+              '请检查日期、所到国家、出境事由、审批机构、委托代办机构是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '7')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '5')
+        this.$store.dispatch('updateStatus', '7')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -161,9 +194,12 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        change: '', // 变化情况
-        time: '',
-        reasons: '',
+        startTime: '',
+        endTime: '',
+        country: '',
+        reasons: '', // 出国事由
+        approvalAuthority: '', // 审批机构
+        agency: '', // 代办机构
       })
     },
   },

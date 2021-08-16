@@ -2,18 +2,14 @@
   <div>
     <el-table
       :data="tableData"
-      v-show="tableStatus !== '2'"
       class="tb-edit"
+      v-show="tableStatus !== '2'"
       :border="!this.$attrs.hiddenOptions"
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        prop="agency"
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-      >
-        <template scope="scope">
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <i
             style="color: #f56c6c"
             class="el-icon-delete"
@@ -22,40 +18,46 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="年度"
         prop="time"
-        label="时间"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
             v-model.trim="scope.row.time"
             style="width: 150px"
-            type="date"
+            type="year"
             value-format="timestamp"
-            placeholder="选择时间"
+            placeholder="选择年"
           />
         </template>
         <template scope="scope" v-else>{{
-          scope.row.time | dateDay
+          scope.row.time | dateYear
         }}</template>
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="名称"
+        label="考核情况"
+        prop="assessment"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-select v-model="scope.row.assessment" placeholder="请选择">
+            <el-option
+              v-for="item in $utils.assessment"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            />
+          </el-select>
         </template>
+        <template scope="scope" v-else>{{
+          scope.row.assessment | filterSelect($utils.assessment)
+        }}</template>
       </el-table-column>
-      <el-table-column prop="organization" label="表彰机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
+      <!-- <el-table-column prop="agency" label="发文机关"  :width="this.$attrs.hiddenOptions ? 100 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.organization"
+            v-model.trim="scope.row.agency"
             size="small"
             placeholder="请输入内容"
           />
@@ -69,7 +71,7 @@
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column prop="desc" label="备注"  :width="this.$attrs.hiddenOptions ? 150 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -115,10 +117,16 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getRecommendation
+      return this.$store.getters.getWorkAssessment
     },
   },
   methods: {
+    // handleCurrentChange (row, event, column) {
+    //   console.log(row, event, column, event.currentTarget)
+    // },
+    // handleEdit (index, row) {
+    //   console.log(index, row)
+    // },
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
         this.tableData.splice(index, 1)
@@ -131,16 +139,16 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatus', '1')
+      this.$store.dispatch('updateStatusSubtract', '0')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        recommendation: [
+        workAssessment: [
           {
-            time: '',
-            name: '',
-            organization: '', // 表彰机关
+            time: '', // 年度
+            assessment: '', // 考核情况
+            agency: '', // 发文机关
             symbol: '', // 文号
             desc: '', // 备注
           },
@@ -153,19 +161,19 @@ export default {
         let arr = []
         this.tableData.map((item) => {
           arr.push(item.time)
-          arr.push(item.name)
-          arr.push(item.organization)
+          arr.push(item.assessment)
+          arr.push(item.agency)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查时间、名称、表彰机关是否有误',
+            message: '请检查年度、考核情况、发文机关是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '3')
+        this.$store.dispatch('updateStatus', '2')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '3')
+        this.$store.dispatch('updateStatus', '2')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -175,9 +183,9 @@ export default {
     },
     handleAddLine() {
       this.tableData.push({
-        time: '',
-        name: '',
-        organization: '', // 表彰机关
+        time: '', // 年度
+        assessment: '', // 考核情况
+        agency: '', // 发文机关
         symbol: '', // 文号
         desc: '', // 备注
       })
