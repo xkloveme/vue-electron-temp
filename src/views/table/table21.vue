@@ -68,6 +68,7 @@ export default {
       // 初始化一个zip打包对象
       var zip = new JSZip()
       this.$store.dispatch('updateUid', this.id)
+      this.$store.dispatch('updateVersion', this.$version)
       // 创建一个被用来打包的文件
       zip.file('user.json', JSON.stringify(this.form))
       if (this.form.password) {
