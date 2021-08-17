@@ -1,7 +1,7 @@
 {
   "name": "collection",
   "productName": "廉情信息报告表",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service electron:serve",
@@ -13,9 +13,9 @@
     "release": "vue-cli-service electron:build",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "patch": "npm version patch && git push origin master && git push origin --tags",
-    "minor": "npm version minor && git push origin master && git push origin --tags",
-    "major": "npm version major && git push origin master && git push origin --tags"
+    "patch": "npm version patch && git push root master && git push root --tags",
+    "minor": "npm version minor && git push root master && git push root --tags",
+    "major": "npm version major && git push root master && git push root --tags"
   },
   "main": "background.js",
   "keywords": [],
