@@ -9,6 +9,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "go": "vue-cli-service electron:serve",
+    "app": "vue-cli-service electron:build",
     "packapp": "vue-cli-service electron:build",
     "release": "vue-cli-service electron:build",
     "postinstall": "electron-builder install-app-deps",
