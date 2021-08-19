@@ -149,17 +149,21 @@ export default {
     tableData() {
       return this.$store.getters.getChildMarriageForeigners
     },
+    tableData2() {
+      return this.$store.getters.getChildMarriageTaiwan
+    },
   },
   methods: {
     handleDelete(index, row) {
-      if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
-      } else {
-        this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
-      }
+       this.tableData.splice(index, 1)
+      // if (this.tableData.length > 1) {
+      //   this.tableData.splice(index, 1)
+      // } else {
+      //   this.$message({
+      //     type: 'info',
+      //     message: '已经是最后一个了,不能再删了',
+      //   })
+      // }
     },
     // 上一项
     handleGoPrevPage() {
@@ -186,6 +190,15 @@ export default {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
+          arr.push(item.title)
+          arr.push(item.name)
+          arr.push(item.spouseName)
+          arr.push(item.spouseCountry)
+          arr.push(item.spouseWork)
+          arr.push(item.spouseDuty)
+          arr.push(item.time)
+        })
+         this.tableData2.map((item) => {
           arr.push(item.title)
           arr.push(item.name)
           arr.push(item.spouseName)

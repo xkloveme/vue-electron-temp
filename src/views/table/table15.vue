@@ -7,6 +7,7 @@
       highlight-current-row
       style="width: 100%">
       <el-table-column label="操作"
+      :width="50"
         prop="agency"
         v-if="!this.$attrs.hiddenOptions">
         <template scope="scope">
@@ -17,12 +18,25 @@
       </el-table-column>
       <el-table-column label="产权人姓名"
         prop="people"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 130">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
             size="small"
             v-model.trim="scope.row.people" />
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="realEstateCertificate"
+        label="不动产权证"
+        :width="this.$attrs.hiddenOptions ? 100 : 130"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.realEstateCertificate"
+            size="small"
+            placeholder="请输入内容"
+          />
         </template>
       </el-table-column>
       <!-- <el-table-column
@@ -73,17 +87,17 @@
             <el-option :key="item.key"
               :label="item.value"
               :value="item.key"
-              v-for="item in $utils.houseProperty" />
+              v-for="item in $utils.realEstate" />
           </el-select>
         </template>
         <template scope="scope"
           v-else>{{
-          scope.row.source | filterSelect($utils.houseProperty)
+          scope.row.source | filterSelect($utils.realEstate)
         }}</template>
       </el-table-column>
       <el-table-column label="具体地址"
         prop="address"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 130">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
@@ -93,7 +107,7 @@
       </el-table-column>
       <el-table-column label="建筑面积(m²)"
         prop="area"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
+        :width="this.$attrs.hiddenOptions ? 100 : 130">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"
@@ -124,7 +138,7 @@
       </el-table-column>
       <el-table-column label="交易时间"
         prop="transactionTime"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 170">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-date-picker placeholder="选择时间"
@@ -140,7 +154,7 @@
       </el-table-column>
       <el-table-column label="交易价格(万元)"
         prop="transactionPrice"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
+        :width="this.$attrs.hiddenOptions ? 100 : 135">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"
@@ -207,6 +221,7 @@ export default {
           {
             people: '', // 产权人
             whereabouts: '',//房产来源
+            realEstateCertificate:'',
             source: '', // 房产去向
             address: '', // 具体地址
             area: '', // 建筑面积
@@ -253,6 +268,7 @@ export default {
       this.tableData.push({
         people: '', // 产权人
         whereabouts: '',//房产来源
+        realEstateCertificate:'',
         source: '', // 房产去向
         address: '', // 具体地址
         area: '', // 建筑面积

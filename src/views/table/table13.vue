@@ -7,6 +7,7 @@
       style="width: 100%"
       highlight-current-row>
       <el-table-column prop="agency"
+      :width="50"
         label="操作"
         v-if="!this.$attrs.hiddenOptions">
         <template scope="scope">
@@ -17,7 +18,7 @@
       </el-table-column>
       <el-table-column prop="people"
         label="产权人姓名"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 150">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input v-model.trim="scope.row.people"
@@ -27,7 +28,7 @@
       </el-table-column>
       <el-table-column label="网签合同编号或网签备案号"
         prop="caseNo"
-        :width="this.$attrs.hiddenOptions ? 80 : 180">
+        :width="this.$attrs.hiddenOptions ? 80 : 150">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
@@ -84,7 +85,7 @@
       </el-table-column>
       <el-table-column prop="area"
         label="建筑面积(m²)"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
+        :width="this.$attrs.hiddenOptions ? 100 : 135">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number v-model.trim="scope.row.area"
@@ -131,7 +132,7 @@
       </el-table-column>
       <el-table-column prop="transactionPrice"
         label="交易价格(万元)"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
+        :width="this.$attrs.hiddenOptions ? 100 : 135">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number v-model.trim="scope.row.transactionPrice"

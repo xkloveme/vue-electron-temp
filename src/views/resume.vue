@@ -7,6 +7,7 @@
     <el-table-column prop="agency"
       label="操作">
       <template scope="scope"
+      :width="50"
         v-if="!this.$attrs.hiddenOptions">
         <i style="color: #f56c6c"
           class="el-icon-delete"
@@ -27,7 +28,6 @@
           start-placeholder="开始年月"
           end-placeholder="结束年月"
           value-format="timestamp"
-          :picker-options="pickerOptions"
           @change="changeValue">
         </el-date-picker>
       </template>
@@ -54,7 +54,7 @@
     </el-table-column>
     <el-table-column prop="job"
       label="职务"
-      :width="this.$attrs.hiddenOptions ? '' : 180">
+      :width="this.$attrs.hiddenOptions ? '' : null">
       <template scope="scope"
         v-if="!this.$attrs.hiddenOptions">
         <el-input v-model.trim="scope.row.job"
@@ -85,16 +85,16 @@ export default {
     },
     pickerOptions () {
       return {
-        shortcuts: [
-          {
-            text: '至今',
-            onClick (picker) {
-              const end = new Date()
-              let start = new Date(new Date().getFullYear(), 0)
-              picker.$emit('pick', [start, end])
-            },
-          },
-        ],
+        // shortcuts: [
+        //   {
+        //     text: '至今',
+        //     onClick (picker) {
+        //       const end = new Date()
+        //       let start = new Date(new Date().getFullYear(), 0)
+        //       picker.$emit('pick', [start, end])
+        //     },
+        //   },
+        // ],
       }
     },
   },

@@ -48,6 +48,7 @@ const db = {
   houseSale: [{
     people: '', // 产权人
     whereabouts: '', // 房产来源
+    realEstateCertificate: '', // 不动产权证号
     source: '', // 房产去向
     address: '', // 具体地址
     area: '', // 建筑面积

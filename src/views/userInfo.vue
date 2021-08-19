@@ -80,12 +80,38 @@
       <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="全日制学历">
-              <el-input v-model.trim="form.fullTimeEducation" />
+                <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width: 100%"
+                  v-model.trim="form.fullTimeEducation"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.education"
+                  />
+                </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="在职学历">
-              <el-input v-model.trim="form.onTimeEducation" />
+               <el-select
+                  clearable
+                  filterable
+                  placeholder="请选择"
+                  style="width: 100%"
+                  v-model.trim="form.onTimeEducation"
+                >
+                  <el-option
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                    v-for="item in $utils.education"
+                  />
+                </el-select>
             </el-form-item>
           </el-col>
         </el-row>

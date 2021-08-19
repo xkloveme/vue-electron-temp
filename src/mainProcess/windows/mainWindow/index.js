@@ -33,10 +33,10 @@ class MainWindow {
   createWindow () {
     if (!this.win) {
       this.win = new BrowserWindow({
-        width: 1300,
-        height: 800,
-        minWidth: 1200,
-        minHeight: 770,
+        width: 1400,
+        height: 900,
+        minWidth: 1300,
+        minHeight: 870,
         title: '廉情信息报告表',
         webPreferences: {
           // 设为false允许跨域

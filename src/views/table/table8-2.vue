@@ -150,14 +150,15 @@ export default {
   },
   methods: {
     handleDelete(index, row) {
-      if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
-      } else {
-        this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
-      }
+      this.tableData.splice(index, 1)
+      // if (this.tableData.length > 1) {
+        
+      // } else {
+      //   this.$message({
+      //     type: 'info',
+      //     message: '已经是最后一个了,不能再删了',
+      //   })
+      // }
     },
     // 上一项
     handleGoPrevPage() {

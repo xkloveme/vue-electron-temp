@@ -7,6 +7,7 @@
       highlight-current-row
       style="width: 100%">
       <el-table-column label="操作"
+      :width="50"
         prop="agency"
         v-if="!this.$attrs.hiddenOptions">
         <template scope="scope">
@@ -17,7 +18,7 @@
       </el-table-column>
       <el-table-column label="产权人"
         prop="people"
-        :width="this.$attrs.hiddenOptions ? 80 : 180">
+        :width="this.$attrs.hiddenOptions ? 80 : 100">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
@@ -27,7 +28,7 @@
       </el-table-column>
       <el-table-column label="不动产权证号"
         prop="realEstateCertificate"
-        :width="this.$attrs.hiddenOptions ? 80 : 180">
+        :width="this.$attrs.hiddenOptions ? 80 : 100">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
@@ -73,7 +74,7 @@
       </el-table-column>
       <el-table-column label="具体地址"
         prop="address"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 150">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input placeholder="请输入内容"
@@ -83,7 +84,7 @@
       </el-table-column>
       <el-table-column label="建筑面积(m²)"
         prop="area"
-        :width="this.$attrs.hiddenOptions ? 80 : null">
+        :width="this.$attrs.hiddenOptions ? 80 : 130">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"
@@ -128,7 +129,7 @@
       </el-table-column>
       <el-table-column label="交易价格(万)"
         prop="transactionPrice"
-        :width="this.$attrs.hiddenOptions ? 80 : null">
+        :width="this.$attrs.hiddenOptions ? 80 : 130">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"

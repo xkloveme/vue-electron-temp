@@ -234,14 +234,13 @@ export default {
           arr.push(item.address)
           arr.push(item.area > 0)
           arr.push(item.transactionTime)
-          arr.push(item.realEstateCertificate)
           arr.push(item.transactionPrice > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查产权人、不动产权证、房产来源、具体地址、建筑面积、交易时间、交易价格是否有误',
+              '请检查产权人、房产来源、具体地址、建筑面积、交易时间、交易价格是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '18')

@@ -162,12 +162,11 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.time)
           arr.push(item.assessment)
-          arr.push(item.agency)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查年度、考核情况、发文机关是否有误',
+            message: '请检查年度、考核情况是否有误',
           })
         }
         this.$store.dispatch('updateStatus', '2')

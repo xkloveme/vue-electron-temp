@@ -462,7 +462,7 @@
                 orphans: 0;
               ">
               <span style="font-family: DengXian">{{
-                form.fullTimeEducation
+                form.fullTimeEducation  | filterSelect($utils.education)
               }}</span>
             </p>
           </td>
@@ -496,7 +496,7 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">{{ form.onTimeEducation }}</span>
+              <span style="font-family: DengXian">{{ form.onTimeEducation  | filterSelect($utils.education) }}</span>
             </p>
           </td>
         </tr>

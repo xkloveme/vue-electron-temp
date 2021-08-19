@@ -24,6 +24,17 @@ export const position = [
   { key: "03", value: "非领导要职" },
 ];
 
+// 学历
+export const education = [
+  { key: "01", value: "小学" },
+  { key: "02", value: "初中" },
+  { key: "03", value: "高中" },
+  { key: "04", value: "专科" },
+  { key: "05", value: "本科" },
+  { key: "06", value: "硕士" },
+  { key: "07", value: "博士" }
+];
+
 // 人员来源
 export const personnelSource = [
   { key: "01", value: "公务员" },
@@ -841,7 +852,7 @@ export const relationshipWithMyself = [
   { key: "03", value: "儿子" },
   { key: "04", value: "女儿" },
 ];
-// 表12 房产去向
+// 表12 房产来源
 export const houseProperty = [
   { key: "01", value: "购买" },
   { key: "02", value: "继承" },
@@ -850,6 +861,16 @@ export const houseProperty = [
   // { key: "05", value: "出售" },
   // { key: "06", value: "赠与他人" },
   // { key: "07", value: "其他去向" },
+];
+// 表15 房产去向
+export const realEstate = [
+  // { key: "01", value: "购买" },
+  // { key: "02", value: "继承" },
+  // { key: "03", value: "接受赠与" },
+  // { key: "04", value: "其他来源" },
+  { key: "05", value: "出售" },
+  { key: "06", value: "赠与他人" },
+  { key: "07", value: "其他去向" },
 ];
 // 表12 产权性质
 export const propertyRight = [
