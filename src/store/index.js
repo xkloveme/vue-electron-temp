@@ -114,7 +114,7 @@ export default new Vuex.Store({
     },
     // 设置状态
     setStatus (state) {
-      if (Number(state.status) >= 21) {
+      if (Number(state.status) >= 22) {
       } else {
         state.status++
       }

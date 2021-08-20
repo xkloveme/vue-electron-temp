@@ -1,117 +1,154 @@
 <template>
   <div>
-    <el-table :data="tableData"
+    <el-table
+      :data="tableData"
       v-show="tableStatus !== '2'"
-      class="tb-edit"
       :border="!this.$attrs.hiddenOptions"
+      class="tb-edit"
+      highlight-current-row
       style="width: 100%"
-      highlight-current-row>
-      <el-table-column prop="agency"
+    >
+      <el-table-column
         label="操作"
-        v-if="!this.$attrs.hiddenOptions">
+        prop="agency"
+        v-if="!this.$attrs.hiddenOptions"
+      >
         <template scope="scope">
-          <i style="color: #f56c6c"
+          <i
+            @click="handleDelete(scope.$index, scope.row)"
             class="el-icon-delete"
-            @click="handleDelete(scope.$index, scope.row)" />
+            style="color: #f56c6c"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="brand"
-        label="品牌型号"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input v-model.trim="scope.row.brand"
-            size="small"
-            placeholder="请输入内容" />
+      <el-table-column label="称谓" prop="title" :width="this.$attrs.hiddenOptions ? 50 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select placeholder="请选择" v-model="scope.row.title">
+            <el-option
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.relationshipWithMyself"
+            />
+          </el-select>
         </template>
-      </el-table-column>
-      <el-table-column prop="time"
-        label="购买时间"
-        :width="this.$attrs.hiddenOptions ? 100 : 180">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-date-picker v-model.trim="scope.row.time"
-            style="width: 150px"
-            type="date"
-            value-format="timestamp"
-            placeholder="选择时间" />
-        </template>
-        <template scope="scope"
-          v-else>{{
-          scope.row.time | dateDay
+        <template scope="scope" v-else>{{
+          scope.row.title | filterSelect($utils.relationshipWithMyself)
         }}</template>
       </el-table-column>
-      <el-table-column prop="price"
-        label="价格(万元)"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input-number v-model.trim="scope.row.price"
+      <el-table-column label="姓名" prop="name" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.name"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="统一社会信用代码" prop="creditCode" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.creditCode"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="市场主体名称" prop="marketSubject" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.marketSubject"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="经营范围(业务范围)"
+        prop="businessScope"
+        :width="this.$attrs.hiddenOptions ? 80 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入内容"
+            size="small"
+            v-model.trim="scope.row.businessScope"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="市场主体类型" prop="marketSubjectType" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select placeholder="请选择" v-model="scope.row.marketSubjectType">
+            <el-option
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+              v-for="item in $utils.marketEntities"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.marketSubjectType | filterSelect($utils.marketEntities)
+        }}</template>
+      </el-table-column>
+      <el-table-column label="资金数额(出资额)(万元)" prop="money" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
             size="small"
             style="width: 100%"
-            placeholder="请输入内容" />
+            v-model.trim="scope.row.money"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="carNumber"
-        label="车牌号码"
-        :width="this.$attrs.hiddenOptions ? 100 : 250">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input v-model.trim="scope.row.carNumber"
+      <el-table-column
+        label="个人出资额(万)"
+        prop="personalContribution"
+        :width="this.$attrs.hiddenOptions ? 80 : null"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
             size="small"
-            type="text"
-            disabled
-            placeholder="请输入内容">
-            <template slot="prepend">
-              <LicenseKeyboard v-model="scope.row.carNumber"
-              keyBorderColor="#409eff"
-                title="点击" />
-            </template>
-          </el-input>
+            style="width: 100%"
+            v-model.trim="scope.row.personalContribution"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="color"
-        label="颜色"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input v-model.trim="scope.row.color"
+      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            placeholder="请输入"
             size="small"
-            placeholder="请输入内容" />
+            style="width: 100%"
+            v-model.trim="scope.row.fundedRatio"
+          />
         </template>
       </el-table-column>
-      <el-table-column prop="desc"
-        label="备注"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input v-model.trim="scope.row.desc"
-            size="small"
-            placeholder="请输入内容" />
-        </template>
-      </el-table-column>
-      <div slot="append"
-        style="cursor: pointer; line-height: 30px; text-align: center"
+      <div
         @click="handleAddLine"
-        v-if="!this.$attrs.hiddenOptions">
+        slot="append"
+        style="cursor: pointer; line-height: 30px; text-align: center"
+        v-if="!this.$attrs.hiddenOptions"
+      >
         <i class="el-icon-circle-plus-outline" />
         添加一行
       </div>
     </el-table>
-    <el-row type="flex"
+    <el-row
+      type="flex"
       style="margin: 30px"
       justify="center"
-      v-if="!this.$attrs.hiddenOptions">
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
-      <el-button @click="handleEmpty"
-        type="primary">重置</el-button>
+      <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
     </el-row>
   </div>
 </template>
 
 <script>
-import { isLicensePlate } from '../../common.js'
 export default {
   props: {
     tableStatus: {
@@ -119,16 +156,16 @@ export default {
       default: '',
     },
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
-    tableData () {
-      return this.$store.getters.getCar
+    tableData() {
+      return this.$store.getters.getPartnership
     },
   },
   methods: {
-    handleDelete (index, row) {
+    handleDelete(index, row) {
       if (this.tableData.length > 1) {
         this.tableData.splice(index, 1)
       } else {
@@ -139,44 +176,53 @@ export default {
       }
     },
     // 上一项
-    handleGoPrevPage () {
-      this.$store.dispatch('updateStatusSubtract', '13')
+    handleGoPrevPage() {
+      this.$store.dispatch('updateStatusSubtract', '12')
     },
     // 清空
-    handleEmpty () {
+    handleEmpty() {
       this.$store.dispatch('updateUser', {
-        car: [
+        partnership: [
           {
-            brand: '', // 品牌
-            time: '', // 购买时间
-            price: '', // 价格
-            carNumber: '', // 车牌号
-            color: '',
-            desc: '', // 备注
+            title: '', // 称谓
+            name: '',
+            creditCode:'', // 统一社会信用代码
+            marketSubject: '', // 市场主体
+            businessScope: '', // 经营范围
+            marketSubjectType: '', // 市场主体类型
+            money: '', // 资金数额
+            personalContribution: '', // 个人出资数额
+            fundedRatio: '', // 出资比例
           },
         ],
       })
     },
     // 下一项
-    handleGoNextPage () {
+    handleGoNextPage() {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
-          arr.push(item.brand)
-          arr.push(item.time)
-          arr.push(item.price > 0)
-          arr.push(isLicensePlate(item.carNumber))
+          arr.push(item.title)
+          arr.push(item.name)
+          arr.push(item.creditCode)
+          arr.push(item.marketSubject)
+          arr.push(item.businessScope)
+          arr.push(item.marketSubjectType)
+          arr.push(item.money > 0)
+          arr.push(item.personalContribution > 0)
+          arr.push(item.fundedRatio > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查品牌、购买时间、价格、车牌号是否有误',
+            message:
+              '请检查称谓、姓名、统一社会信用代码、市场主体、经营范围、市场主体类型、资金数额、个人出资数额、出资比例是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '15')
+        this.$store.dispatch('updateStatus', '14')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '15')
+        this.$store.dispatch('updateStatus', '14')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -184,14 +230,17 @@ export default {
         })
       }
     },
-    handleAddLine () {
+    handleAddLine() {
       this.tableData.push({
-        brand: '', // 品牌
-        time: '', // 购买时间
-        price: '', // 价格
-        carNumber: '', // 车牌号
-        color: '',
-        desc: '', // 备注
+        title: '', // 称谓
+        name: '',
+        creditCode:'', // 统一社会信用代码
+        marketSubject: '', // 市场主体
+        businessScope: '', // 经营范围
+        marketSubjectType: '', // 市场主体类型
+        money: '', // 资金数额
+        personalContribution: '', // 个人出资数额
+        fundedRatio: '', // 出资比例
       })
     },
   },

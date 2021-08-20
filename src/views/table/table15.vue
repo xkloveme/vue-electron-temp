@@ -1,35 +1,43 @@
 <template>
   <div>
-    <el-table :data="tableData"
+    <el-table
+      :data="tableData"
       v-show="tableStatus !== '2'"
-      :border="!this.$attrs.hiddenOptions"
       class="tb-edit"
+      :border="!this.$attrs.hiddenOptions"
+      style="width: 100%"
       highlight-current-row
-      style="width: 100%">
-      <el-table-column label="操作"
-      :width="50"
+    >
+      <el-table-column
         prop="agency"
-        v-if="!this.$attrs.hiddenOptions">
+        label="操作"
+        v-if="!this.$attrs.hiddenOptions"
+      >
         <template scope="scope">
-          <i @click="handleDelete(scope.$index, scope.row)"
+          <i
+            style="color: #f56c6c"
             class="el-icon-delete"
-            style="color: #f56c6c" />
-        </template>
-      </el-table-column>
-      <el-table-column label="产权人姓名"
-        prop="people"
-        :width="this.$attrs.hiddenOptions ? 100 : 130">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input placeholder="请输入内容"
-            size="small"
-            v-model.trim="scope.row.people" />
+            @click="handleDelete(scope.$index, scope.row)"
+          />
         </template>
       </el-table-column>
       <el-table-column
+        prop="people"
+        label="产权人姓名"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.people"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+       <el-table-column
         prop="realEstateCertificate"
         label="不动产权证"
-        :width="this.$attrs.hiddenOptions ? 100 : 130"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -56,128 +64,114 @@
           />
         </el-select>
       </template>
-    </el-table-column>-->
-      <el-table-column label="房产来源"
-        prop="whereabouts"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-select clearable
-            placeholder="请选择"
-            v-model="scope.row.whereabouts">
-            <el-option :key="item.key"
+    </el-table-column> -->
+      <el-table-column prop="source" label="房产来源(去向)" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select v-model="scope.row.source" clearable placeholder="请选择">
+            <el-option
+              v-for="item in $utils.houseProperty"
+              :key="item.key"
               :label="item.value"
               :value="item.key"
-              v-for="item in $utils.houseProperty" />
+            />
           </el-select>
         </template>
-        <template scope="scope"
-          v-else>{{
-          scope.row.whereabouts | filterSelect($utils.houseProperty)
+        <template scope="scope" v-else>{{
+          scope.row.source | filterSelect($utils.houseProperty)
         }}</template>
       </el-table-column>
-      <el-table-column label="房产去向"
-        prop="organization"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-select clearable
-            placeholder="请选择"
-            v-model="scope.row.source">
-            <el-option :key="item.key"
-              :label="item.value"
-              :value="item.key"
-              v-for="item in $utils.realEstate" />
-          </el-select>
-        </template>
-        <template scope="scope"
-          v-else>{{
-          scope.row.source | filterSelect($utils.realEstate)
-        }}</template>
-      </el-table-column>
-      <el-table-column label="具体地址"
+      <el-table-column
         prop="address"
-        :width="this.$attrs.hiddenOptions ? 100 : 130">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input placeholder="请输入内容"
+        label="具体地址"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.address"
             size="small"
-            v-model.trim="scope.row.address" />
+            placeholder="请输入内容"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="建筑面积(m²)"
-        prop="area"
-        :width="this.$attrs.hiddenOptions ? 100 : 130">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input-number placeholder="请输入"
+      <el-table-column prop="area" label="建筑面积(m²)" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            v-model.trim="scope.row.area"
+            style="width: 100%"
             size="small"
-            style="width: 100%"
-            v-model.trim="scope.row.area" />
+            placeholder="请输入内容"
+          />
         </template>
       </el-table-column>
-      <el-table-column label="房产性质和功能类型"
-        prop="propertyNature"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-select clearable
-            placeholder="请选择"
-            style="width: 100%"
-            v-model.trim="scope.row.propertyNature">
-            <el-option :key="item.key"
-              :label="item.value"
-              :value="item.key"
-              v-for="item in $utils.propertyRight" />
-          </el-select>
-        </template>
-        <template scope="scope"
-          v-else>{{
-          scope.row.propertyNature | filterSelect($utils.propertyRight)
-        }}</template>
-      </el-table-column>
-      <el-table-column label="交易时间"
+      <!-- <el-table-column
+      prop="agency"
+      label="产权性质"
+    >
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+        <el-select
+          v-model.trim="scope.row.propertyNature"
+          clearable
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="item in $utils.propertyRight"
+            :key="item.key"
+            :label="item.value"
+            :value="item.key"
+          />
+        </el-select>
+      </template>
+    </el-table-column> -->
+      <el-table-column
         prop="transactionTime"
-        :width="this.$attrs.hiddenOptions ? 100 : 170">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-date-picker placeholder="选择时间"
+        label="交易时间"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            v-model.trim="scope.row.transactionTime"
             style="width: 150px"
             type="month"
-            v-model.trim="scope.row.transactionTime"
-            value-format="timestamp" />
+            value-format="timestamp"
+            placeholder="选择时间"
+          />
         </template>
-        <template scope="scope"
-          v-else>{{
+        <template scope="scope" v-else>{{
           scope.row.transactionTime | dateMonth
         }}</template>
       </el-table-column>
-      <el-table-column label="交易价格(万元)"
+      <el-table-column
         prop="transactionPrice"
-        :width="this.$attrs.hiddenOptions ? 100 : 135">
-        <template scope="scope"
-          v-if="!this.$attrs.hiddenOptions">
-          <el-input-number placeholder="请输入"
+        label="交易价格(万元)"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input-number
+            v-model.trim="scope.row.transactionPrice"
             size="small"
             style="width: 100%"
-            v-model.trim="scope.row.transactionPrice" />
+            placeholder="请输入内容"
+          />
         </template>
       </el-table-column>
-      <div @click="handleAddLine"
+      <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
-        v-if="!this.$attrs.hiddenOptions">
+        @click="handleAddLine"
+        v-if="!this.$attrs.hiddenOptions"
+      >
         <i class="el-icon-circle-plus-outline" />
         添加一行
       </div>
     </el-table>
-    <el-row type="flex"
+    <el-row
+      type="flex"
       style="margin: 30px"
       justify="center"
-      v-if="!this.$attrs.hiddenOptions">
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
-      <el-button @click="handleEmpty"
-        type="primary">重置</el-button>
+      <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
     </el-row>
   </div>
@@ -191,16 +185,16 @@ export default {
       default: '',
     },
   },
-  data () {
+  data() {
     return {}
   },
   computed: {
-    tableData () {
-      return this.$store.getters.getHouseSale
+    tableData() {
+      return this.$store.getters.getHomestead
     },
   },
   methods: {
-    handleDelete (index, row) {
+    handleDelete(index, row) {
       if (this.tableData.length > 1) {
         this.tableData.splice(index, 1)
       } else {
@@ -211,21 +205,19 @@ export default {
       }
     },
     // 上一项
-    handleGoPrevPage () {
-      this.$store.dispatch('updateStatusSubtract', '14')
+    handleGoPrevPage() {
+      this.$store.dispatch('updateStatusSubtract', '16')
     },
     // 清空
-    handleEmpty () {
+    handleEmpty() {
       this.$store.dispatch('updateUser', {
-        houseSale: [
+        homestead: [
           {
             people: '', // 产权人
-            whereabouts: '',//房产来源
-            realEstateCertificate:'',
-            source: '', // 房产去向
+            source: '', // 房产来源
+            realEstateCertificate:'',//不动产权证
             address: '', // 具体地址
             area: '', // 建筑面积
-            propertyNature: '', // 产权性质
             transactionTime: '', // 交易时间
             transactionPrice: '', // 交易价格
           },
@@ -233,16 +225,14 @@ export default {
       })
     },
     // 下一项
-    handleGoNextPage () {
+    handleGoNextPage() {
       if (this.tableStatus === '1') {
         let arr = []
         this.tableData.map((item) => {
           arr.push(item.people)
           arr.push(item.source)
-          arr.push(item.whereabouts)
           arr.push(item.address)
           arr.push(item.area > 0)
-          arr.push(item.propertyNature)
           arr.push(item.transactionTime)
           arr.push(item.transactionPrice > 0)
         })
@@ -250,13 +240,13 @@ export default {
           return this.$message({
             type: 'error',
             message:
-              '请检查产权人、房产来源、房产去向、具体地址、建筑面积、产权性质、交易时间、交易价格是否有误',
+              '请检查产权人、房产来源、具体地址、建筑面积、交易时间、交易价格是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '16')
+        this.$store.dispatch('updateStatus', '18')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '16')
+        this.$store.dispatch('updateStatus', '18')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -264,15 +254,13 @@ export default {
         })
       }
     },
-    handleAddLine () {
+    handleAddLine() {
       this.tableData.push({
         people: '', // 产权人
-        whereabouts: '',//房产来源
-        realEstateCertificate:'',
-        source: '', // 房产去向
+        source: '', // 房产来源
+        realEstateCertificate:'',//不动产权证
         address: '', // 具体地址
         area: '', // 建筑面积
-        propertyNature: '', // 产权性质
         transactionTime: '', // 交易时间
         transactionPrice: '', // 交易价格
       })

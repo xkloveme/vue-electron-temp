@@ -33,51 +33,47 @@
             placeholder="请输入内容"
           />
         </template>
-        <template scope="scope" v-else>
+         <template scope="scope" v-else>
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="futuresName"
-        label="期货名称或代码"
-        :width="this.$attrs.hiddenOptions ? 200 : 180"
-      >
+      <el-table-column prop="fundName" label="基金名称或代码" :width="this.$attrs.hiddenOptions ? 200 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.futuresName"
+            v-model.trim="scope.row.fundName"
             size="small"
             placeholder="请输入内容"
           />
         </template>
-        <template scope="scope" v-else>
-          <span>{{ scope.row.futuresName }}</span>
+         <template scope="scope" v-else>
+          <span >{{ scope.row.fundName }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        prop="futuresNumber"
-        label="份额"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
+        prop="fundNumber"
+        label="基金份额"
+        :width="this.$attrs.hiddenOptions ? 200 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model.trim="scope.row.futuresNumber"
+            v-model.trim="scope.row.fundNumber"
             size="small"
             style="width: 100%"
             placeholder="请输入内容"
           />
         </template>
-        <template scope="scope" v-else>
-          <span>{{ scope.row.futuresNumber }}</span>
+         <template scope="scope" v-else>
+          <span >{{ scope.row.fundNumber }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        prop="futuresMarketValue"
+        prop="fundMarketValue"
         label="填报前一交易日净值（万元）"
         :width="this.$attrs.hiddenOptions ? 200 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
-            v-model.trim="scope.row.futuresMarketValue"
+            v-model.trim="scope.row.fundMarketValue"
             @change="inputChange"
             size="small"
             style="width: 100%"
@@ -85,10 +81,13 @@
           />
         </template>
         <template scope="scope" v-else>
-          <span>{{ scope.row.futuresMarketValue }}</span>
+        <span >{{scope.row.fundMarketValue}}</span>
         </template>
       </el-table-column>
-      <div slot="append" style="cursor: pointer; line-height: 30px">
+      <div
+        slot="append"
+        style="cursor: pointer; line-height: 30px"
+      >
         <div
           style="
             text-align: right;
@@ -96,16 +95,16 @@
             padding: 5px;
           "
         >
-          填报前一交易日所有期货的总净值（万元）
+          填报前一交易日所有基金的总净值（万元）
           <el-input-number
             v-model.trim="allMarketValue"
-            @change="inputChange"
+            v-if="!this.$attrs.hiddenOptions"
             size="small"
+            @change="inputChange"
             style="width: 400px"
             placeholder="请输入内容"
-            v-if="!this.$attrs.hiddenOptions"
           />
-          <span v-else>{{ allMarketValue }}</span>
+           <span v-else>{{allMarketValue}}</span>
         </div>
         <div
           style="text-align: center"
@@ -143,14 +142,14 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getFutures.list
+      return this.$store.getters.getFund.list
     },
     allMarketValue: {
       get: function () {
-        return this.$store.getters.getFutures.allMarketValue
+        return this.$store.getters.getFund.allMarketValue
       },
       set: function (newValue) {
-        this.$store.dispatch('updateFuturesAllMarketValue', newValue)
+        this.$store.dispatch('updateFundAllMarketValue', newValue)
       },
     },
   },
@@ -180,19 +179,19 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '19')
+      this.$store.dispatch('updateStatusSubtract', '18')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        futures: {
+        fund: {
           allMarketValue: '', // 总市值
           list: [
             {
               name: '',
-              futuresName: '', // 期货名称
-              futuresNumber: '', // 期货数量
-              futuresMarketValue: '', // 期货市值
+              fundName: '', // 基金名称
+              fundNumber: '', // 基金数量
+              fundMarketValue: '', // 基金市值
             },
           ],
         },
@@ -204,20 +203,20 @@ export default {
         let arr = []
         this.tableData.map((item) => {
           arr.push(item.name)
-          arr.push(item.futuresName)
-          arr.push(item.futuresNumber > 0)
-          arr.push(item.futuresMarketValue > 0)
+          arr.push(item.fundName)
+          arr.push(item.fundNumber > 0)
+          arr.push(item.fundMarketValue > 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
-            message: '请检查持有人姓名、期货名称、期货数量、期货市值是否有误',
+            message: '请检查持有人姓名、基金名称、基金数量、基金市值是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '21')
+        this.$store.dispatch('updateStatus', '20')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '21')
+        this.$store.dispatch('updateStatus', '20')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -228,9 +227,9 @@ export default {
     handleAddLine() {
       this.tableData.push({
         name: '',
-        futuresName: '', // 期货名称
-        futuresNumber: '', // 期货数量
-        futuresMarketValue: '', // 期货市值
+        fundName: '', // 基金名称
+        fundNumber: '', // 基金数量
+        fundMarketValue: '', // 基金市值
       })
     },
   },

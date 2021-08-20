@@ -1,8 +1,8 @@
 <template>
   <div>
-     <p>
+     <!-- <p>
 8.1、子女与外国人、无国籍人通婚的情况
-      </p>
+      </p> -->
     <el-table
       :data="tableData"
       v-show="tableStatus !== '2'"
@@ -123,7 +123,7 @@
         添加一行
       </div>
     </el-table>
-    <table82 :tableStatus="tableStatus" v-bind="$attrs"/>
+    <!-- <table82 :tableStatus="tableStatus" v-bind="$attrs"/> -->
     <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import table82 from './table8-2.vue'
+// import table82 from './table8-2.vue'
 export default {
   props: {
     tableStatus: {
@@ -141,7 +141,7 @@ export default {
       default: '',
     },
   },
-  components:{table82},
+  // components:{table82},
   data() {
     return {}
   },

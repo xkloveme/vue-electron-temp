@@ -25,7 +25,7 @@
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
-              v-for="item in $utils.familiesType10"
+              v-for="item in $utils.familiesType"
               :key="item.key"
               :label="item.value"
               :value="item.key"
@@ -33,7 +33,7 @@
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.title | filterSelect($utils.familiesType10)
+          scope.row.title | filterSelect($utils.familiesType)
         }}</template>
       </el-table-column>
       <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
@@ -45,74 +45,37 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="isLife" label="是否共同生活" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="country"
+        :width="this.$attrs.hiddenOptions ? 80 : 180"
+        label="移居国家(地区)"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.isLife" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.livingTogether"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
+          <el-input
+            v-model.trim="scope.row.country"
+            size="small"
+            placeholder="请输入内容"
+          />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.isLife | filterSelect($utils.livingTogether)
-        }}</template>
       </el-table-column>
       <el-table-column
-        prop="work"
-        label="工作、学习单位"
+        prop="city"
+        label="现居住城市"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.work"
+            v-model.trim="scope.row.city"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="duty" label="现任职务" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.duty"
-            size="small"
-            placeholder="请输入内容"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="unitNature" label="单位性质" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.unitNature" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.unitProperties"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.unitNature | filterSelect($utils.unitProperties)
-        }}</template>
-      </el-table-column>
-      <!-- <el-table-column prop="cardName" label="证件名称" :width="this.$attrs.hiddenOptions ? 80 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.cardName" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.identification10"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.cardName | filterSelect($utils.identification10)
-        }}</template>
-      </el-table-column>
-      <el-table-column prop="card" label="证件号码" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="card"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+        label="移居国家证件号码"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.card"
@@ -120,7 +83,49 @@
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
+      <el-table-column prop="type" label="移居类别" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select v-model="scope.row.type" placeholder="请选择">
+            <el-option
+              v-for="item in $utils.migrate"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.type | filterSelect($utils.migrate)
+        }}</template>
+      </el-table-column>
+      <el-table-column
+        prop="time"
+        label="移居时间"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            v-model.trim="scope.row.time"
+            style="width: 150px"
+            type="date"
+            value-format="timestamp"
+            placeholder="选择时间"
+          />
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.time | dateDay
+        }}</template>
+      </el-table-column>
+      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.desc"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -145,7 +150,6 @@
 </template>
 
 <script>
-import { isIdentityCard } from '@/common.js'
 export default {
   props: {
     tableStatus: {
@@ -158,7 +162,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getPractice
+      return this.$store.getters.getChildMoved
     },
   },
   methods: {
@@ -174,21 +178,20 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '9')
+      this.$store.dispatch('updateStatusSubtract', '8')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        practice: [
+        childMoved: [
           {
             title: '', // 称谓
             name: '', // 姓名
-            isLife: '', // 是否共同生活
-            work: '', // 工作单位
-            duty: '', // 现在职务
-            unitNature: '', // 单位性质
-            cardName: '', // 证件名称
-            card: '', // 证件号码
+            country: '', // 移居国家
+            city: '', // 居住城市
+            card: '', // 移居国家证件号码
+            time: '', // 移居时间
+            desc: '',
           },
         ],
       })
@@ -200,28 +203,22 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.title)
           arr.push(item.name)
-          arr.push(item.isLife)
-          arr.push(item.work)
-          arr.push(item.duty)
-          arr.push(item.unitNature)
-          // arr.push(item.cardName)
-          // if (item.cardName === '01') {
-          //   arr.push(isIdentityCard(item.card))
-          // } else {
-          //   arr.push(item.card)
-          // }
+          arr.push(item.country)
+          arr.push(item.city)
+          arr.push(item.card)
+          arr.push(item.time)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查称谓、姓名、是否共同生活、工作单位、现在职务、单位性质是否有误',
+              '请检查称谓、姓名、移居国家、居住城市、移居国家证件号码、移居时间是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '11')
+        this.$store.dispatch('updateStatus', '10')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '11')
+        this.$store.dispatch('updateStatus', '10')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -233,12 +230,11 @@ export default {
       this.tableData.push({
         title: '', // 称谓
         name: '', // 姓名
-        isLife: '', // 是否共同生活
-        work: '', // 工作单位
-        duty: '', // 现在职务
-        unitNature: '', // 单位性质
-        cardName: '', // 证件名称
-        card: '', // 证件号码
+        country: '', // 移居国家
+        city: '', // 居住城市
+        card: '', // 移居国家证件号码
+        time: '', // 移居时间
+        desc: '',
       })
     },
   },

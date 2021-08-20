@@ -21,11 +21,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="familiesType" label="称谓" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
-              v-for="item in $utils.familiesType"
+              v-for="item in $utils.familiesType10"
               :key="item.key"
               :label="item.value"
               :value="item.key"
@@ -33,10 +33,10 @@
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.title | filterSelect($utils.familiesType)
+          scope.row.title | filterSelect($utils.familiesType10)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.name"
@@ -45,42 +45,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column
-        prop="time"
-        label="被追究时间"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-      >
+      <el-table-column prop="isLife" label="是否共同生活" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-date-picker
-            v-model.trim="scope.row.time"
-            style="width: 150px"
-            type="date"
-            value-format="timestamp"
-            placeholder="选择时间"
-          />
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
-      </el-table-column>
-      <el-table-column
-        prop="reasons"
-        label="被追究刑事责任原因"
-        :width="this.$attrs.hiddenOptions ? 150 : 180"
-      >
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.reasons"
-            size="small"
-            placeholder="请输入内容"
-          />
-        </template>
-      </el-table-column>
-      <!-- <el-table-column prop="status" label="处理阶段" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.status" placeholder="请选择">
+          <el-select v-model="scope.row.isLife" placeholder="请选择">
             <el-option
-              v-for="item in $utils.punishStage"
+              v-for="item in $utils.livingTogether"
               :key="item.key"
               :label="item.value"
               :value="item.key"
@@ -88,18 +57,70 @@
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.status | filterSelect($utils.punishStage)
+          scope.row.isLife | filterSelect($utils.livingTogether)
         }}</template>
-      </el-table-column> -->
-      <el-table-column prop="result" label="处理结果" :width="this.$attrs.hiddenOptions ? 100 : null">
+      </el-table-column>
+      <el-table-column
+        prop="work"
+        label="工作、学习单位"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.result"
+            v-model.trim="scope.row.work"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
+      <el-table-column prop="duty" label="现任职务" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.duty"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="unitNature" label="单位性质" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select v-model="scope.row.unitNature" placeholder="请选择">
+            <el-option
+              v-for="item in $utils.unitProperties"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.unitNature | filterSelect($utils.unitProperties)
+        }}</template>
+      </el-table-column>
+      <!-- <el-table-column prop="cardName" label="证件名称" :width="this.$attrs.hiddenOptions ? 80 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select v-model="scope.row.cardName" placeholder="请选择">
+            <el-option
+              v-for="item in $utils.identification10"
+              :key="item.key"
+              :label="item.value"
+              :value="item.key"
+            />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{
+          scope.row.cardName | filterSelect($utils.identification10)
+        }}</template>
+      </el-table-column>
+      <el-table-column prop="card" label="证件号码" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.card"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column> -->
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -124,6 +145,7 @@
 </template>
 
 <script>
+import { isIdentityCard } from '@/common.js'
 export default {
   props: {
     tableStatus: {
@@ -136,7 +158,7 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getCriminal
+      return this.$store.getters.getPractice
     },
   },
   methods: {
@@ -152,19 +174,21 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '10')
+      this.$store.dispatch('updateStatusSubtract', '9')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        criminal: [
+        practice: [
           {
             title: '', // 称谓
             name: '', // 姓名
-            time: '', // 被追究时间
-            reasons: '', // 被追究责任原因
-            status: '', // 处理阶段
-            result: '', // 处理结果
+            isLife: '', // 是否共同生活
+            work: '', // 工作单位
+            duty: '', // 现在职务
+            unitNature: '', // 单位性质
+            cardName: '', // 证件名称
+            card: '', // 证件号码
           },
         ],
       })
@@ -176,21 +200,28 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.title)
           arr.push(item.name)
-          arr.push(item.time)
-          arr.push(item.reasons)
-          arr.push(item.result)
+          arr.push(item.isLife)
+          arr.push(item.work)
+          arr.push(item.duty)
+          arr.push(item.unitNature)
+          // arr.push(item.cardName)
+          // if (item.cardName === '01') {
+          //   arr.push(isIdentityCard(item.card))
+          // } else {
+          //   arr.push(item.card)
+          // }
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查称谓、姓名、被追究时间、被追究责任原因、处理结果是否有误',
+              '请检查称谓、姓名、是否共同生活、工作单位、现在职务、单位性质是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '12')
+        this.$store.dispatch('updateStatus', '11')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '12')
+        this.$store.dispatch('updateStatus', '11')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -202,10 +233,12 @@ export default {
       this.tableData.push({
         title: '', // 称谓
         name: '', // 姓名
-        time: '', // 被追究时间
-        reasons: '', // 被追究责任原因
-        status: '', // 处理阶段
-        result: '', // 处理结果
+        isLife: '', // 是否共同生活
+        work: '', // 工作单位
+        duty: '', // 现在职务
+        unitNature: '', // 单位性质
+        cardName: '', // 证件名称
+        card: '', // 证件号码
       })
     },
   },

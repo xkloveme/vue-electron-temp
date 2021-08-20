@@ -1,5 +1,8 @@
 <template>
   <div>
+       <!-- <p>
+8.2、子女与港澳及台湾居民通婚的情况
+      </p> -->
     <el-table
       :data="tableData"
       v-show="tableStatus !== '2'"
@@ -21,11 +24,15 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column
+        prop="title"
+        label="称谓"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
-              v-for="item in $utils.familiesType"
+              v-for="item in $utils.childrenType"
               :key="item.key"
               :label="item.value"
               :value="item.key"
@@ -33,10 +40,14 @@
           </el-select>
         </template>
         <template scope="scope" v-else>{{
-          scope.row.title | filterSelect($utils.familiesType)
+          scope.row.title | filterSelect($utils.childrenType)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column
+        prop="name"
+        label="姓名"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.name"
@@ -45,63 +56,49 @@
           />
         </template>
       </el-table-column>
-      <el-table-column
-        prop="country"
-        :width="this.$attrs.hiddenOptions ? 80 : 180"
-        label="移居国家(地区)"
-      >
+      <el-table-column prop="spouseName" label="配偶姓名" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.country"
+            v-model.trim="scope.row.spouseName"
+            size="small"
+            placeholder="请输入内容"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="spouseCountry" label="配偶地区" :width="this.$attrs.hiddenOptions ? 100 : null">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            v-model.trim="scope.row.spouseCountry"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
       <el-table-column
-        prop="city"
-        label="现居住城市"
+        prop="spouseWork"
+        label="配偶工作(学习)单位"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.city"
+            v-model.trim="scope.row.spouseWork"
             size="small"
             placeholder="请输入内容"
           />
         </template>
       </el-table-column>
-      <el-table-column
-        prop="card"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
-        label="移居国家证件号码"
-      >
+      <el-table-column prop="spouseDuty" label="配偶职务" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.card"
+            v-model.trim="scope.row.spouseDuty"
             size="small"
             placeholder="请输入内容"
           />
         </template>
-      </el-table-column>
-      <el-table-column prop="type" label="移居类别" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.type" placeholder="请选择">
-            <el-option
-              v-for="item in $utils.migrate"
-              :key="item.key"
-              :label="item.value"
-              :value="item.key"
-            />
-          </el-select>
-        </template>
-        <template scope="scope" v-else>{{
-          scope.row.type | filterSelect($utils.migrate)
-        }}</template>
       </el-table-column>
       <el-table-column
         prop="time"
-        label="移居时间"
+        label="登记时间"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -117,15 +114,6 @@
           scope.row.time | dateDay
         }}</template>
       </el-table-column>
-      <el-table-column prop="desc" label="备注" :width="this.$attrs.hiddenOptions ? 100 : null">
-        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.desc"
-            size="small"
-            placeholder="请输入内容"
-          />
-        </template>
-      </el-table-column>
       <div
         slot="append"
         style="cursor: pointer; line-height: 30px; text-align: center"
@@ -136,12 +124,7 @@
         添加一行
       </div>
     </el-table>
-    <el-row
-      type="flex"
-      style="margin: 30px"
-      justify="center"
-      v-if="!this.$attrs.hiddenOptions"
-    >
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -162,13 +145,14 @@ export default {
   },
   computed: {
     tableData() {
-      return this.$store.getters.getChildMoved
+      return this.$store.getters.getChildMarriageTaiwan
     },
   },
   methods: {
     handleDelete(index, row) {
-      if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+    
+       if (this.tableData.length > 1) {
+          this.tableData.splice(index, 1)
       } else {
         this.$message({
           type: 'info',
@@ -178,20 +162,20 @@ export default {
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '8')
+      this.$store.dispatch('updateStatusSubtract', '7')
     },
     // 清空
     handleEmpty() {
       this.$store.dispatch('updateUser', {
-        childMoved: [
+        childMarriageTaiwan: [
           {
             title: '', // 称谓
             name: '', // 姓名
-            country: '', // 移居国家
-            city: '', // 居住城市
-            card: '', // 移居国家证件号码
-            time: '', // 移居时间
-            desc: '',
+            spouseName: '', // 配偶姓名
+            spouseCountry: '', // 配偶姓名国籍
+            spouseWork: '', // 配偶单位
+            spouseDuty: '', // 配偶职位
+            time: '', // 登记时间
           },
         ],
       })
@@ -203,22 +187,23 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.title)
           arr.push(item.name)
-          arr.push(item.country)
-          arr.push(item.city)
-          arr.push(item.card)
+          arr.push(item.spouseName)
+          arr.push(item.spouseCountry)
+          arr.push(item.spouseWork)
+          arr.push(item.spouseDuty)
           arr.push(item.time)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
             type: 'error',
             message:
-              '请检查称谓、姓名、移居国家、居住城市、移居国家证件号码、移居时间是否有误',
+              '请检查称谓、姓名、配偶姓名、配偶国籍、配偶单位、配偶职务、登记时间是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '10')
+        this.$store.dispatch('updateStatus', '9')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '10')
+        this.$store.dispatch('updateStatus', '9')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',
@@ -230,11 +215,11 @@ export default {
       this.tableData.push({
         title: '', // 称谓
         name: '', // 姓名
-        country: '', // 移居国家
-        city: '', // 居住城市
-        card: '', // 移居国家证件号码
-        time: '', // 移居时间
-        desc: '',
+        spouseName: '', // 配偶姓名
+        spouseCountry: '', // 配偶姓名国籍
+        spouseWork: '', // 配偶单位
+        spouseDuty: '', // 配偶职位
+        time: '', // 登记时间
       })
     },
   },
