@@ -45,15 +45,11 @@ jobs:
         if: matrix.os == 'windows-2019'
         run: |
           npm run packapp
-        env:
-          GH_TOKEN: 9d02d9ac710cecc6b8439839c7d602415672290e
 
       - name: build mac app
         if: matrix.os == 'macos-10.15'
         run: |
           npm run packapp
-        env:
-          GH_TOKEN: 9d02d9ac710cecc6b8439839c7d602415672290e
 
       # step5: cleanup artifacts in dist_electron
       - name: cleanup artifacts for windows
@@ -80,4 +76,4 @@ jobs:
         with:
           files: "dist_electron/**"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.APP_GITHUB_TOKEN }}
