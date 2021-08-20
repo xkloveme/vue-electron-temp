@@ -63,8 +63,8 @@ module.exports = {
         },
         publish: [{
           provider: 'github',
-          owner: 'owner-name',
-          repo: 'repo-link'
+          owner: 'xkloveme',
+          repo: 'vue-electron-temp'
         }],
         copyright: 'Copyright © 2020', // 版权信息
         appId: 'cn.com.watone.app',
