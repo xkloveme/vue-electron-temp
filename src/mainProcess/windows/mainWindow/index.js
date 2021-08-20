@@ -1,6 +1,8 @@
 import { app, BrowserWindow, Menu ,dialog} from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import pkg from './../../.../../../../package.json'
+const nativeImage = require('electron').nativeImage;
+var path = require('path')
 const version = pkg.version
 const productName = pkg.productName
 class MainWindow {
@@ -43,11 +45,13 @@ class MainWindow {
           webSecurity: false,
           nodeIntegration: true
         },
-        // eslint-disable-next-line no-undef
-        // icon: `${__static}/app.ico`,
         frame: true
       })
-
+      this.win.setIcon(
+        nativeImage.createFromPath(
+            path.join(__dirname, "app.ico")
+        )
+    );
       // 初始化浏览器页面
       this.initBrowserPage()
 

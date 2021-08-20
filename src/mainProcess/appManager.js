@@ -1,5 +1,6 @@
 import { Tray } from 'electron'
-
+const nativeImage = require('electron').nativeImage;
+var path = require('path')
 // management
 import EventManager from './events'
 import WindowManager from './windows'
@@ -52,7 +53,10 @@ class AppManager {
   createAppTray () {
     if (!this.tray) {
       // eslint-disable-next-line no-undef
-      this.tray = new Tray(`${__static}/app.ico`)
+      // this.tray = new Tray(`${__static}/app.ico`)
+      this.tray = new Tray(nativeImage.createFromPath(
+        path.join(__dirname, "app.ico")
+    ))
       this.tray.setToolTip('运行中！\nStill Working!')
       this.setAppTrayMenu()
     }

@@ -8,6 +8,9 @@ module.exports = {
   publicPath: './',
   assetsDir: 'assets',
   outputDir: 'dist',
+  configureWebpack: {
+    target: 'electron-renderer'
+  },
   chainWebpack: config => {
     // 路径别名，如用“@”指代“src”等
     // Path alias, such as "@" for "src", etc.
