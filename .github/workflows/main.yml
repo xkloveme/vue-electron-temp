@@ -80,4 +80,4 @@ jobs:
         with:
           files: "dist_electron/**"
         env:
-          GITHUB_TOKEN: ${{ secrets.HEXO_DEPLOY_PRIVATE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
