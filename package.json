@@ -15,6 +15,7 @@
     "electron:release-macos-latest": "vue-cli-service electron:build --mac -p always",
     "electron:release-ubuntu-latest": "vue-cli-service electron:build --linux deb tar.xz -p always",
     "electron:release-windows-latest": "vue-cli-service electron:build --win -p always",
+    "publish": "electron-builder --publish onTagOrDraft",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "patch": "npm version patch && git push root master && git push root --tags",
