@@ -8,7 +8,7 @@ image: Visual Studio 2019
 platform: Any CPU
 environment:
   GH_TOKEN:
-    secure: p3N9nAtWTIEuQlVJNnyoh9iGi/tIcl1dsUbdk3kLUfblKVT5wZvnNa4o0uyuXWjV
+    secure: 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
 cache:
   - node_modules
   - '%APPDATA%\npm-cache'

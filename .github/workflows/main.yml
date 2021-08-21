@@ -21,7 +21,7 @@ jobs:
 
       - name: Yarn install and release
         env:
-          GH_TOKEN: p3N9nAtWTIEuQlVJNnyoh9iGi/tIcl1dsUbdk3kLUfblKVT5wZvnNa4o0uyuXWjV
+          GH_TOKEN: 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
         run: |
-          npm run install
+          npm install
           npm run electron:release-all
