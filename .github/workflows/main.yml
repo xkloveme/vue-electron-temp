@@ -24,4 +24,5 @@ jobs:
           GH_TOKEN: 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
         run: |
           npm install
+          npm run build
           npm run electron:release-all
