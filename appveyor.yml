@@ -26,6 +26,6 @@ install:
 
 build_script:
   - yarn build
-  - yarn packapp
+  - yarn electron:release-all
 
 test: off

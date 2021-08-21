@@ -61,7 +61,11 @@ module.exports = {
           createStartMenuShortcut: true, // 创建开始菜单图标
           shortcutName: '廉情信息报告表' // 图标名称
         },
-        publish: ['github'],
+        publish: {
+          provider: 'github',
+          owner: 'xkloveme',
+          repo: 'vue-electron-temp'
+        },
         copyright: 'Copyright © 2020', // 版权信息
         appId: 'cn.com.watone.app',
         productName: '廉情信息报告表'
