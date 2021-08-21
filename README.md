@@ -12,7 +12,7 @@ npm i
 npm run dev
 ```
 
-## 发布
+## 发布版本
 
 ```bash
 npm run packapp
