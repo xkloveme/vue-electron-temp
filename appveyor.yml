@@ -26,6 +26,6 @@ install:
 
 build_script:
   - yarn build
-  - yarn electron:release-macos-latest
+  - yarn electron:release-windows-latest
 
 test: off
