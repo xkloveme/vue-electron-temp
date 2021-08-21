@@ -26,6 +26,6 @@ install:
 
 build_script:
   - yarn build
-  - yarn electron:release-all
+  - yarn electron:release-macos-latest
 
 test: off
