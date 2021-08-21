@@ -23,5 +23,5 @@ jobs:
         env:
           GH_TOKEN: p3N9nAtWTIEuQlVJNnyoh9iGi/tIcl1dsUbdk3kLUfblKVT5wZvnNa4o0uyuXWjV
         run: |
-          yarn install
-          yarn run electron:release-all
+          npm run install
+          npm run electron:release-all
