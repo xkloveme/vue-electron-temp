@@ -18,9 +18,9 @@
     "publish": "electron-builder --publish onTagOrDraft",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "patch": "npm version patch && git push root master && git push root --tags",
-    "minor": "npm version minor && git push root master && git push root --tags",
-    "major": "npm version major && git push root master && git push root --tags"
+    "patch": "npm version patch && git push origin master && git push origin --tags",
+    "minor": "npm version minor && git push origin master && git push origin --tags",
+    "major": "npm version major && git push origin master && git push origin --tags"
   },
   "main": "background.js",
   "keywords": [],
