@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="print-title">
       <el-button @click="printPDF"
         id="print-button"
         type="primary">打印</el-button>
@@ -11,11 +11,10 @@
       <h1 style="font-family: DengXian; text-align: center; font-size: 32pt">
         廉情信息报告表
       </h1>
-      <div style="text-align: center; margin: 300px auto; width: 500px">
+      <div style="text-align: center; margin: 200px auto; width: 500px">
         <p style="
             text-indent: 72pt;
             text-align: justify;
-            line-height: 115%;
             widows: 0;
             orphans: 0;
             font-size: 16pt;
@@ -29,7 +28,6 @@
         <p style="
             text-indent: 72pt;
             text-align: justify;
-            line-height: 115%;
             widows: 0;
             orphans: 0;
             font-size: 16pt;
@@ -39,7 +37,6 @@
         <p style="
             text-indent: 72pt;
             text-align: justify;
-            line-height: 115%;
             widows: 0;
             orphans: 0;
             font-size: 16pt;
@@ -52,7 +49,6 @@
         <p style="
             text-indent: 72pt;
             text-align: center;
-            line-height: 115%;
             widows: 0;
             orphans: 0;
             font-size: 16pt;
@@ -62,7 +58,6 @@
         <p style="
             text-indent: 72pt;
             text-align: justify;
-            line-height: 115%;
             widows: 0;
             orphans: 0;
             font-size: 16pt;
@@ -165,21 +160,6 @@
         <span style="font-family: DengXian">临安区监察委员会</span>
       </p>
       <p style="
-          text-indent: 72pt;
-          margin-top: 10pt;
-          text-align: justify;
-          line-height: 115%;
-          widows: 0;
-          orphans: 0;
-          font-size: 10pt;
-        ">
-        <span style="font-family: DengXian">&#xa0;</span>
-      </p>
-      <p style="line-height: 115%; widows: 0; orphans: 0">
-        <span style="font-family: DengXian">&#xa0;</span>
-      </p>
-      <p style="
-        margin-top: 20pt;
           text-align: center;
           line-height: 115%;
           widows: 0;
@@ -918,7 +898,7 @@
                 <span :key="i + 1"
                   :label="item"
                   v-for="(item, i) in $utils.identity">{{ form.identity.indexOf(item) > -1 ? '☑' : '□'
-                  }}{{ item }}</span>
+                  }}{{ item }}&nbsp;&nbsp;</span>
               </span>
             </p>
           </td>
@@ -1030,7 +1010,7 @@
             </p>
           </td>
         </tr>
-        <tr style="height: 156.65pt">
+        <tr style="height: 106.65pt">
           <td style="
               width: 36.1pt;
               border-style: solid;
@@ -1055,31 +1035,24 @@
               vertical-align: top;
               vertical-align: middle;
             ">
-            <p style="
-                text-align: center;
-                line-height: 115%;
-                widows: 0;
-                orphans: 0;
-              ">
-              <span style="font-family: DengXian"
-                v-for="(item,i) in form.resume"
-                :key="i">
-                <span v-if="item.time&&item.time.length">
-                  {{
+            <div style="font-family: DengXian"
+              v-for="(item,i) in form.resume"
+              :key="i">
+              <span v-if="item.time&&item.time.length">
+                {{
                 item.startTime | dateMonth
               }}至 {{
                 item.endTime | dateMonth
               }}任
-                </span>
-                {{
+              </span>
+              {{
                 item.unitName
               }}{{
                 item.department
               }}{{
                 item.job
               }};
-              </span>
-            </p>
+            </div>
           </td>
         </tr>
         <tr style="height: 0pt">
@@ -1325,7 +1298,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
 @media print {
   body {
     background: none;
@@ -1336,7 +1309,9 @@ export default {
   h1 {
     font-size: 22px;
   }
-
+.print-title{
+  display:none;
+}
   .nav,
   button,
   .demo-box:before,
@@ -1360,6 +1335,57 @@ export default {
   .support {
     font-size: 10px;
   }
+  table,
+  tbody,
+  thead {
+    width: 100% !important;
+    table-layout: fixed;WORD-BREAK: break-all; WORD-WRAP: break-word
+  }
+
+  colgroup {
+    position: absolute;
+    width: 100% !important;
+  }
+  table {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #f0f2f5;
+  border-collapse: collapse;
+  color: #454545;
+  table-layout: auto;
+  width: 100%;
+  text-align: center;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #dadcde;
+  thead {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #dadcde;
+    line-height: 40px;
+    font-weight: bold;
+    color: #454c70;
+  }
+  tr {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #dadcde;
+    line-height: 23px;
+  }
+  td{
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: Verdana;
+    width: 100px;
+    word-break: break-all;
+  }
+  tr:nth-child(even) {
+    background: #F5F7F9;
+  }
+  tr:nth-child(odd) {
+    background: #FFF;
+  }
+}
 }
 .footer {
   text-align: center;

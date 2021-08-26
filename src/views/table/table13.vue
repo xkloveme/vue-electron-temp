@@ -113,7 +113,7 @@
       </el-table-column>
       <el-table-column label="交易时间"
         prop="transactionTime"
-        :width="this.$attrs.hiddenOptions ? 50 : 180">
+        :width="this.$attrs.hiddenOptions ? 100 : 180">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-date-picker placeholder="选择时间"
@@ -129,7 +129,7 @@
       </el-table-column>
       <el-table-column label="交易价格(万)"
         prop="transactionPrice"
-        :width="this.$attrs.hiddenOptions ? 80 : 130">
+      >
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"

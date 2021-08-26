@@ -8,11 +8,7 @@
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        prop="agency"
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-      >
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions" :width="80">
         <template scope="scope">
           <i
             style="color: #f56c6c"
@@ -66,7 +62,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="reasons" label="出国(境)事由" :width="this.$attrs.hiddenOptions ? 150 : null">
+      <el-table-column prop="reasons" label="出国(境)事由">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.reasons"

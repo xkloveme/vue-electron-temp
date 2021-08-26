@@ -8,11 +8,7 @@
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        prop="agency"
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-      >
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions" :width="80">
         <template scope="scope">
           <i
             style="color: #f56c6c"
@@ -73,7 +69,6 @@
       <el-table-column
         prop="futuresMarketValue"
         label="填报前一交易日净值（万元）"
-        :width="this.$attrs.hiddenOptions ? 200 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number

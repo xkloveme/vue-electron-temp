@@ -81,8 +81,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="desc"
-        label="备注"
-        :width="this.$attrs.hiddenOptions ? 100 : null">
+        label="备注">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input v-model.trim="scope.row.desc"

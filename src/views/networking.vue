@@ -67,7 +67,6 @@ v-show="tableStatus !== '2'"
       </template>
     </el-table-column>
     <el-table-column
-      prop="agency"
       prop="politicsStatus"
       label="政治面貌"
     >
@@ -86,7 +85,6 @@ v-show="tableStatus !== '2'"
       </template>
     </el-table-column>
     <el-table-column
-      prop="agency"
       prop="work"
       label="工作单位及职务"
     >

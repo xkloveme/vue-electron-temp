@@ -115,7 +115,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="出资比例(%)" prop="fundedRatio" :width="this.$attrs.hiddenOptions ? 80 : null">
+      <el-table-column label="出资比例(%)" prop="fundedRatio">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             placeholder="请输入"

@@ -113,7 +113,7 @@ export default {
       let arr = []
       this.tableData.map((item) => {
         if (value && value.length) {
-          arr.push({ ...item, startTime: value[0], endTime: value[1] })
+          arr.push({ ...item, startTime: item.time[0], endTime: item.time[1] })
         } else {
           arr.push(item)
         }

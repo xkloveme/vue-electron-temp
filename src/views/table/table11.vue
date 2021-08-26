@@ -8,11 +8,7 @@
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        prop="agency"
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-      >
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions" :width="80">
         <template scope="scope">
           <i
             style="color: #f56c6c"
@@ -63,7 +59,7 @@
       <el-table-column
         prop="work"
         label="工作、学习单位"
-        :width="this.$attrs.hiddenOptions ? 100 : 180"
+        :width="this.$attrs.hiddenOptions ? 150 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
@@ -82,7 +78,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="unitNature" label="单位性质" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column prop="unitNature" label="单位性质" >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.unitNature" placeholder="请选择">
             <el-option

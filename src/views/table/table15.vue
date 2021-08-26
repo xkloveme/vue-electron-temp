@@ -8,11 +8,7 @@
       style="width: 100%"
       highlight-current-row
     >
-      <el-table-column
-        prop="agency"
-        label="操作"
-        v-if="!this.$attrs.hiddenOptions"
-      >
+      <el-table-column label="操作" v-if="!this.$attrs.hiddenOptions" :width="80">
         <template scope="scope">
           <i
             style="color: #f56c6c"
@@ -65,7 +61,7 @@
         </el-select>
       </template>
     </el-table-column> -->
-      <el-table-column prop="source" label="房产来源(去向)" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column prop="source" label="房产来源" :width="this.$attrs.hiddenOptions ? 100 : null">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.source" clearable placeholder="请选择">
             <el-option
@@ -143,7 +139,6 @@
       <el-table-column
         prop="transactionPrice"
         label="交易价格(万元)"
-        :width="this.$attrs.hiddenOptions ? 100 : null"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number

@@ -1,73 +1,74 @@
 <template>
-  <div id="pdf-path" style="text-align: center">
+  <div id="pdf-path"
+    style="text-align: center">
     <h2>
       报告人基本情况
-      <el-tooltip
-        class="item"
+      <el-tooltip class="item"
         content="说明：①工作年限以年为单位。②身份证号码应填写18位公民身份号码。③领导岗位填分管工作，非领导岗位填从事的主要工作。"
-        effect="dark"
-      >
+        effect="dark">
         <i class="el-icon-question" />
       </el-tooltip>
     </h2>
     <div>
-      <el-form :model="form" :rules="rules" label-width="120px" ref="form">
+      <el-form :model="form"
+        :rules="rules"
+        label-width="120px"
+        ref="form">
         <el-row :gutter="0">
           <el-col :span="6">
-            <el-form-item label="姓名" prop="name">
+            <el-form-item label="姓名"
+              prop="name">
               <el-input v-model.trim="form.name" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="性别" prop="gender">
-              <el-select
-                clearable
+            <el-form-item label="性别"
+              prop="gender">
+              <el-select clearable
                 filterable
                 placeholder="请选择"
-                v-model.trim="form.gender"
-              >
-                <el-option
-                  :key="item"
+                v-model.trim="form.gender">
+                <el-option :key="item"
                   :label="item"
                   :value="i"
-                  v-for="(item, i) in $utils.gender"
-                />
+                  v-for="(item, i) in $utils.gender" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="民族">
-              <el-select placeholder="请选择" v-model="form.nation">
-                <el-option
-                  :key="item"
+              <el-select placeholder="请选择"
+                v-model="form.nation">
+                <el-option :key="item"
                   :label="item"
                   :value="item"
-                  v-for="item in $utils.nation"
-                />
+                  v-for="item in $utils.nation" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="政治面貌" prop="politicsStatus">
-              <el-select placeholder="请选择" v-model="form.politicsStatus">
-                <el-option
-                  :key="item"
+            <el-form-item label="政治面貌"
+              prop="politicsStatus">
+              <el-select placeholder="请选择"
+                v-model="form.politicsStatus">
+                <el-option :key="item"
                   :label="item"
                   :value="i"
-                  v-for="(item, i) in $utils.politicsStatus"
-                />
+                  v-for="(item, i) in $utils.politicsStatus" />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="身份证号" prop="idCard">
+            <el-form-item label="身份证号"
+              prop="idCard">
               <el-input v-model.trim="form.idCard" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="联系电话" prop="phone">
+            <el-form-item label="联系电话"
+              prop="phone">
               <el-input v-model.trim="form.phone" />
             </el-form-item>
           </el-col>
@@ -77,84 +78,68 @@
             </el-form-item>
           </el-col>
         </el-row>
-      <el-row :gutter="10">
+        <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="全日制学历">
-                <el-select
-                  clearable
-                  filterable
-                  placeholder="请选择"
-                  style="width: 100%"
-                  v-model.trim="form.fullTimeEducation"
-                >
-                  <el-option
-                    :key="item.key"
-                    :label="item.value"
-                    :value="item.key"
-                    v-for="item in $utils.education"
-                  />
-                </el-select>
+              <el-select clearable
+                filterable
+                placeholder="请选择"
+                style="width: 100%"
+                v-model.trim="form.fullTimeEducation">
+                <el-option :key="item.key"
+                  :label="item.value"
+                  :value="item.key"
+                  v-for="item in $utils.education" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="在职学历">
-               <el-select
-                  clearable
-                  filterable
-                  placeholder="请选择"
-                  style="width: 100%"
-                  v-model.trim="form.onTimeEducation"
-                >
-                  <el-option
-                    :key="item.key"
-                    :label="item.value"
-                    :value="item.key"
-                    v-for="item in $utils.education"
-                  />
-                </el-select>
+              <el-select clearable
+                filterable
+                placeholder="请选择"
+                style="width: 100%"
+                v-model.trim="form.onTimeEducation">
+                <el-option :key="item.key"
+                  :label="item.value"
+                  :value="item.key"
+                  v-for="item in $utils.education" />
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
             <el-col :span="needCommunity ? 7 : 12">
-              <el-form-item label="工作单位" prop="employer">
-                <el-select
-                  @change="handleChangeNeedCommunity"
+              <el-form-item label="工作单位"
+                prop="employer">
+                <el-select @change="handleChangeNeedCommunity"
                   clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.employer"
-                >
-                  <el-option
-                    :key="item.key"
+                  v-model.trim="form.employer">
+                  <el-option :key="item.key"
                     :label="item.value"
                     :value="item.key"
-                    v-for="item in $utils.workOrganization"
-                  />
+                    v-for="item in $utils.workOrganization" />
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="5" v-if="needCommunity">
-              <el-form-item
-                label="村(社区)"
+            <el-col :span="5"
+              v-if="needCommunity">
+              <el-form-item label="村(社区)"
                 label-width="80px"
-                prop="community"
-              >
-                <el-select
-                  clearable
+                prop="community">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.community"
-                >
-                  <el-option
-                    :key="item"
+                  v-model.trim="form.community">
+                  <el-option :key="item"
                     :label="item"
                     :value="item"
-                    v-for="item in communityType"
-                  />
+                    v-for="item in communityType" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -168,150 +153,129 @@
                 <el-input v-model.trim="form.department" />
               </el-form-item>
               <el-form-item label="入党时间">
-                <el-date-picker
-                  placeholder="选择年月"
+                <el-date-picker placeholder="选择年月"
                   style="width: 100%"
                   type="month"
                   v-model.trim="form.partyTime"
-                  value-format="timestamp"
-                />
+                  value-format="timestamp" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="在职状态" prop="workingStatus">
-                <el-select
-                  clearable
+              <el-form-item label="在职状态"
+                prop="workingStatus">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.workingStatus"
-                >
-                  <el-option
-                    :key="item"
+                  v-model.trim="form.workingStatus">
+                  <el-option :key="item"
                     :label="item"
                     :value="i"
-                    v-for="(item, i) in $utils.workingStatus"
-                  />
+                    v-for="(item, i) in $utils.workingStatus" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="工作年限(年)" prop="workingYears">
-                <el-input
-                  placeholder="工作年限(年)"
-                  v-model.trim="form.workingYears"
-                />
+              <el-form-item label="工作年限(年)"
+                prop="workingYears">
+                <el-input placeholder="工作年限(年)"
+                  v-model.trim="form.workingYears" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="职级" prop="grade">
-                <el-select
-                  clearable
+              <el-form-item label="职级"
+                prop="grade">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.grade"
-                >
-                  <el-option
-                    :key="item.key"
+                  v-model.trim="form.grade">
+                  <el-option :key="item.key"
                     :label="item.value"
                     :value="item.key"
-                    v-for="item in $utils.grade"
-                  />
+                    v-for="item in $utils.grade" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="职位" prop="position">
-                <el-select
-                  clearable
+              <el-form-item label="职位"
+                prop="position">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.position"
-                >
-                  <el-option
-                    :key="item.key"
+                  v-model.trim="form.position">
+                  <el-option :key="item.key"
                     :label="item.value"
                     :value="item.key"
-                    v-for="item in $utils.position"
-                  />
+                    v-for="item in $utils.position" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="人员来源" prop="personnelSource">
-                <el-select
-                  clearable
+              <el-form-item label="人员来源"
+                prop="personnelSource">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.personnelSource"
-                >
-                  <el-option
-                    :key="item.key"
+                  v-model.trim="form.personnelSource">
+                  <el-option :key="item.key"
                     :label="item.value"
                     :value="item.key"
-                    v-for="item in $utils.personnelSource"
-                  />
+                    v-for="item in $utils.personnelSource" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="对象身份" prop="objectIdentity">
-                <el-select
-                  clearable
+              <el-form-item label="对象身份"
+                prop="objectIdentity">
+                <el-select clearable
                   filterable
                   placeholder="请选择"
                   style="width: 100%"
-                  v-model.trim="form.objectIdentity"
-                >
-                  <el-option
-                    :key="item.key"
+                  v-model.trim="form.objectIdentity">
+                  <el-option :key="item.key"
                     :label="item.value"
                     :value="item.key"
-                    v-for="item in $utils.objectIdentity"
-                  />
+                    v-for="item in $utils.objectIdentity" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col>
-              <el-form-item label="人员身份" prop="identity">
-                <el-checkbox-group
-                  @change="handleChange"
-                  v-model.trim="form.identity"
-                >
-                  <el-checkbox
-                    :disabled="item.disabled"
+              <el-form-item label="人员身份"
+                prop="identity">
+                <el-checkbox-group @change="handleChange"
+                  v-model.trim="form.identity">
+                  <el-checkbox :disabled="item.disabled"
                     :key="i + 1"
                     :label="item.value"
-                    v-for="(item, i) in identityList"
-                  />
+                    v-for="(item, i) in identityList" />
                 </el-checkbox-group>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="4">
-            <input
-              @change="handleAvatarSuccess"
+            <input @change="handleAvatarSuccess"
               accept="image/*"
               ref="input"
               style="display: none"
-              type="file"
-            />
-            <div @click="$refs.input.click()" class="avatar-uploader">
-              <el-image
-                :src="form.imageUrl"
+              type="file" />
+            <div @click="$refs.input.click()"
+              class="avatar-uploader">
+              <el-image :src="form.imageUrl"
                 @click="$refs.input.click()"
                 class="avatar"
                 fit="fit"
-                v-if="form.imageUrl"
-              >
-                <div class="image-slot" slot="error">
+                v-if="form.imageUrl">
+                <div class="image-slot"
+                  slot="error">
                   <i class="el-icon-picture-outline" />
                 </div>
               </el-image>
-              <i @click="$refs.input.click()" class="el-icon-plus" v-else />
+              <i @click="$refs.input.click()"
+                class="el-icon-plus"
+                v-else />
             </div>
           </el-col>
         </el-row>
@@ -333,32 +297,26 @@
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="密码" prop="password">
-              <el-input
-                :type="passType ? 'password' : 'text'"
+            <el-form-item label="密码"
+              prop="password">
+              <el-input :type="passType ? 'password' : 'text'"
                 autocomplete="off"
-                v-model.trim="form.password"
-              >
-                <el-button
-                  @click="passType = !passType"
+                v-model.trim="form.password">
+                <el-button @click="passType = !passType"
                   icon="el-icon-view"
-                  slot="append"
-                />
+                  slot="append" />
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="确认密码" prop="checkPassword">
-              <el-input
-                :type="checkPassType ? 'password' : 'text'"
+            <el-form-item label="确认密码"
+              prop="checkPassword">
+              <el-input :type="checkPassType ? 'password' : 'text'"
                 autocomplete="off"
-                v-model.trim="form.checkPassword"
-              >
-                <el-button
-                  @click="checkPassType = !checkPassType"
+                v-model.trim="form.checkPassword">
+                <el-button @click="checkPassType = !checkPassType"
                   icon="el-icon-view"
-                  slot="append"
-                />
+                  slot="append" />
               </el-input>
             </el-form-item>
           </el-col>
@@ -370,11 +328,13 @@
             v-model="form.personalResume"
           />
         </el-form-item> -->
-        <el-form-item label="工作简历">
-          <resume :hiddenOptions="false"/>
+        <el-form-item label="工作简历"
+          prop="resume">
+          <resume :hiddenOptions="false" />
         </el-form-item>
         <el-form-item>
-          <el-button @click="onSubmit" type="primary">打印预览</el-button>
+          <el-button @click="onSubmit"
+            type="primary">打印预览</el-button>
           <el-button @click="handleGoNextPage">下一项</el-button>
         </el-form-item>
       </el-form>
@@ -390,7 +350,7 @@ var JSZip = require('jszip')
 const fs = require('fs')
 export default {
   components: { resume },
-  data() {
+  data () {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback()
@@ -469,25 +429,29 @@ export default {
             trigger: 'blur',
           },
         ],
+        resume: [{ required: true }],
         password: [{ validator: validatePass, trigger: 'blur' }],
         checkPassword: [{ validator: validatePass2, trigger: 'blur' }],
       },
     }
   },
   computed: {
-    form() {
+    form () {
       return this.$store.getters.getUser
     },
-    id() {
+    id () {
       return (
         this.$formatDay(new Date(), 'YYYYMMDDHHmmss') +
         this.form.idCard.slice(-8)
       )
     },
-    tableStatus() {
+    tableStatus () {
       return this.$store.getters.getTableStatus
     },
-    identityList() {
+    getResume () {
+      return this.$store.getters.getResume
+    },
+    identityList () {
       const arr = []
       for (const key in this.$utils.identity) {
         if (this.$utils.identity.hasOwnProperty(key)) {
@@ -501,7 +465,7 @@ export default {
       return arr
     },
   },
-  mounted() {
+  mounted () {
     // 监听与主进程的通信
     this.$ipc.on('action', (event, arg) => {
       switch (arg) {
@@ -524,16 +488,34 @@ export default {
   },
   methods: {
     // 下一项
-    handleGoNextPage() {
+    handleGoNextPage () {
+
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if(this.form.imageUrl){
+          if (this.form.imageUrl) {
+            if (this.getResume && this.getResume.length) {
+              let arr = []
+              this.getResume.map((item) => {
+                arr.push(item.startTime)
+                arr.push(item.endTime)
+                arr.push(item.unitName)
+                arr.push(item.department)
+                arr.push(item.job)
+              })
+              if (!arr.every((x) => x)) {
+                this.$message({
+                  type: 'error',
+                  message: '请检查个人简历是否有误',
+                })
+                return false
+              }
+            }
             this.$store.dispatch('updateStatus', '1')
-          }else{
+          } else {
             this.$message({
-            type: 'error',
-            message: '请检查照片是否传入',
-          })
+              type: 'error',
+              message: '请检查照片是否传入',
+            })
           }
         } else {
           this.$message({
@@ -542,10 +524,11 @@ export default {
           })
           return false
         }
+
       })
     },
     // 人员身份逻辑
-    handleChange(val) {
+    handleChange (val) {
       if (val.join(',').indexOf('其他') > -1) {
         this.form.identity = ['其他']
         this.disabled = true
@@ -554,7 +537,7 @@ export default {
       }
     },
     // 工作单位逻辑
-    handleChangeNeedCommunity(val) {
+    handleChangeNeedCommunity (val) {
       let obj = {}
       this.$utils.communityType.map((comm) => {
         obj[comm.key] = comm.value
@@ -563,14 +546,14 @@ export default {
       this.communityType = obj[val]
       this.form.community = ''
     },
-    openDialogByIpc() {
+    openDialogByIpc () {
       this.$ipc.send('showDialog', `<${this.$t('a message')}>`)
     },
-    openNew() {
+    openNew () {
       this.$store.dispatch('updateStatus', '0')
       this.$store.dispatch('updateUser', null)
     },
-    onSubmit() {
+    onSubmit () {
       // const { href } = this.$router.resolve({
       //   name: 'Pdf',
       // })
@@ -578,7 +561,7 @@ export default {
       this.$router.push({ name: 'Pdf' })
     },
     // 图片上传
-    handleAvatarSuccess(e) {
+    handleAvatarSuccess (e) {
       var file = e.target.files[0] // 获取图片资源
       const self = this
       // 只选择图片文件
@@ -596,7 +579,7 @@ export default {
         self.form.imageUrl = arg.target.result
       }
     },
-    downloadZip() {
+    downloadZip () {
       console.log('🐛:: downloadZip -> this.$refs.form', this.$refs.form)
       let arr = []
       // 添加全局正则,检验车牌号和身份证号
@@ -633,7 +616,7 @@ export default {
         }
       })
     },
-    loadAsyncZip(defaultpath, callback) {
+    loadAsyncZip (defaultpath, callback) {
       const self = this
       const files = this.$dialog.showOpenDialog({
         filters: [{ name: 'WT', extensions: ['wt'] }],
@@ -687,7 +670,7 @@ export default {
         })
       }
     },
-    getJson(text) {
+    getJson (text) {
       if (text) {
         const jsonData = JSON.parse(text)
         console.log(jsonData)

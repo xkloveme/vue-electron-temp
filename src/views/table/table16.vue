@@ -153,8 +153,7 @@
         }}</template>
       </el-table-column>
       <el-table-column label="交易价格(万元)"
-        prop="transactionPrice"
-        :width="this.$attrs.hiddenOptions ? 100 : 135">
+        prop="transactionPrice">
         <template scope="scope"
           v-if="!this.$attrs.hiddenOptions">
           <el-input-number placeholder="请输入"
