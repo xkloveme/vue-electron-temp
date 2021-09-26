@@ -5,17 +5,17 @@ export const gender = {
 };
 // 职级
 export const grade = [
-  { key: "01", value: "正处级" },
-  { key: "02", value: "副处级" },
-  { key: "03", value: "一般干部" },
-  { key: "04", value: "村主要干部" },
-  { key: "05", value: "村一般干部" },
-  { key: "06", value: "普通党员" },
-  { key: "07", value: "其他" },
-  { key: "08", value: "正科级" },
-  { key: "09", value: "副科级" },
-  { key: "10", value: "国有企业管理人员" },
-  { key: "11", value: "国有企业其他人员" },
+  { key: '01', value: '区管正职' },
+  { key: '02', value: '区管副职' },
+  { key: '03', value: '一般干部' },
+  { key: '04', value: '村主要干部' },
+  { key: '05', value: '村一般干部' },
+  { key: '06', value: '普通党员' },
+  { key: '07', value: '其他' },
+  { key: '08', value: '中层正职' },
+  { key: '09', value: '中层副职' },
+  { key: '10', value: '国有企业管理人员' },
+  { key: '11', value: '国有企业其他人员' }
 ];
 // 职位
 export const position = [
