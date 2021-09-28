@@ -31,13 +31,13 @@
         </template>
       </el-table-column>
        <el-table-column
-        prop="realEstateCertificate"
+        prop="realEstateertificate"
         label="不动产权证"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
-            v-model.trim="scope.row.realEstateCertificate"
+            v-model.trim="scope.row.realEstateertificate"
             size="small"
             placeholder="请输入内容"
           />
