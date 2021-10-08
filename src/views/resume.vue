@@ -45,7 +45,7 @@
         <el-select
           v-model="scope.row.unitName"
           placeholder="请选择单位"
-          @change="changeValue1($event,scope.$index)"
+          @change="changeValue1($event, scope.$index)"
         >
           <el-option
             v-for="(item, index) in uniNameList"
@@ -65,7 +65,7 @@
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select v-model="scope.row.department" placeholder="请选择科室">
           <el-option
-            v-for="(item,index) in departmentList"
+            v-for="(item, index) in departmentList"
             :key="index"
             :label="item"
             :value="item"
@@ -105,72 +105,70 @@ export default {
     return {
       uniNameList: [],
       departmentList: [],
-    }
+    };
   },
   computed: {
     tableData() {
-      return this.$store.getters.getResume
+      return this.$store.getters.getResume;
     },
     pickerOptions() {
-      return {
-      }
+      return {};
     },
   },
   mounted() {
-    this.handleUniNameList()
+    this.handleUniNameList();
   },
   methods: {
     handleUniNameList() {
       this.$utils.unitNamelist.map((res) => {
-        this.uniNameList.push(res.key)
-      })
-      console.log(this.uniNameList, 'this.uniNameList')
+        this.uniNameList.push(res.key);
+      });
+      console.log(this.uniNameList, "this.uniNameList");
     },
-    changeValue1(val,index) {
-      this.tableData[index].department = ''
-      console.log(val,index,this.tableData,'88888')
-      let obj = {}
+    changeValue1(val, index) {
+      this.tableData[index].department = "";
+      console.log(val, index, this.tableData, "88888");
+      let obj = {};
       this.$utils.unitNamelist.map((comm) => {
-        obj[comm.key] = comm.value
-      })
-      this.departmentList = obj[val]
-      console.log(val, this.departmentList, '5555')
+        obj[comm.key] = comm.value;
+      });
+      this.departmentList = obj[val];
+      console.log(val, this.departmentList, "5555");
     },
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     changeValue(value) {
-      console.log(value,'999')
-      let arr = []
+      console.log(value, "999");
+      let arr = [];
       this.tableData.map((item) => {
         if (value && value.length) {
-          arr.push({ ...item, startTime: item.time[0], endTime: item.time[1] })
+          arr.push({ ...item, startTime: item.time[0], endTime: item.time[1] });
         } else {
-          arr.push(item)
+          arr.push(item);
         }
-      })
-      this.$store.commit('setResumeList', arr)
+      });
+      this.$store.commit("setResumeList", arr);
     },
     handleAddLine() {
       this.tableData.push({
-        time: '',
-        startTime: '', //开始时间
-        endTime: '', //结束时间
-        unitName: '', //单位
-        department: '', // 科室
-        job: '', // 职务
-      })
+        time: "",
+        startTime: "", //开始时间
+        endTime: "", //结束时间
+        unitName: "", //单位
+        department: "", // 科室
+        job: "", // 职务
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
