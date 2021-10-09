@@ -65,7 +65,7 @@
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
         <el-select v-model="scope.row.department" placeholder="请选择科室">
           <el-option
-            v-for="(item, index) in departmentList"
+            v-for="(item, index) in obj[scope.row.unitName]"
             :key="index"
             :label="item"
             :value="item"
@@ -120,19 +120,24 @@ export default {
   },
   methods: {
     handleUniNameList() {
+      const arr = [];
+      const obj = {};
       this.$utils.unitNamelist.map((res) => {
-        this.uniNameList.push(res.key);
+        arr.push(res.key);
+        obj[res.key] = res.value;
       });
-      console.log(this.uniNameList, "this.uniNameList");
+      this.obj = obj;
+      this.uniNameList = arr;
+      console.log(this.uniNameList, this.obj, "this.uniNameList");
     },
     changeValue1(val, index) {
       this.tableData[index].department = "";
       console.log(val, index, this.tableData, "88888");
-      let obj = {};
-      this.$utils.unitNamelist.map((comm) => {
-        obj[comm.key] = comm.value;
-      });
-      this.departmentList = obj[val];
+      // let obj = {}
+      // this.$utils.unitNamelist.map((comm) => {
+      //   obj[comm.key] = comm.value
+      // })
+      // this.departmentList = obj[val]
       console.log(val, this.departmentList, "5555");
     },
     handleDelete(index, row) {
