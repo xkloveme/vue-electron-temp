@@ -42,19 +42,21 @@
       :width="this.$attrs.hiddenOptions ? '' : 180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select
-          v-model="scope.row.unitName"
-          placeholder="请选择单位"
-          @change="changeValue1($event, scope.$index)"
-        >
-          <el-option
+          <el-select
+     v-model="scope.row.unitName"
+    filterable
+    allow-create
+    default-first-option
+     @change="changeValue1($event, scope.$index)"
+    placeholder="请选择单位">
+    <el-option
             v-for="(item, index) in uniNameList"
             :key="index"
             :label="item"
             :value="item"
           >
           </el-option>
-        </el-select>
+  </el-select>
       </template>
     </el-table-column>
     <el-table-column
@@ -63,7 +65,11 @@
       :width="this.$attrs.hiddenOptions ? '' : 180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select v-model="scope.row.department" placeholder="请选择科室">
+        <el-select v-model="scope.row.department"
+          filterable
+    allow-create
+    default-first-option
+         placeholder="请选择科室">
           <el-option
             v-for="(item, index) in obj[scope.row.unitName]"
             :key="index"
