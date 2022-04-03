@@ -70,7 +70,9 @@ function createWindow () {
     webPreferences: {
       // 允许跨域 / Allow cross domain
       webSecurity: false,
-      nodeIntegration: true
+      nodeIntegration: true,
+	contextIsolation: false,
+	enableRemoteModule: true
       // eslint-disable-next-line no-undef
       // preload: './preload.js'
     },

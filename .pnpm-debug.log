@@ -1,0 +1,15 @@
+{
+  "0 info pnpm:global": "Nothing to stop. No server is running for the store at /Users/lorialex/.pnpm-store/v3",
+  "1 debug pnpm:scope": {
+    "selected": 1
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+    "err": {
+      "name": "pnpm",
+      "message": "This modules directory was created using the following registries configuration: {\"default\":\"http://registry.npm.taobao.org/\"}. The current configuration is {\"default\":\"https://registry.npmmirror.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".",
+      "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+      "stack": "pnpm: This modules directory was created using the following registries configuration: {\"default\":\"http://registry.npm.taobao.org/\"}. The current configuration is {\"default\":\"https://registry.npmmirror.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".\n    at validateModules (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:91153:15)\n    at async getContext (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:91025:28)\n    at async mutateModules (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:115108:19)\n    at async handler (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:117329:35)\n    at async /Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:134110:20\n    at async run (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:134084:34)\n    at async runPnpm (/Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:134296:5)\n    at async /Users/lorialex/.nvm/versions/node/v14.17.0/pnpm-global/5/node_modules/.pnpm/registry.npmmirror.com+pnpm@6.22.1/node_modules/pnpm/dist/pnpm.cjs:134288:7"
+    }
+  }
+}

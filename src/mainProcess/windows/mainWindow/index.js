@@ -43,7 +43,9 @@ class MainWindow {
         webPreferences: {
           // 设为false允许跨域
           webSecurity: false,
-          nodeIntegration: true
+          nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
         },
         frame: true
       })

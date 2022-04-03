@@ -1010,6 +1010,43 @@
             </p>
           </td>
         </tr>
+          <tr style="height: 106.65pt">
+          <td style="
+              width: 36.1pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            ">
+            <p style="
+                text-align: center;
+                line-height: 115%;
+                widows: 0;
+                orphans: 0;
+              ">
+              <span style="font-family: DengXian">拥有海外经历</span>
+            </p>
+          </td>
+          <td colspan="8"
+            style="
+              width: 413.2pt;
+              border-style: solid;
+              border-width: 0.75pt;
+              vertical-align: top;
+              vertical-align: middle;
+            ">
+            <div style="font-family: DengXian"
+              v-for="(item,i) in form.haiWai"
+              :key="i">
+              <span v-if="item.gx">关系:{{item.gx}};</span>
+              <span v-if="item.xm">姓名:{{item.xm}};</span>
+              <span v-if="item.sfzh">身份证号:{{item.sfzh}};</span>
+              <span v-if="item.hwjl">海外经历:{{item.hwjl}};</span>
+              <span v-if="item.qksm">情况说明:{{item.qksm}};</span>
+              <br/>
+            </div>
+          </td>
+        </tr>
         <tr style="height: 106.65pt">
           <td style="
               width: 36.1pt;

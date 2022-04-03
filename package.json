@@ -14,7 +14,7 @@
     "electron:release-all": "vue-cli-service electron:build --mac --win --linux deb tar.xz -p always",
     "electron:release-macos-latest": "vue-cli-service electron:build --mac -p always",
     "electron:release-ubuntu-latest": "vue-cli-service electron:build --linux deb tar.xz -p always",
-    "electron:release-windows-latest": "vue-cli-service electron:build --win -p always",
+    "electron:release-windows-latest": "vue-cli-service electron:build --publish never --win --ia32 -p always",
     "publish": "electron-builder --publish onTagOrDraft",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
