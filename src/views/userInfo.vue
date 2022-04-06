@@ -512,19 +512,21 @@ export default {
     // 下一项
     handleGoNextPage() {
       let arrhw = [];
-      this.form.haiWai.map((item) => {
-        arrhw.push(item.gx);
-        arrhw.push(item.xm);
-        arrhw.push(item.sfzh);
-        arrhw.push(item.hwjl);
-        arrhw.push(item.qksm);
-      });
-      if (!arrhw.every((x) => x)) {
-        this.$message({
-          type: "error",
-          message: "请检查海外经历是否有误",
+      if (this.form.haiWai.length) {
+        this.form.haiWai.map((item) => {
+          arrhw.push(item.gx);
+          arrhw.push(item.xm);
+          arrhw.push(item.sfzh);
+          arrhw.push(item.hwjl);
+          arrhw.push(item.qksm);
         });
-        return false;
+        if (!arrhw.every((x) => x)) {
+          this.$message({
+            type: "error",
+            message: "请检查海外经历是否有误",
+          });
+          return false;
+        }
       }
 
       this.$refs.form.validate((valid) => {

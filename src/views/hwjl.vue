@@ -1,7 +1,7 @@
 <!--
  * @Author: xkloveme
  * @Date: 2022-04-03 10:38:40
- * @LastEditTime: 2022-04-03 11:08:18
+ * @LastEditTime: 2022-04-06 13:41:09
  * @LastEditors: xkloveme
  * @Description: 
  * @FilePath: /wt-jw-client/src/views/hwjl.vue
@@ -132,14 +132,14 @@ export default {
   },
   methods: {
     handleDelete(index, row) {
-      if (this.tableData.length > 1) {
+      // if (this.tableData.length > 1) {
         this.tableData.splice(index, 1);
-      } else {
-        this.$message({
-          type: "info",
-          message: "已经是最后一个了,不能再删了",
-        });
-      }
+      // } else {
+      //   this.$message({
+      //     type: "info",
+      //     message: "已经是最后一个了,不能再删了",
+      //   });
+      // }
     },
     changeValue(value,itemtable) {
       console.log(value, itemtable,this.user,"999");
