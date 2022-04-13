@@ -363,7 +363,7 @@
             v-model="form.personalResume"
           />
         </el-form-item> -->
-        <el-form-item label="拥有海外经历" prop="resume">
+        <el-form-item label="拥有海外经历" prop="hwjl">
           <hwjl :hiddenOptions="false" />
         </el-form-item>
         <el-form-item label="工作简历" prop="resume">

@@ -42,34 +42,37 @@
       :width="this.$attrs.hiddenOptions ? '' : 180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select
-     v-model="scope.row.unitName"
-    filterable
-    allow-create
-    default-first-option
-     @change="changeValue1($event, scope.$index)"
-    placeholder="请选择单位">
-    <el-option
+        <el-select
+          v-model="scope.row.unitName"
+          filterable
+          allow-create
+          default-first-option
+          @change="changeValue1($event, scope.$index)"
+          placeholder="请选择单位"
+        >
+          <el-option
             v-for="(item, index) in uniNameList"
             :key="index"
             :label="item"
             :value="item"
           >
           </el-option>
-  </el-select>
+        </el-select>
       </template>
     </el-table-column>
     <el-table-column
       prop="department"
-      label="科室"
+      label="科室/村社"
       :width="this.$attrs.hiddenOptions ? '' : 180"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-select v-model="scope.row.department"
+        <el-select
+          v-model="scope.row.department"
           filterable
-    allow-create
-    default-first-option
-         placeholder="请选择科室">
+          allow-create
+          default-first-option
+          placeholder="请选择科室/村社"
+        >
           <el-option
             v-for="(item, index) in obj[scope.row.unitName]"
             :key="index"
@@ -86,11 +89,7 @@
       :width="this.$attrs.hiddenOptions ? '' : null"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input
-          v-model.trim="scope.row.job"
-          size="small"
-          placeholder="请输入职务"
-        />
+        <el-input v-model.trim="scope.row.job" size="small" placeholder="请输入职务" />
       </template>
     </el-table-column>
     <div
@@ -109,7 +108,7 @@
 export default {
   data() {
     return {
-      obj:{},
+      obj: {},
       uniNameList: [],
       departmentList: [],
     };
