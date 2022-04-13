@@ -109,6 +109,7 @@
 export default {
   data() {
     return {
+      obj:{},
       uniNameList: [],
       departmentList: [],
     };

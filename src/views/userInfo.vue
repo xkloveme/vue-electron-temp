@@ -117,7 +117,7 @@
         </el-row>
         <el-row :gutter="10">
           <el-col :span="20">
-            <el-col :span="needCommunity ? 7 : 12">
+            <el-col :span="12">
               <el-form-item label="工作单位" prop="employer">
                 <el-select
                   @change="handleChangeNeedCommunity"
@@ -128,16 +128,16 @@
                   v-model.trim="form.employer"
                 >
                   <el-option
-                    :key="item.key"
-                    :label="item.value"
-                    :value="item.key"
-                    v-for="item in $utils.workOrganization"
+                    v-for="(item, index) in uniNameList"
+                    :key="index"
+                    :label="item"
+                    :value="item"
                   />
                 </el-select>
               </el-form-item>
             </el-col>
-            <el-col :span="5" v-if="needCommunity">
-              <el-form-item label="村(社区)" label-width="80px" prop="community">
+            <el-col :span="12">
+              <el-form-item label="科室/村社" label-width="120px" prop="community">
                 <el-select
                   clearable
                   filterable
@@ -146,23 +146,26 @@
                   v-model.trim="form.community"
                 >
                   <el-option
-                    :key="item"
+                    v-for="(item, index) in obj[form.employer]"
+                    :key="index"
                     :label="item"
                     :value="item"
-                    v-for="item in communityType"
                   />
                 </el-select>
               </el-form-item>
             </el-col>
+            <!-- <el-col :span="12">
+              <el-form-item label="现任职务">
+                <el-input v-model.trim="form.duty" />
+              </el-form-item>
+            </el-col> -->
             <el-col :span="12">
               <el-form-item label="现任职务">
                 <el-input v-model.trim="form.duty" />
               </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="工作部门">
+              <!-- <el-form-item label="工作部门">
                 <el-input v-model.trim="form.department" />
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="入党时间">
                 <el-date-picker
                   placeholder="选择年月"
@@ -407,6 +410,8 @@ export default {
       disabled: false,
       needCommunity: false,
       communityType: [],
+      obj: {},
+      uniNameList: [],
       rules: {
         name: [{ required: true, message: "请填写姓名", trigger: "blur" }],
         employer: [{ required: true, message: "请填写工作单位", trigger: "blur" }],
@@ -488,6 +493,7 @@ export default {
     },
   },
   mounted() {
+    this.handleUniNameList();
     // 监听与主进程的通信
     this.$ipc.on("action", (event, arg) => {
       switch (arg) {
@@ -509,6 +515,17 @@ export default {
     });
   },
   methods: {
+    handleUniNameList() {
+      const arr = [];
+      const obj = {};
+      this.$utils.unitNamelist.map((res) => {
+        arr.push(res.key);
+        obj[res.key] = res.value;
+      });
+      this.obj = obj;
+      this.uniNameList = arr;
+      console.log(this.uniNameList, this.obj, "this.uniNameList");
+    },
     // 下一项
     handleGoNextPage() {
       let arrhw = [];
@@ -576,13 +593,17 @@ export default {
     },
     // 工作单位逻辑
     handleChangeNeedCommunity(val) {
-      let obj = {};
-      this.$utils.communityType.map((comm) => {
-        obj[comm.key] = comm.value;
-      });
-      this.needCommunity = !!obj[val];
-      this.communityType = obj[val];
-      this.form.community = "";
+      console.log(
+        "🐛 ~ file: userInfo.vue ~ line 596 ~ handleChangeNeedCommunity ~ val",
+        val
+      );
+      // let obj = {};
+      // this.$utils.communityType.map((comm) => {
+      //   obj[comm.key] = comm.value;
+      // });
+      // this.needCommunity = !!obj[val];
+      // this.communityType = obj[val];
+      // this.form.community = "";
     },
     openDialogByIpc() {
       this.$ipc.send("showDialog", `<${this.$t("a message")}>`);

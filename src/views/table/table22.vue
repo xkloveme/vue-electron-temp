@@ -15,6 +15,7 @@
     </el-row>
 
     <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+      <el-button @click="goPdf">打印预览</el-button>
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">导出</el-button>
@@ -58,6 +59,13 @@ export default {
     },
   },
   methods: {
+     goPdf() {
+      // const { href } = this.$router.resolve({
+      //   name: 'Pdf',
+      // })
+      // window.open(href, '_blank')
+      this.$router.push({ name: "Pdf" });
+    },
     onSubmit() {
       if(!this.checked) return this.$message({
           type: 'error',

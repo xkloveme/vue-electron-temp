@@ -70,6 +70,9 @@
         prop="futuresMarketValue"
         label="填报前一交易日净值（万元）"
       >
+          <template slot="header" >
+          <span>填报前一交易日净值<span style="color:red">（万元）</span></span>
+        </template>
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             v-model.trim="scope.row.futuresMarketValue"
@@ -91,7 +94,7 @@
             padding: 5px;
           "
         >
-          填报前一交易日所有期货的总净值（万元）
+          填报前一交易日所有期货的总净值（<span style="color:red">（万元）</span>
           <el-input-number
             v-model.trim="allMarketValue"
             @change="inputChange"

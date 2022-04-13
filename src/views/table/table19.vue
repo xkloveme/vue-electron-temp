@@ -70,6 +70,9 @@
         prop="stockMarketValue"
         label="填报前一交易日市值（万元）"
       >
+        <template slot="header" >
+          <span>填报前一交易日市值<span style="color:red">（万元）</span></span>
+        </template>
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
             v-model.trim="scope.row.stockMarketValue"
@@ -91,7 +94,7 @@
             padding: 5px;
           "
         >
-          填报前一交易日所有股票的总市值（万元）
+          填报前一交易日所有股票的总市值<span style="color:red">（万元）</span>
           <el-input-number
             v-model.trim="allMarketValue"
             v-if="!this.$attrs.hiddenOptions"
