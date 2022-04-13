@@ -94,7 +94,7 @@
             padding: 5px;
           "
         >
-          填报前一交易日所有期货的总净值（<span style="color:red">（万元）</span>
+          填报前一交易日所有期货的总净值<span style="color:red">（万元）</span>
           <el-input-number
             v-model.trim="allMarketValue"
             @change="inputChange"

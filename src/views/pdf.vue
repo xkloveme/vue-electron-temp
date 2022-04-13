@@ -511,8 +511,8 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">{{ form.employer | filterSelect($utils.workOrganization)
-                }}{{ form.community }}</span>
+              <span style="font-family: DengXian">{{ form.employer
+                }}</span>
             </p>
           </td>
           <td style="
@@ -528,7 +528,7 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">现任职务</span>
+              <span style="font-family: DengXian">科室/村社</span>
             </p>
           </td>
           <td colspan="2"
@@ -545,7 +545,7 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">{{ form.duty }}</span>
+              <span style="font-family: DengXian">{{ form.community }}</span>
             </p>
           </td>
           <td colspan="2"
@@ -586,7 +586,7 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">工作部门</span>
+              <span style="font-family: DengXian">现任职务</span>
             </p>
           </td>
           <td colspan="3"
@@ -603,7 +603,7 @@
                 widows: 0;
                 orphans: 0;
               ">
-              <span style="font-family: DengXian">{{ form.department }}</span>
+              <span style="font-family: DengXian">{{ form.duty }}</span>
             </p>
           </td>
           <td style="
