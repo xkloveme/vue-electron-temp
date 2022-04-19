@@ -80,6 +80,11 @@
             :value="item"
           >
           </el-option>
+          <el-option
+            label="无"
+            value="无"
+          >
+          </el-option>
         </el-select>
       </template>
     </el-table-column>
