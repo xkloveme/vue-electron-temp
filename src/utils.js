@@ -29,6 +29,7 @@ export const educationQr = [
   { key: "01", value: "小学" },
   { key: "02", value: "初中" },
   { key: "03", value: "高中" },
+  { key: "09", value: "中专" },
   { key: "04", value: "专科" },
   { key: "05", value: "本科" },
   { key: "06", value: "硕士" },
@@ -39,12 +40,14 @@ export const education = [
   { key: "01", value: "小学" },
   { key: "02", value: "初中" },
   { key: "03", value: "高中" },
+  { key: "09", value: "中专" },
   { key: "04", value: "专科" },
   { key: "05", value: "本科" },
   { key: "06", value: "硕士" },
   { key: "07", value: "博士" },
   { key: "08", value: "无" }
 ]
+
 
 // 人员来源
 export const personnelSource = [
