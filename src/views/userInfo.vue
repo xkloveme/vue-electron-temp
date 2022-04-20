@@ -123,6 +123,7 @@
                   @change="handleChangeNeedCommunity"
                   clearable
                   filterable
+                  allow-create
                   placeholder="请选择"
                   style="width: 100%"
                   v-model.trim="form.employer"
@@ -141,6 +142,7 @@
                 <el-select
                   clearable
                   filterable
+                  allow-create
                   placeholder="请选择"
                   style="width: 100%"
                   v-model.trim="form.community"
