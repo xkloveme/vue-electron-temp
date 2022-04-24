@@ -45,6 +45,7 @@
         <el-select
           v-model="scope.row.unitName"
           filterable
+          allow-create
           default-first-option
           @change="changeValue1($event, scope.$index)"
           placeholder="请选择单位"
