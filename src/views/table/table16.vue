@@ -243,7 +243,7 @@ export default {
           arr.push(item.area > 0)
           arr.push(item.propertyNature)
           arr.push(item.transactionTime)
-          arr.push(item.transactionPrice > 0)
+          arr.push(item.transactionPrice >= 0)
         })
         if (!arr.every((x) => x)) {
           return this.$message({
