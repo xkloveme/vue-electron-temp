@@ -160,6 +160,16 @@
           />
         </template>
       </el-table-column>
+       <el-table-column label="备注" prop="desc">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.desc"
+          />
+        </template>
+      </el-table-column>
       <div
         @click="handleAddLine"
         slot="append"
@@ -237,6 +247,7 @@ export default {
             transactionTime: "", // 交易时间
             transactionPrice: 0, // 交易价格
             realEstateCertificate: "",
+            desc:''
           },
         ],
       });
@@ -250,7 +261,7 @@ export default {
           arr.push(item.relationship);
           arr.push(item.source);
           arr.push(item.address);
-          arr.push(item.area > 0);
+          arr.push(item.area >= 0);
           arr.push(item.propertyNature);
           arr.push(item.realEstateCertificate);
           arr.push(item.transactionTime);
@@ -285,6 +296,7 @@ export default {
         transactionTime: "", // 交易时间
         transactionPrice: 0, // 交易价格
         realEstateCertificate: "",
+        desc:''
       });
     },
   },

@@ -92,6 +92,17 @@
           />
           <span v-else>{{ allMarketValue }}</span>
         </div>
+        <div style="text-align: right; border-bottom: 1px solid #ebeef5; padding: 5px">
+          备注
+          <el-input
+            v-model.trim="desc"
+            size="small"
+            v-if="!this.$attrs.hiddenOptions"
+            style="width: 400px"
+            placeholder="请输入内容"
+          />
+          <span v-else>{{ desc }}</span>
+        </div>
         <div
           style="text-align: center"
           @click="handleAddLine"
@@ -138,6 +149,14 @@ export default {
         this.$store.dispatch("updateFundAllMarketValue", newValue);
       },
     },
+    desc: {
+      get: function () {
+        return this.$store.getters.getFund.desc;
+      },
+      set: function (newValue) {
+        this.$store.commit("setFundDesc", newValue);
+      },
+    },
   },
   // 监听 tableData
   watch: {
@@ -180,6 +199,7 @@ export default {
     handleEmpty() {
       this.$store.dispatch("updateUser", {
         fund: {
+          desc: "",
           allMarketValue: "", // 总市值
           list: [
             {

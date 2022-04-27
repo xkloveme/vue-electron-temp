@@ -64,6 +64,23 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="gmlx"
+        label="公民类型"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-select
+            v-model.trim="scope.row.gmlx"
+            style="width: 100%"
+            placeholder="请选择"
+          >
+            <el-option label="中国国籍" value="中国国籍" />
+            <el-option label="非中国国籍" value="非中国国籍" />
+          </el-select>
+        </template>
+        <template scope="scope" v-else>{{ scope.row.gmlx }}</template>
+      </el-table-column>
+      <el-table-column
         prop="politicsStatus"
         label="政治面貌"
         :width="this.$attrs.hiddenOptions ? 100 : null"
@@ -182,6 +199,7 @@ export default {
           {
             relationship: "", // 本人关系
             name: "",
+            gmlx: "",
             politicsStatus: "", // 政治面貌
             phone: "",
             work: "",
@@ -197,10 +215,11 @@ export default {
         this.tableData.map((item) => {
           arr.push(item.relationship);
           arr.push(item.name);
+          arr.push(item.gmlx);
           arr.push(item.politicsStatus);
           arr.push(item.phone);
           arr.push(item.work);
-          arr.push(isIdentityCard(item.idCard));
+          item.gmlx == "中国国籍" && arr.push(isIdentityCard(item.idCard));
         });
         if (!arr.every((x) => x)) {
           return this.$message({
@@ -224,6 +243,7 @@ export default {
       this.tableData.push({
         relationship: "", // 本人关系
         name: "",
+        gmlx: "",
         politicsStatus: "", // 政治面貌
         phone: "",
         work: "",

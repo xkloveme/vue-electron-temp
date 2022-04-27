@@ -104,22 +104,24 @@ const db = {
   },
   // 基金
   fund: {
+    desc:'',
     allMarketValue: '', // 总市值
     list: [{
       name: '',
       fundName: '', // 基金名称
       fundNumber: '', // 基金数量
-      fundMarketValue: ''// 基金市值
+      fundMarketValue: '',// 基金市值
     }]
   },
   // 期货
   futures: {
+    desc:'',
     allMarketValue: '', // 总市值
     list: [{
       name: '',
       futuresName: '', // 期货名称
       futuresNumber: '', // 期货数量
-      futuresMarketValue: ''// 期货市值
+      futuresMarketValue: '',// 期货市值
     }]
   },
   workingList: [
@@ -134,6 +136,7 @@ const db = {
     {
       relationship: '', // 本人关系
       name: '',
+      gmlx:'',// 公民类型中国国籍、非中国国籍
       idCard: '',
       politicsStatus: '', // 政治面貌
       phone: '',
@@ -254,7 +257,8 @@ const db = {
     area: '', // 建筑面积
     propertyNature: '', // 产权性质
     transactionTime: '', // 交易时间
-    transactionPrice: '' // 交易价格
+    transactionPrice: '', // 交易价格
+    desc:''
   }],
   // 本人配偶注册工商户,个人独资企业或合伙企业
   partnership: [{

@@ -39,7 +39,12 @@
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.disposition" placeholder="请选择">
+          <el-select
+            filterable
+            allow-create
+            v-model="scope.row.disposition"
+            placeholder="请选择"
+          >
             <el-option
               v-for="item in $utils.punishment"
               :key="item.key"

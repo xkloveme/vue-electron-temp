@@ -196,8 +196,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="工作年限(年)" prop="workingYears">
-                <el-input placeholder="工作年限(年)" v-model.trim="form.workingYears" />
+              <el-form-item label="本岗位工作年限(年)" prop="workingYears">
+                <el-input placeholder="本岗位工作年限(年)" v-model.trim="form.workingYears" />
               </el-form-item>
             </el-col>
             <el-col :span="12">

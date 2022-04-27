@@ -84,7 +84,12 @@
       </el-table-column>
       <el-table-column prop="unitNature" label="单位性质">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-select v-model="scope.row.unitNature" placeholder="请选择">
+          <el-select
+            filterable
+            allow-create
+            v-model="scope.row.unitNature"
+            placeholder="请选择"
+          >
             <el-option
               v-for="item in $utils.unitProperties"
               :key="item.key"
@@ -211,7 +216,7 @@ export default {
           arr.push(item.name);
           arr.push(item.isLife);
           arr.push(item.work);
-          arr.push(item.duty);
+          // arr.push(item.duty);
           arr.push(item.unitNature);
           // arr.push(item.cardName)
           // if (item.cardName === '01') {
@@ -224,7 +229,7 @@ export default {
           return this.$message({
             type: "error",
             message:
-              "请检查称谓、姓名、是否共同生活、工作单位、现在职务、单位性质是否有误",
+              "请检查称谓、姓名、是否共同生活、工作单位、单位性质是否有误",
           });
         }
         this.$store.dispatch("updateStatus", "table11");

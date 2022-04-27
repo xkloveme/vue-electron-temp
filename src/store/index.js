@@ -171,6 +171,12 @@ export default new Vuex.Store({
     setStockDesc (state, desc) {
       state.user.stock.desc = desc
     },
+    setFundDesc (state, desc) {
+      state.user.fund.desc = desc
+    },
+    setFuturesDesc (state, desc) {
+      state.user.futures.desc = desc
+    },
     setFundAllMarketValue (state, allMarketValue) {
       state.user.fund.allMarketValue = allMarketValue
     },

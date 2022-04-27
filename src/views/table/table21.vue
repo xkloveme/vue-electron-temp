@@ -79,6 +79,16 @@
           <span>{{ scope.row.futuresMarketValue }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="备注" prop="desc">
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-input
+            placeholder="请输入"
+            size="small"
+            style="width: 100%"
+            v-model.trim="scope.row.desc"
+          />
+        </template>
+      </el-table-column>
       <div slot="append" style="cursor: pointer; line-height: 30px">
         <div style="text-align: right; border-bottom: 1px solid #ebeef5; padding: 5px">
           填报前一交易日所有期货的总净值<span style="color: red">（万元）</span>
@@ -138,6 +148,14 @@ export default {
         this.$store.dispatch("updateFuturesAllMarketValue", newValue);
       },
     },
+    desc: {
+      get: function () {
+        return this.$store.getters.getFutures.desc;
+      },
+      set: function (newValue) {
+        this.$store.commit("setFuturesDesc", newValue);
+      },
+    },
   },
   // 监听 tableData
   watch: {
@@ -180,6 +198,7 @@ export default {
     handleEmpty() {
       this.$store.dispatch("updateUser", {
         futures: {
+          desc: "",
           allMarketValue: "", // 总市值
           list: [
             {

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, dialog } from 'electron'
+import { app, BrowserWindow, Menu, dialog, session } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import pkg from './../../.../../../../package.json'
 const nativeImage = require('electron').nativeImage;
@@ -26,7 +26,7 @@ class MainWindow {
       createProtocol('app')
       this.win.loadURL('app://./index.html')
     }
-
+    const ses =  this.win.webContents.session
     this.win.on('closed', (e) => {
       let self = this
       e.preventDefault()//阻止默认行为，一定要有
@@ -48,9 +48,11 @@ class MainWindow {
           // win = null;
           //app.quit();	//不要用quit();试了会弹两次
           // localStorage.clear();
-          self.win.webContents.send('action', 'clear')
-          self.win = null
-          // app.exit();		//exit()直接关闭客户端，不会执行quit();
+          // self.win.webContents.send('action', 'clear')
+          ses.clearStorageData({ storages: ['cookies', 'localstorage'] }, function () {
+            self.win = null
+            app.exit();		//exit()直接关闭客户端，不会执行quit();
+          })
         }
       }).catch(err => {
         console.log(err)

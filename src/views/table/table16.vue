@@ -273,7 +273,7 @@ export default {
           arr.push(item.source);
           arr.push(item.whereabouts);
           arr.push(item.address);
-          arr.push(item.area > 0);
+          arr.push(item.area >= 0);
           arr.push(item.propertyNature);
           arr.push(item.transactionTime);
           arr.push(item.transactionPrice >= 0);
