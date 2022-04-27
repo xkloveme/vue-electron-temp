@@ -49,7 +49,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="licensing" label="发证机关" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="licensing"
+        label="发证机关"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.licensing"
@@ -72,9 +76,7 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.time | dateDay }}</template>
       </el-table-column>
       <el-table-column
         prop="validity"
@@ -90,9 +92,7 @@
             placeholder="请输入内容"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.validity | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.validity | dateDay }}</template>
       </el-table-column>
       <el-table-column prop="custodyInstitutions" label="保管机构">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -127,95 +127,103 @@
 </template>
 
 <script>
-import { isIdentityCard } from '../../common.js'
+import { isIdentityCard } from "../../common.js";
 export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getTravelDocuments
+      return this.$store.getters.getTravelDocuments;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table6");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '4')
+      this.$store.dispatch("updateStatusSubtract", "4");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         travelDocuments: [
           {
-            name: '', // 证件名称
-            number: '', // 证件号码
-            licensing: '', // 发证机关
-            time: '', // 发证时间
-            validity: '', // 有效期
-            custodyInstitutions: '', // 保管机构
+            name: "", // 证件名称
+            number: "", // 证件号码
+            licensing: "", // 发证机关
+            time: "", // 发证时间
+            validity: "", // 有效期
+            custodyInstitutions: "", // 保管机构
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.name)
-          arr.push(item.licensing)
-          arr.push(item.time)
-          arr.push(item.validity)
-          arr.push(item.custodyInstitutions)
-          arr.push(item.number)
-        })
+          arr.push(item.name);
+          arr.push(item.licensing);
+          arr.push(item.time);
+          arr.push(item.validity);
+          arr.push(item.custodyInstitutions);
+          arr.push(item.number);
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
+            type: "error",
             message:
-              '请检查证件名称、证件号码、发证机关、发证时间、有效期、保管机构是否有误',
-          })
+              "请检查证件名称、证件号码、发证机关、发证时间、有效期、保管机构是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '6')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '6')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table6");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table6");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        name: '', // 证件名称
-        number: '', // 证件号码
-        licensing: '', // 发证机关
-        time: '', // 发证时间
-        validity: '', // 有效期
-        custodyInstitutions: '', // 保管机构
-      })
+        name: "", // 证件名称
+        number: "", // 证件号码
+        licensing: "", // 发证机关
+        time: "", // 发证时间
+        validity: "", // 有效期
+        custodyInstitutions: "", // 保管机构
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

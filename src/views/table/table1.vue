@@ -47,11 +47,7 @@
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.name" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
       <el-table-column
@@ -67,7 +63,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="politicsStatus" label="政治面貌" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="politicsStatus"
+        label="政治面貌"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select
             v-model.trim="scope.row.politicsStatus"
@@ -86,13 +86,13 @@
           scope.row.politicsStatus | filterSelect($utils.politicsStatus)
         }}</template>
       </el-table-column>
-      <el-table-column prop="work" label="工作单位及职务" :width="this.$attrs.hiddenOptions ? 150 : null">
+      <el-table-column
+        prop="work"
+        label="工作单位及职务"
+        :width="this.$attrs.hiddenOptions ? 150 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.work"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.work" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
       <el-table-column prop="phone" label="联系电话">
@@ -128,102 +128,110 @@
 </template>
 
 <script>
-import { isIdentityCard } from '../../common.js'
+import { isIdentityCard } from "../../common.js";
 export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getNetworking
+      return this.$store.getters.getNetworking;
     },
     list() {
-      if (this.$store.getters.getUser.gender === '2') {
-        return this.$utils.womenRelationship
+      if (this.$store.getters.getUser.gender === "2") {
+        return this.$utils.womenRelationship;
       } else {
-        return this.$utils.manRelationship
+        return this.$utils.manRelationship;
       }
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table1");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '20')
+      this.$store.dispatch("updateStatusSubtract", "20");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         networking: [
           {
-            relationship: '', // 本人关系
-            name: '',
-            politicsStatus: '', // 政治面貌
-            phone: '',
-            work: '',
-            idCard: '',
+            relationship: "", // 本人关系
+            name: "",
+            politicsStatus: "", // 政治面貌
+            phone: "",
+            work: "",
+            idCard: "",
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.relationship)
-          arr.push(item.name)
-          arr.push(item.politicsStatus)
-          arr.push(item.phone)
-          arr.push(item.work)
-          arr.push(isIdentityCard(item.idCard))
-        })
+          arr.push(item.relationship);
+          arr.push(item.name);
+          arr.push(item.politicsStatus);
+          arr.push(item.phone);
+          arr.push(item.work);
+          arr.push(isIdentityCard(item.idCard));
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
+            type: "error",
             message:
-              '请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误',
-          })
+              "请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '22')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '22')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table1");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table1");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        relationship: '', // 本人关系
-        name: '',
-        politicsStatus: '', // 政治面貌
-        phone: '',
-        work: '',
-        idCard: '',
-      })
+        relationship: "", // 本人关系
+        name: "",
+        politicsStatus: "", // 政治面貌
+        phone: "",
+        work: "",
+        idCard: "",
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

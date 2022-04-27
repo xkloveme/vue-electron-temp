@@ -17,7 +17,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="title" label="称谓" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column
+        prop="title"
+        label="称谓"
+        :width="this.$attrs.hiddenOptions ? 50 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
@@ -32,16 +36,20 @@
           scope.row.title | filterSelect($utils.familiesType10)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 50 : null">
+      <el-table-column
+        prop="name"
+        label="姓名"
+        :width="this.$attrs.hiddenOptions ? 50 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.name" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
-      <el-table-column prop="isLife" label="是否共同生活" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="isLife"
+        label="是否共同生活"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.isLife" placeholder="请选择">
             <el-option
@@ -62,23 +70,19 @@
         :width="this.$attrs.hiddenOptions ? 150 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.work"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.work" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
-      <el-table-column prop="duty" label="现任职务" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="duty"
+        label="现任职务"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.duty"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.duty" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
-      <el-table-column prop="unitNature" label="单位性质" >
+      <el-table-column prop="unitNature" label="单位性质">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.unitNature" placeholder="请选择">
             <el-option
@@ -141,105 +145,113 @@
 </template>
 
 <script>
-import { isIdentityCard } from '@/common.js'
+import { isIdentityCard } from "@/common.js";
 export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getPractice
+      return this.$store.getters.getPractice;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table11");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '9')
+      this.$store.dispatch("updateStatusSubtract", "9");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         practice: [
           {
-            title: '', // 称谓
-            name: '', // 姓名
-            isLife: '', // 是否共同生活
-            work: '', // 工作单位
-            duty: '', // 现在职务
-            unitNature: '', // 单位性质
-            cardName: '', // 证件名称
-            card: '', // 证件号码
+            title: "", // 称谓
+            name: "", // 姓名
+            isLife: "", // 是否共同生活
+            work: "", // 工作单位
+            duty: "", // 现在职务
+            unitNature: "", // 单位性质
+            cardName: "", // 证件名称
+            card: "", // 证件号码
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.title)
-          arr.push(item.name)
-          arr.push(item.isLife)
-          arr.push(item.work)
-          arr.push(item.duty)
-          arr.push(item.unitNature)
+          arr.push(item.title);
+          arr.push(item.name);
+          arr.push(item.isLife);
+          arr.push(item.work);
+          arr.push(item.duty);
+          arr.push(item.unitNature);
           // arr.push(item.cardName)
           // if (item.cardName === '01') {
           //   arr.push(isIdentityCard(item.card))
           // } else {
           //   arr.push(item.card)
           // }
-        })
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
+            type: "error",
             message:
-              '请检查称谓、姓名、是否共同生活、工作单位、现在职务、单位性质是否有误',
-          })
+              "请检查称谓、姓名、是否共同生活、工作单位、现在职务、单位性质是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '11')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '11')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table11");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table11");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        title: '', // 称谓
-        name: '', // 姓名
-        isLife: '', // 是否共同生活
-        work: '', // 工作单位
-        duty: '', // 现在职务
-        unitNature: '', // 单位性质
-        cardName: '', // 证件名称
-        card: '', // 证件号码
-      })
+        title: "", // 称谓
+        name: "", // 姓名
+        isLife: "", // 是否共同生活
+        work: "", // 工作单位
+        duty: "", // 现在职务
+        unitNature: "", // 单位性质
+        cardName: "", // 证件名称
+        card: "", // 证件号码
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

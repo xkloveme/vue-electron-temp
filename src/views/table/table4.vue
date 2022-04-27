@@ -29,12 +29,9 @@
             type="date"
             value-format="timestamp"
             placeholder="选择时间"
-            
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.time | dateDay }}</template>
       </el-table-column>
       <el-table-column
         prop="disposition"
@@ -55,7 +52,11 @@
           scope.row.disposition | filterSelect($utils.punishment)
         }}</template>
       </el-table-column>
-      <el-table-column prop="dispositionReasons" :width="this.$attrs.hiddenOptions ? 150 : null" label="受处分原因">
+      <el-table-column
+        prop="dispositionReasons"
+        :width="this.$attrs.hiddenOptions ? 150 : null"
+        label="受处分原因"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.dispositionReasons"
@@ -64,7 +65,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="dispositionOrgans" label="惩处机关" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="dispositionOrgans"
+        label="惩处机关"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.dispositionOrgans"
@@ -84,11 +89,7 @@
       </el-table-column> -->
       <el-table-column prop="desc" label="备注">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.desc"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.desc" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
       <div
@@ -119,87 +120,95 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getPunishment
+      return this.$store.getters.getPunishment;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table4");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '2')
+      this.$store.dispatch("updateStatusSubtract", "2");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         punishment: [
           {
-            time: '',
-            disposition: '', // 所受处分
-            dispositionReasons: '', // 所受处分原因
-            dispositionOrgans: '', // 所受处分机关
-            symbol: '', // 文号
-            desc: '',
+            time: "",
+            disposition: "", // 所受处分
+            dispositionReasons: "", // 所受处分原因
+            dispositionOrgans: "", // 所受处分机关
+            symbol: "", // 文号
+            desc: "",
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.time)
-          arr.push(item.disposition)
-          arr.push(item.dispositionReasons)
-          arr.push(item.dispositionOrgans)
-        })
+          arr.push(item.time);
+          arr.push(item.disposition);
+          arr.push(item.dispositionReasons);
+          arr.push(item.dispositionOrgans);
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
-            message: '请检查受惩罚时间、所受处分、受处分原因、惩处机关是否有误',
-          })
+            type: "error",
+            message: "请检查受惩罚时间、所受处分、受处分原因、惩处机关是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '4')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '4')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table4");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table4");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        time: '',
-        disposition: '', // 所受处分
-        dispositionReasons: '', // 所受处分原因
-        dispositionOrgans: '', // 所受处分机关
-        symbol: '', // 文号
-        desc: '',
-      })
+        time: "",
+        disposition: "", // 所受处分
+        dispositionReasons: "", // 所受处分原因
+        dispositionOrgans: "", // 所受处分机关
+        symbol: "", // 文号
+        desc: "",
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

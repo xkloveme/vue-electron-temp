@@ -1,6 +1,6 @@
 <template>
   <div>
-     <!-- <p>
+    <!-- <p>
 8.1、子女与外国人、无国籍人通婚的情况
       </p> -->
     <el-table
@@ -44,14 +44,14 @@
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.name" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseName" label="配偶姓名" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="spouseName"
+        label="配偶姓名"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseName"
@@ -60,7 +60,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseCountry" label="配偶国籍(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="spouseCountry"
+        label="配偶国籍(地区)"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseCountry"
@@ -82,7 +86,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="spouseDuty" label="配偶职务" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="spouseDuty"
+        label="配偶职务"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.spouseDuty"
@@ -105,9 +113,7 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.time | dateDay }}</template>
       </el-table-column>
       <div
         slot="append"
@@ -120,7 +126,12 @@
       </div>
     </el-table>
     <!-- <table82 :tableStatus="tableStatus" v-bind="$attrs"/> -->
-    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
+    <el-row
+      type="flex"
+      style="margin: 30px"
+      justify="center"
+      v-if="!this.$attrs.hiddenOptions"
+    >
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
@@ -134,95 +145,103 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   // components:{table82},
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getChildMarriageForeigners
+      return this.$store.getters.getChildMarriageForeigners;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table8");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       //  this.tableData.splice(index, 1)
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '6')
+      this.$store.dispatch("updateStatusSubtract", "6");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         childMarriageForeigners: [
           {
-            title: '', // 称谓
-            name: '', // 姓名
-            spouseName: '', // 配偶姓名
-            spouseCountry: '', // 配偶姓名国籍
-            spouseWork: '', // 配偶单位
-            spouseDuty: '', // 配偶职位
-            time: '', // 登记时间
+            title: "", // 称谓
+            name: "", // 姓名
+            spouseName: "", // 配偶姓名
+            spouseCountry: "", // 配偶姓名国籍
+            spouseWork: "", // 配偶单位
+            spouseDuty: "", // 配偶职位
+            time: "", // 登记时间
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.title)
-          arr.push(item.name)
-          arr.push(item.spouseName)
-          arr.push(item.spouseCountry)
-          arr.push(item.spouseWork)
-          arr.push(item.spouseDuty)
-          arr.push(item.time)
-        })
+          arr.push(item.title);
+          arr.push(item.name);
+          arr.push(item.spouseName);
+          arr.push(item.spouseCountry);
+          arr.push(item.spouseWork);
+          arr.push(item.spouseDuty);
+          arr.push(item.time);
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
+            type: "error",
             message:
-              '请检查称谓、姓名、配偶姓名、配偶国籍、配偶单位、配偶职务、登记时间是否有误',
-          })
+              "请检查称谓、姓名、配偶姓名、配偶国籍、配偶单位、配偶职务、登记时间是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '8')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '8')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table8");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table8");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        title: '', // 称谓
-        name: '', // 姓名
-        spouseName: '', // 配偶姓名
-        spouseCountry: '', // 配偶姓名国籍
-        spouseWork: '', // 配偶单位
-        spouseDuty: '', // 配偶职位
-        time: '', // 登记时间
-      })
+        title: "", // 称谓
+        name: "", // 姓名
+        spouseName: "", // 配偶姓名
+        spouseCountry: "", // 配偶姓名国籍
+        spouseWork: "", // 配偶单位
+        spouseDuty: "", // 配偶职位
+        time: "", // 登记时间
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

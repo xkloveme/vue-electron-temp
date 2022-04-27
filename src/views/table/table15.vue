@@ -188,6 +188,15 @@ export default {
       return this.$store.getters.getHomestead
     },
   },
+        // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table15");
+      },
+      deep: true,
+    },
+  },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
@@ -238,10 +247,10 @@ export default {
               '请检查产权人、房产来源、具体地址、建筑面积、交易时间、交易价格是否有误',
           })
         }
-        this.$store.dispatch('updateStatus', '18')
+        this.$store.dispatch('updateStatus', 'table15')
         console.log(this.tableStatus)
       } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '18')
+        this.$store.dispatch('updateStatus', 'table15')
       } else if (this.tableStatus === '') {
         return this.$message({
           type: 'error',

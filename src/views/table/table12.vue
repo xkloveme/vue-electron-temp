@@ -17,7 +17,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="familiesType" label="称谓" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="familiesType"
+        label="称谓"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-select v-model="scope.row.title" placeholder="请选择">
             <el-option
@@ -32,13 +36,13 @@
           scope.row.title | filterSelect($utils.familiesType)
         }}</template>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="name"
+        label="姓名"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.name" size="small" placeholder="请输入内容" />
         </template>
       </el-table-column>
       <el-table-column
@@ -55,9 +59,7 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.time | dateDay }}</template>
       </el-table-column>
       <el-table-column
         prop="reasons"
@@ -124,89 +126,96 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getCriminal
+      return this.$store.getters.getCriminal;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table12");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '10')
+      this.$store.dispatch("updateStatusSubtract", "10");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         criminal: [
           {
-            title: '', // 称谓
-            name: '', // 姓名
-            time: '', // 被追究时间
-            reasons: '', // 被追究责任原因
-            status: '', // 处理阶段
-            result: '', // 处理结果
+            title: "", // 称谓
+            name: "", // 姓名
+            time: "", // 被追究时间
+            reasons: "", // 被追究责任原因
+            status: "", // 处理阶段
+            result: "", // 处理结果
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.title)
-          arr.push(item.name)
-          arr.push(item.time)
-          arr.push(item.reasons)
-          arr.push(item.result)
-        })
+          arr.push(item.title);
+          arr.push(item.name);
+          arr.push(item.time);
+          arr.push(item.reasons);
+          arr.push(item.result);
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
-            message:
-              '请检查称谓、姓名、被追究时间、被追究责任原因、处理结果是否有误',
-          })
+            type: "error",
+            message: "请检查称谓、姓名、被追究时间、被追究责任原因、处理结果是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '12')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '12')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table12");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table12");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        title: '', // 称谓
-        name: '', // 姓名
-        time: '', // 被追究时间
-        reasons: '', // 被追究责任原因
-        status: '', // 处理阶段
-        result: '', // 处理结果
-      })
+        title: "", // 称谓
+        name: "", // 姓名
+        time: "", // 被追究时间
+        reasons: "", // 被追究责任原因
+        status: "", // 处理阶段
+        result: "", // 处理结果
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

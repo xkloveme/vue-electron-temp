@@ -493,6 +493,99 @@ export default {
       return arr;
     },
   },
+  // 深度监听
+  watch: {
+    form: {
+      handler(val) {
+        localStorage.setItem("db", JSON.stringify(val));
+      },
+      deep: true,
+    },
+    "form.name": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.employer": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.gender": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.politicsStatus": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.idCard": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.phone": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.community": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.workingStatus": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.grade": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.position": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.personnelSource": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.objectIdentity": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.identity": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+    "form.workingYears": {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "userInfo");
+      },
+      deep: true,
+    },
+  },
   mounted() {
     this.handleUniNameList();
     // 监听与主进程的通信
@@ -511,6 +604,10 @@ export default {
         case "new": // 新建
           this.openNew();
           console.log("new");
+          break;
+         case "clear": // 清空缓存
+          console.log("clear");
+          localStorage.clear();
           break;
       }
     });
@@ -567,7 +664,7 @@ export default {
                 return false;
               }
             }
-            this.$store.dispatch("updateStatus", "1");
+            this.$store.dispatch("updateStatus", "userInfo");
           } else {
             this.$message({
               type: "error",

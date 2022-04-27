@@ -31,9 +31,7 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.startTime | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.startTime | dateDay }}</template>
       </el-table-column>
       <el-table-column
         prop="endTime"
@@ -49,11 +47,13 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.endTime | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.endTime | dateDay }}</template>
       </el-table-column>
-      <el-table-column prop="country" label="所到国家(地区)" :width="this.$attrs.hiddenOptions ? 100 : null">
+      <el-table-column
+        prop="country"
+        label="所到国家(地区)"
+        :width="this.$attrs.hiddenOptions ? 100 : null"
+      >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             v-model.trim="scope.row.country"
@@ -117,90 +117,97 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getTravelAbroad
+      return this.$store.getters.getTravelAbroad;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table7");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '5')
+      this.$store.dispatch("updateStatusSubtract", "5");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         travelAbroad: [
           {
-            startTime: '',
-            endTime: '',
-            country: '',
-            reasons: '', // 出国事由
-            approvalAuthority: '', // 审批机构
-            agency: '', // 代办机构
+            startTime: "",
+            endTime: "",
+            country: "",
+            reasons: "", // 出国事由
+            approvalAuthority: "", // 审批机构
+            agency: "", // 代办机构
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.startTime)
-          arr.push(item.endTime)
-          arr.push(item.country)
-          arr.push(item.reasons)
+          arr.push(item.startTime);
+          arr.push(item.endTime);
+          arr.push(item.country);
+          arr.push(item.reasons);
           // arr.push(item.approvalAuthority)
           // arr.push(item.agency)
-        })
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
-            message:
-              '请检查日期、所到国家、出境事由是否有误',
-          })
+            type: "error",
+            message: "请检查日期、所到国家、出境事由是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '7')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '7')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table7");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table7");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        startTime: '',
-        endTime: '',
-        country: '',
-        reasons: '', // 出国事由
-        approvalAuthority: '', // 审批机构
-        agency: '', // 代办机构
-      })
+        startTime: "",
+        endTime: "",
+        country: "",
+        reasons: "", // 出国事由
+        approvalAuthority: "", // 审批机构
+        agency: "", // 代办机构
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

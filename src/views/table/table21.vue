@@ -23,11 +23,7 @@
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-          <el-input
-            v-model.trim="scope.row.name"
-            size="small"
-            placeholder="请输入内容"
-          />
+          <el-input v-model.trim="scope.row.name" size="small" placeholder="请输入内容" />
         </template>
         <template scope="scope" v-else>
           <span>{{ scope.row.name }}</span>
@@ -66,12 +62,9 @@
           <span>{{ scope.row.futuresNumber }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="futuresMarketValue"
-        label="填报前一交易日净值（万元）"
-      >
-          <template slot="header" >
-          <span>填报前一交易日净值<span style="color:red">（万元）</span></span>
+      <el-table-column prop="futuresMarketValue" label="填报前一交易日净值（万元）">
+        <template slot="header">
+          <span>填报前一交易日净值<span style="color: red">（万元）</span></span>
         </template>
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input-number
@@ -87,14 +80,8 @@
         </template>
       </el-table-column>
       <div slot="append" style="cursor: pointer; line-height: 30px">
-        <div
-          style="
-            text-align: right;
-            border-bottom: 1px solid #ebeef5;
-            padding: 5px;
-          "
-        >
-          填报前一交易日所有期货的总净值<span style="color:red">（万元）</span>
+        <div style="text-align: right; border-bottom: 1px solid #ebeef5; padding: 5px">
+          填报前一交易日所有期货的总净值<span style="color: red">（万元）</span>
           <el-input-number
             v-model.trim="allMarketValue"
             @change="inputChange"
@@ -133,107 +120,115 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getFutures.list
+      return this.$store.getters.getFutures.list;
     },
     allMarketValue: {
       get: function () {
-        return this.$store.getters.getFutures.allMarketValue
+        return this.$store.getters.getFutures.allMarketValue;
       },
       set: function (newValue) {
-        this.$store.dispatch('updateFuturesAllMarketValue', newValue)
+        this.$store.dispatch("updateFuturesAllMarketValue", newValue);
       },
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table21");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     inputChange(currentValue, oldValue) {
       if (currentValue > 100) {
-        this.$alert('单位为万元,请仔细核对', '⚠️注意⚠️', {
-          confirmButtonText: '确定',
+        this.$alert("单位为万元,请仔细核对", "⚠️注意⚠️", {
+          confirmButtonText: "确定",
           callback: (action) => {
             this.$message({
-              type: 'info',
+              type: "info",
               message: `请您再次检查,您输入值的单位为万元`,
-            })
+            });
           },
-        })
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '19')
+      this.$store.dispatch("updateStatusSubtract", "19");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         futures: {
-          allMarketValue: '', // 总市值
+          allMarketValue: "", // 总市值
           list: [
             {
-              name: '',
-              futuresName: '', // 期货名称
-              futuresNumber: '', // 期货数量
-              futuresMarketValue: '', // 期货市值
+              name: "",
+              futuresName: "", // 期货名称
+              futuresNumber: "", // 期货数量
+              futuresMarketValue: "", // 期货市值
             },
           ],
         },
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.name)
-          arr.push(item.futuresName)
-          arr.push(item.futuresNumber > 0)
-          arr.push(item.futuresMarketValue > 0)
-        })
+          arr.push(item.name);
+          arr.push(item.futuresName);
+          arr.push(item.futuresNumber > 0);
+          arr.push(item.futuresMarketValue > 0);
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
-            message: '请检查持有人姓名、期货名称、期货数量、期货市值是否有误',
-          })
+            type: "error",
+            message: "请检查持有人姓名、期货名称、期货数量、期货市值是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '21')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '21')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table21");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table21");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        name: '',
-        futuresName: '', // 期货名称
-        futuresNumber: '', // 期货数量
-        futuresMarketValue: '', // 期货市值
-      })
+        name: "",
+        futuresName: "", // 期货名称
+        futuresNumber: "", // 期货数量
+        futuresMarketValue: "", // 期货市值
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

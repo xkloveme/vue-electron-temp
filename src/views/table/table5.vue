@@ -36,10 +36,7 @@
           scope.row.change | filterSelect($utils.marriage)
         }}</template>
       </el-table-column>
-      <el-table-column
-        prop="time"
-        label="变化时间"
-      >
+      <el-table-column prop="time" label="变化时间">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-date-picker
             v-model.trim="scope.row.time"
@@ -49,9 +46,7 @@
             placeholder="选择时间"
           />
         </template>
-        <template scope="scope" v-else>{{
-          scope.row.time | dateDay
-        }}</template>
+        <template scope="scope" v-else>{{ scope.row.time | dateDay }}</template>
       </el-table-column>
       <!-- <el-table-column prop="reasons" label="变化原因"  :width="this.$attrs.hiddenOptions ? 200 : 180">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
@@ -90,80 +85,88 @@ export default {
   props: {
     tableStatus: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     tableData() {
-      return this.$store.getters.getMarriage
+      return this.$store.getters.getMarriage;
+    },
+  },
+  // 监听 tableData
+  watch: {
+    tableData: {
+      handler(val) {
+        this.$store.commit("setcheckStatusDisabled", "table5");
+      },
+      deep: true,
     },
   },
   methods: {
     handleDelete(index, row) {
       if (this.tableData.length > 1) {
-        this.tableData.splice(index, 1)
+        this.tableData.splice(index, 1);
       } else {
         this.$message({
-          type: 'info',
-          message: '已经是最后一个了,不能再删了',
-        })
+          type: "info",
+          message: "已经是最后一个了,不能再删了",
+        });
       }
     },
     // 上一项
     handleGoPrevPage() {
-      this.$store.dispatch('updateStatusSubtract', '3')
+      this.$store.dispatch("updateStatusSubtract", "3");
     },
     // 清空
     handleEmpty() {
-      this.$store.dispatch('updateUser', {
+      this.$store.dispatch("updateUser", {
         marriage: [
           {
-            change: '', // 变化情况
-            time: '',
-            reasons: '',
+            change: "", // 变化情况
+            time: "",
+            reasons: "",
           },
         ],
-      })
+      });
     },
     // 下一项
     handleGoNextPage() {
-      if (this.tableStatus === '1') {
-        let arr = []
+      if (this.tableStatus === "1") {
+        let arr = [];
         this.tableData.map((item) => {
-          arr.push(item.change)
-          arr.push(item.time)
+          arr.push(item.change);
+          arr.push(item.time);
           // arr.push(item.reasons)
-        })
+        });
         if (!arr.every((x) => x)) {
           return this.$message({
-            type: 'error',
-            message: '请检查变化情况、变化时间是否有误',
-          })
+            type: "error",
+            message: "请检查变化情况、变化时间是否有误",
+          });
         }
-        this.$store.dispatch('updateStatus', '5')
-        console.log(this.tableStatus)
-      } else if (this.tableStatus === '2') {
-        this.$store.dispatch('updateStatus', '5')
-      } else if (this.tableStatus === '') {
+        this.$store.dispatch("updateStatus", "table5");
+        console.log(this.tableStatus);
+      } else if (this.tableStatus === "2") {
+        this.$store.dispatch("updateStatus", "table5");
+      } else if (this.tableStatus === "") {
         return this.$message({
-          type: 'error',
-          message: '请检查是否选择有无此类情况',
-        })
+          type: "error",
+          message: "请检查是否选择有无此类情况",
+        });
       }
     },
     handleAddLine() {
       this.tableData.push({
-        change: '', // 变化情况
-        time: '',
-        reasons: '',
-      })
+        change: "", // 变化情况
+        time: "",
+        reasons: "",
+      });
     },
   },
-}
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

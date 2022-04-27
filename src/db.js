@@ -44,6 +44,7 @@ const db = {
   imageUrl: '', // 照片
   other: '', // 超长字符串,类似备注
   tableStatus: {},
+  checkStatus: {},// 填写完成状态{table1:1,table2:0},1为有2为没有
   // 海外经历
   haiWai:[
   //   {

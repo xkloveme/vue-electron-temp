@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu ,dialog} from 'electron'
+import { app, BrowserWindow, Menu, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import pkg from './../../.../../../../package.json'
 const nativeImage = require('electron').nativeImage;
@@ -6,7 +6,7 @@ var path = require('path')
 const version = pkg.version
 const productName = pkg.productName
 class MainWindow {
-  constructor (win) {
+  constructor(win) {
     // win代表electron窗口实例
     // win is this electron window instance
     this.win = win
@@ -27,8 +27,34 @@ class MainWindow {
       this.win.loadURL('app://./index.html')
     }
 
-    this.win.on('closed', () => {
-      this.win = null
+    this.win.on('closed', (e) => {
+      let self = this
+      e.preventDefault()//阻止默认行为，一定要有
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Information',
+        cancelId: 2,
+        defaultId: 0,
+        message: '是否保存信息？',
+        buttons: ['给我保存', '不需要']
+      }).then(result => {
+        if (result.response == 0) {
+          //给我保存
+          app.exit();//调用 最小化实例方法
+          self.win = null
+          e.preventDefault();		//阻止默认行为，一定要有
+        } else if (result.response == 1) {
+          // 不需要
+          // win = null;
+          //app.quit();	//不要用quit();试了会弹两次
+          // localStorage.clear();
+          self.win.webContents.send('action', 'clear')
+          self.win = null
+          // app.exit();		//exit()直接关闭客户端，不会执行quit();
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     })
   }
 
@@ -44,16 +70,16 @@ class MainWindow {
           // 设为false允许跨域
           webSecurity: false,
           nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true
+          contextIsolation: false,
+          enableRemoteModule: true
         },
         frame: true
       })
       this.win.setIcon(
         nativeImage.createFromPath(
-            path.join(__dirname, "app.ico")
+          path.join(__dirname, "app.ico")
         )
-    );
+      );
       // 初始化浏览器页面
       this.initBrowserPage()
 

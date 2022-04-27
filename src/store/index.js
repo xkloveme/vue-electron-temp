@@ -2,18 +2,22 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 var db = require('./../db.js')
 console.log('🐛:: db', db)
-var newDb = JSON.parse(JSON.stringify(db))
+var newDb = JSON.parse(localStorage.getItem('db')) || JSON.parse(JSON.stringify(db))
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     status: 0,
-    user: db
+    user: JSON.parse(localStorage.getItem('db')) || db
   },
   getters: {
     // 获取当前状态,默认为0,共有0-22种
     getStatus (state) {
       return state.status
+    },
+    // 检查校验状态
+    getcheckStatus ({ user }) {
+      return user.checkStatus
     },
     // 参数列表state指的是state数据
     getUser (state) {
@@ -119,6 +123,19 @@ export default new Vuex.Store({
         state.status++
       }
     },
+    setStatusNum(state,val){
+      state.status=Number(val)
+    },
+    // 设置校验状态
+    setcheckStatus (state, tableName) {
+      state.user.checkStatus[tableName] = true
+      localStorage.setItem("db", JSON.stringify(state.user));
+    },
+    // 设置校验状态禁用
+    setcheckStatusDisabled (state, tableName) {
+      state.user.checkStatus[tableName] = false
+      localStorage.setItem("db", JSON.stringify(state.user));
+    },
     setStatusSubtract (state) {
       state.status--
     },
@@ -169,6 +186,7 @@ export default new Vuex.Store({
     },
     updateStatus ({ commit, state }, value) {
       commit('setStatus')
+      commit('setcheckStatus', value)
     },
     updateStatusSubtract ({ commit, state }, value) {
       commit('setStatusSubtract')
