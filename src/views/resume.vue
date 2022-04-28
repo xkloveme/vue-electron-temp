@@ -15,7 +15,7 @@
         />
       </template>
     </el-table-column>
-    <el-table-column
+    <!-- <el-table-column
       prop="time"
       label="年月"
       :width="this.$attrs.hiddenOptions ? '' : 280"
@@ -32,6 +32,58 @@
           end-placeholder="结束年月"
           value-format="timestamp"
           @change="changeValue"
+        >
+        </el-date-picker>
+      </template>
+    </el-table-column> -->
+    <el-table-column
+      prop="startTime"
+      label="开始年月"
+      :width="this.$attrs.hiddenOptions ? '' : 280"
+    >
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+        <el-date-picker
+          v-model="scope.row.startTime"
+          type="month"
+          align="right"
+          unlink-panels
+          style="width: 150px"
+          start-placeholder="开始年月"
+          value-format="timestamp"
+          :picker-options="{
+            disabledDate: (data) => startDatePicker(data, scope.row.endTime),
+          }"
+        >
+        </el-date-picker>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="endTime"
+      label="结束年月"
+      :width="this.$attrs.hiddenOptions ? '' : 280"
+    >
+      <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+        <el-date-picker
+          :class="scope.row.endTime=='至今' ? 'time-picker' : ''"
+          v-model="scope.row.endTime"
+          type="month"
+          align="right"
+          unlink-panels
+          style="width: 150px"
+          start-placeholder="结束年月"
+          value-format="timestamp"
+          prefix-icon="el-icon-date"
+          :picker-options="{
+            disabledDate: (data) => endDatePicker(data, scope.row.startTime),
+            shortcuts: [
+              {
+                text: '至今',
+                onClick(picker) {
+                  now(picker, scope);
+                },
+              },
+            ],
+          }"
         >
         </el-date-picker>
       </template>
@@ -80,11 +132,7 @@
             :value="item"
           >
           </el-option>
-          <el-option
-            label="无"
-            value="无"
-          >
-          </el-option>
+          <el-option label="无" value="无"> </el-option>
         </el-select>
       </template>
     </el-table-column>
@@ -130,6 +178,23 @@ export default {
     this.handleUniNameList();
   },
   methods: {
+    // 选择至今的操作
+    now(picker, scope) {
+      scope.row.endTime = "至今";
+    },
+    // 时间选择的先后限制
+    startDatePicker(time, etime) {
+      if (etime) {
+        let data = new Date(etime);
+        return time.getTime() > data.getTime();
+      }
+    },
+    endDatePicker(time, btime) {
+      if (btime) {
+        let data = new Date(btime);
+        return time.getTime() < data.getTime();
+      }
+    },
     handleUniNameList() {
       const arr = [];
       const obj = {};
@@ -187,4 +252,20 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.tb-edit {
+  // 使用控制css的方式将图标改为至今两个字达到效果
+  .time-picker {
+    /deep/ .el-icon-date {
+      width: 2rem;
+      color: #333;
+      &::before {
+        content: "至今";
+      }
+      &::after {
+        content: "";
+      }
+    }
+  }
+}
+</style>
