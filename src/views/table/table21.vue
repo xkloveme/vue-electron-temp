@@ -79,7 +79,7 @@
           <span>{{ scope.row.futuresMarketValue }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" prop="desc">
+      <!-- <el-table-column label="备注" prop="desc">
         <template scope="scope" v-if="!this.$attrs.hiddenOptions">
           <el-input
             placeholder="请输入"
@@ -88,7 +88,7 @@
             v-model.trim="scope.row.desc"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <div slot="append" style="cursor: pointer; line-height: 30px">
         <div style="text-align: right; border-bottom: 1px solid #ebeef5; padding: 5px">
           填报前一交易日所有期货的总净值<span style="color: red">（万元）</span>
@@ -101,6 +101,17 @@
             v-if="!this.$attrs.hiddenOptions"
           />
           <span v-else>{{ allMarketValue }}</span>
+        </div>
+        <div style="text-align: right; border-bottom: 1px solid #ebeef5; padding: 5px">
+          备注
+          <el-input
+            v-model.trim="desc"
+            size="small"
+            v-if="!this.$attrs.hiddenOptions"
+            style="width: 400px"
+            placeholder="请输入内容"
+          />
+          <span v-else>{{ desc }}</span>
         </div>
         <div
           style="text-align: center"
@@ -121,6 +132,7 @@
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
+      <el-button @click="$exportWt()">导出</el-button>
     </el-row>
   </div>
 </template>

@@ -189,6 +189,7 @@
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
       <el-button @click="handleGoNextPage">下一项</el-button>
+      <el-button @click="$exportWt()">导出</el-button>
     </el-row>
   </div>
 </template>

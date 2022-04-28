@@ -30,7 +30,7 @@
       <el-button @click="goPdf">打印预览</el-button>
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
-      <el-button @click="handleGoNextPage">导出</el-button>
+      <el-button @click="handleGoNextPage">完成填报</el-button>
     </el-row>
   </div>
   <!-- <el-button @click="onSubmit" type="primary">提交</el-button> -->
@@ -125,7 +125,7 @@ export default {
       // img.file('smile.gif', imgData, { base64: true })
       // 把打包内容异步转成blob二进制格式
       zip.generateAsync({ type: "blob" }).then(function (content) {
-        var filename = self.form.name + self.form.idCard + ".wt";
+        var filename = "「完成填报」"+self.form.name + self.form.idCard + ".wt";
         // 创建隐藏的可下载链接
         var eleLink = document.createElement("a");
         eleLink.download = filename;
