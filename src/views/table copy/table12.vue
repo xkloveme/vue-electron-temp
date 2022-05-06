@@ -111,7 +111,7 @@
           <el-date-picker
             placeholder="选择时间"
             style="width: 150px"
-            type="date"
+            type="month"
             v-model.trim="scope.row.transactionTime"
             value-format="timestamp"
           />

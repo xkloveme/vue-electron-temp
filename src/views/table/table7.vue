@@ -26,7 +26,7 @@
           <el-date-picker
             v-model.trim="scope.row.startTime"
             style="width: 150px"
-            type="date"
+            type="month"
             value-format="timestamp"
             placeholder="选择时间"
           />
@@ -42,7 +42,7 @@
           <el-date-picker
             v-model.trim="scope.row.endTime"
             style="width: 150px"
-            type="date"
+            type="month"
             value-format="timestamp"
             placeholder="选择时间"
           />
