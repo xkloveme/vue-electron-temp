@@ -63,7 +63,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="身份证号" prop="idCard">
-              <el-input v-model.trim="form.idCard" />
+              <el-input v-model.trim="form.idCard" onkeyup="value=value.replace(/[^0-9X]/g,'')"/>
             </el-form-item>
           </el-col>
           <el-col :span="6">

@@ -45,6 +45,7 @@
           <el-input
             v-model.trim="scope.row.number"
             size="small"
+            onkeyup="value=value.replace(/[^0-9a-zA-Z]/g,'')"
             placeholder="请输入内容"
           />
         </template>

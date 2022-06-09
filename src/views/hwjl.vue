@@ -1,7 +1,7 @@
 <!--
  * @Author: xkloveme
  * @Date: 2022-04-03 10:38:40
- * @LastEditTime: 2022-04-06 13:41:09
+ * @LastEditTime: 2022-06-09 10:30:29
  * @LastEditors: xkloveme
  * @Description: 
  * @FilePath: /wt-jw-client/src/views/hwjl.vue
@@ -64,7 +64,7 @@
       :width="this.$attrs.hiddenOptions ? '' : null"
     >
       <template scope="scope" v-if="!this.$attrs.hiddenOptions">
-        <el-input clearable v-model.trim="scope.row.sfzh" size="small" placeholder="请输入身份证号" />
+        <el-input clearable v-model.trim="scope.row.sfzh" onkeyup="value=value.replace(/[^0-9X]/g,'')" size="small" placeholder="请输入身份证号" />
       </template>
     </el-table-column>
     <el-table-column
@@ -77,7 +77,6 @@
           v-model="scope.row.hwjl"
           filterable
           clearable
-          allow-create
           default-first-option
           placeholder="请选择海外经历"
         >

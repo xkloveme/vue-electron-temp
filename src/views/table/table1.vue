@@ -59,6 +59,7 @@
           <el-input
             v-model.trim="scope.row.idCard"
             size="small"
+            onkeyup="value=value.replace(/[^0-9X]/g,'')"
             placeholder="请输入内容"
           />
         </template>
