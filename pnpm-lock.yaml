@@ -13,7 +13,7 @@ specifiers:
   core-js: ^3.6.4
   dayjs: ^1.8.28
   dexie: ^3.0.1
-  electron: ^9.4.4
+  electron: ^11.5.0
   electron-log: ^4.4.1
   element-ui: ^2.13.2
   eslint: ^6.8.0
@@ -61,7 +61,7 @@ devDependencies:
   axios: 0.21.4
   babel-eslint: 10.1.0_eslint@6.8.0
   dayjs: 1.11.7
-  electron: 9.4.4
+  electron: 11.5.0
   electron-log: 4.4.8
   eslint: 6.8.0
   eslint-plugin-import: 2.27.5_eslint@6.8.0
@@ -1542,7 +1542,7 @@ packages:
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.13.0
     dev: true
 
   /@types/minimatch/5.1.2:
@@ -1585,7 +1585,7 @@ packages:
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 12.20.55
+      '@types/node': 18.13.0
     dev: true
 
   /@types/verror/1.10.6:
@@ -4884,8 +4884,8 @@ packages:
     resolution: {integrity: sha512-dTXLXBdzfDYnZYq+bLer21HrFsEkzlR2OSIOsR+qroDmhmQU3i4T4KdY0Lcp83ZId3HnWTpPAEfhaJtVxmS/dQ==}
     dev: true
 
-  /electron/9.4.4:
-    resolution: {integrity: sha512-dcPlTrMWQu5xuSm6sYV42KK/BRIqh3erM8v/WtZqaDmG7pkCeJpvw26Dgbqhdt78XmqqGiN96giEe6A3S9vpAQ==}
+  /electron/11.5.0:
+    resolution: {integrity: sha512-WjNDd6lGpxyiNjE3LhnFCAk/D9GIj1rU3GSDealVShhkkkPR3Vh4q8ErXGDl1OAO/faomVa10KoFPUN/pLbNxg==}
     engines: {node: '>= 8.6'}
     hasBin: true
     requiresBuild: true
