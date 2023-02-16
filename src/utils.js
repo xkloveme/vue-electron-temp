@@ -908,6 +908,7 @@ export const marketEntities = [
   { key: "03", value: "合伙企业" },
   { key: "04", value: "有限责任公司" },
   { key: "05", value: "农民专业合作社" },
+  { key: "06", value: "全民所有制" },
 ]
 
 // 单位
