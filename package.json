@@ -25,6 +25,7 @@
   },
   "main": "background.js",
   "keywords": [],
+  "publish": null,
   "author": "xkloveme",
   "license": "MIT",
   "dependencies": {
