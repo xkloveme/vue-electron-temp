@@ -63,7 +63,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="填报前一日交易日期"
+        label="填报前一交易日期"
         prop="transactionDate"
         :width="this.$attrs.hiddenOptions ? 100 : 180"
       >
