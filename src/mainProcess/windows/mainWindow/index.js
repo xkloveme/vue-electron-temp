@@ -73,7 +73,7 @@ class MainWindow {
           webSecurity: false,
           nodeIntegration: true,
           contextIsolation: false,
-          enableRemoteModule: true
+          enableRemoteModule: true,
         },
         frame: true
       })

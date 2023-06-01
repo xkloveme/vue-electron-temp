@@ -227,7 +227,7 @@ export default {
           return this.$message({
             type: "error",
             message:
-              "请检查与本人关系、姓名、身份证号、政治面貌、工作单位及职务、联系电话是否有误",
+              "请检查与本人关系、姓名、身份证号、公民类型、政治面貌、工作单位及职务、联系电话是否有误",
           });
         }
         this.$store.dispatch("updateStatus", "table1");

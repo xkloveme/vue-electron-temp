@@ -97,6 +97,7 @@ const db = {
     allMarketValue: '', // 总市值
     list: [{
       name: '',
+      transactionDate:'',
       stockName: '', // 股票名称
       stockNumber: '', // 股票数量
       stockMarketValue: ''// 股票市值
@@ -108,6 +109,7 @@ const db = {
     allMarketValue: '', // 总市值
     list: [{
       name: '',
+      transactionDate:'',
       fundName: '', // 基金名称
       fundNumber: '', // 基金数量
       fundMarketValue: '',// 基金市值
@@ -119,6 +121,7 @@ const db = {
     allMarketValue: '', // 总市值
     list: [{
       name: '',
+      transactionDate:'',
       futuresName: '', // 期货名称
       futuresNumber: '', // 期货数量
       futuresMarketValue: '',// 期货市值

@@ -62,6 +62,22 @@
           <span>{{ scope.row.futuresNumber }}</span>
         </template>
       </el-table-column>
+      <el-table-column
+        label="填报前一日交易日期"
+        prop="transactionDate"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            v-model.trim="scope.row.transactionDate"
+            style="width: 150px"
+            type="date"
+            value-format="timestamp"
+            placeholder="选择日期"
+          />
+        </template>
+        <template scope="scope" v-else>{{ scope.row.transactionDate | dateYear }}</template>
+      </el-table-column>
       <el-table-column prop="futuresMarketValue" label="填报前一交易日净值（万元）">
         <template slot="header">
           <span>填报前一交易日净值<span style="color: red">（万元）</span></span>
@@ -215,6 +231,7 @@ export default {
           list: [
             {
               name: "",
+              transactionDate:'',
               futuresName: "", // 期货名称
               futuresNumber: "", // 期货数量
               futuresMarketValue: "", // 期货市值
@@ -229,6 +246,7 @@ export default {
         let arr = [];
         this.tableData.map((item) => {
           arr.push(item.name);
+          arr.push(item.transactionDate);
           arr.push(item.futuresName);
           arr.push(item.futuresNumber > 0);
           arr.push(item.futuresMarketValue > 0);
@@ -236,7 +254,7 @@ export default {
         if (!arr.every((x) => x)) {
           return this.$message({
             type: "error",
-            message: "请检查持有人姓名、期货名称、期货数量、期货市值是否有误",
+            message: "请检查持有人姓名、期货名称、期货数量、填报前一交易日期、期货市值是否有误",
           });
         }
         this.$store.dispatch("updateStatus", "table21");
@@ -253,6 +271,7 @@ export default {
     handleAddLine() {
       this.tableData.push({
         name: "",
+        transactionDate:'',
         futuresName: "", // 期货名称
         futuresNumber: "", // 期货数量
         futuresMarketValue: "", // 期货市值

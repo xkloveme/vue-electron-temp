@@ -62,6 +62,22 @@
           <span>{{ scope.row.stockNumber }}</span>
         </template>
       </el-table-column>
+      <el-table-column
+        label="填报前一日交易日期"
+        prop="transactionDate"
+        :width="this.$attrs.hiddenOptions ? 100 : 180"
+      >
+        <template scope="scope" v-if="!this.$attrs.hiddenOptions">
+          <el-date-picker
+            v-model.trim="scope.row.transactionDate"
+            style="width: 150px"
+            type="date"
+            value-format="timestamp"
+            placeholder="选择日期"
+          />
+        </template>
+        <template scope="scope" v-else>{{ scope.row.transactionDate | dateYear }}</template>
+      </el-table-column>
       <el-table-column prop="stockMarketValue" label="填报前一交易日市值（万元）">
         <template slot="header">
           <span>填报前一交易日市值<span style="color: red">（万元）</span></span>
@@ -210,6 +226,7 @@ export default {
           list: [
             {
               name: "",
+              transactionDate:"",
               stockName: "", // 股票名称
               stockNumber: "", // 股票数量
               stockMarketValue: "", // 股票市值
@@ -224,6 +241,7 @@ export default {
         let arr = [];
         this.tableData.map((item) => {
           arr.push(item.name);
+          arr.push(item.transactionDate);
           arr.push(item.stockName);
           arr.push(item.stockNumber > 0);
           arr.push(item.stockMarketValue > 0);
@@ -231,7 +249,7 @@ export default {
         if (!arr.every((x) => x)) {
           return this.$message({
             type: "error",
-            message: "请检查持有人姓名、股票名称、持股数量、股票市值是否有误",
+            message: "请检查持有人姓名、股票名称、持股数量、填报前一交易日期、股票市值是否有误",
           });
         }
         this.$store.dispatch("updateStatus", "table19");
@@ -248,6 +266,7 @@ export default {
     handleAddLine() {
       this.tableData.push({
         name: "",
+        transactionDate:"",
         stockName: "", // 股票名称
         stockNumber: "", // 持股数量
         stockMarketValue: "", // 股票市值
