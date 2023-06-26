@@ -115,7 +115,7 @@ export default {
       this.$store.dispatch("updateUid", this.id);
       this.$store.dispatch("updateVersion", this.$version);
       // 创建一个被用来打包的文件
-      zip.file("user.json", JSON.stringify(this.form));
+      zip.file("user.json", JSON.stringify({...this.form,uid:this.id}));
       if (this.form.password) {
         zip.file("password", this.form.password);
       }
