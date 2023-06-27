@@ -1,19 +1,8 @@
 <template>
   <div>
-    <el-input
-      v-model.trim="other"
-      type="textarea"
-      :rows="20"
-      maxlength="1000"
-      show-word-limit
-      placeholder="请输入内容"
-    />
-    <el-row
-      type="flex"
-      style="margin: 30px; flex-direction: column; align-items: center"
-      justify="center"
-      v-if="!this.$attrs.hiddenOptions"
-    >
+    <el-input v-model.trim="other" type="textarea" :rows="20" maxlength="1000" show-word-limit placeholder="请输入内容" />
+    <el-row type="flex" style="margin: 30px; flex-direction: column; align-items: center" justify="center"
+      v-if="!this.$attrs.hiddenOptions">
       <h1>本人承诺</h1>
       <div style="color: red">
         每项表格下方的填表说明，本人已认真阅读并按要求填报。所填相关内容已与配偶、子女进行认真核实。我郑重承诺，以上所填内容真实、准确、完整，如有存在瞒报、漏报、虚报情形，自愿接受组织审查和处理。
@@ -21,12 +10,7 @@
       <el-checkbox v-model="checked">我已知晓,并同意</el-checkbox>
     </el-row>
 
-    <el-row
-      type="flex"
-      style="margin: 30px"
-      justify="center"
-      v-if="!this.$attrs.hiddenOptions"
-    >
+    <el-row type="flex" style="margin: 30px" justify="center" v-if="!this.$attrs.hiddenOptions">
       <el-button @click="goPdf">打印预览</el-button>
       <el-button @click="handleGoPrevPage">上一项</el-button>
       <el-button @click="handleEmpty" type="primary">重置</el-button>
@@ -46,16 +30,16 @@ export default {
       default: "",
     },
   },
-  data() {
+  data () {
     return {
       checked: false,
     };
   },
   computed: {
-    form() {
+    form () {
       return this.$store.getters.getUser;
     },
-    id() {
+    id () {
       return this.$formatDay(new Date(), "YYYYMMDDHHmmss") + this.form.idCard.slice(-8);
     },
     other: {
@@ -70,7 +54,7 @@ export default {
   // 监听 tableData
   watch: {
     checked: {
-      handler(val) {
+      handler (val) {
         if (val) {
           this.$store.dispatch("updateStatus", "table22");
         } else {
@@ -80,18 +64,18 @@ export default {
       deep: true,
     },
   },
-  mounted() {
+  mounted () {
     this.$store.commit("setcheckStatusDisabled", "table22");
   },
   methods: {
-    goPdf() {
+    goPdf () {
       // const { href } = this.$router.resolve({
       //   name: 'Pdf',
       // })
       // window.open(href, '_blank')
       this.$router.push({ name: "Pdf" });
     },
-    onSubmit() {
+    onSubmit () {
       if (!this.checked) {
         return this.$message({
           type: "error",
@@ -110,12 +94,13 @@ export default {
 
       // this.$emit('onSubmit')
       const self = this;
+      let newId = this.$formatDay(new Date(), "YYYYMMDDHHmmss") + this.form.idCard.slice(-8)
       // 初始化一个zip打包对象
       var zip = new JSZip();
-      this.$store.dispatch("updateUid", this.id);
+      this.$store.dispatch("updateUid", newId);
       this.$store.dispatch("updateVersion", this.$version);
       // 创建一个被用来打包的文件
-      zip.file("user.json", JSON.stringify({...this.form,uid:this.id}));
+      zip.file("user.json", JSON.stringify({ ...this.form, uid: newId }));
       if (this.form.password) {
         zip.file("password", this.form.password);
       }
@@ -125,7 +110,7 @@ export default {
       // img.file('smile.gif', imgData, { base64: true })
       // 把打包内容异步转成blob二进制格式
       zip.generateAsync({ type: "blob" }).then(function (content) {
-        var filename = "「完成填报」"+self.form.name + self.form.idCard + ".wt";
+        var filename = "「完成填报」" + self.form.name + self.form.idCard + ".wt";
         // 创建隐藏的可下载链接
         var eleLink = document.createElement("a");
         eleLink.download = filename;
@@ -141,17 +126,17 @@ export default {
       });
     },
     // 上一项
-    handleGoPrevPage() {
+    handleGoPrevPage () {
       this.$store.dispatch("updateStatusSubtract", "21");
     },
     // 清空
-    handleEmpty() {
+    handleEmpty () {
       this.$store.dispatch("updateUser", {
         other: "",
       });
     },
     // 下一项
-    handleGoNextPage() {
+    handleGoNextPage () {
       if (this.tableStatus === "1") {
         if (!this.other) {
           return this.$message({
