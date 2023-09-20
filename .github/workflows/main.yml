@@ -21,7 +21,7 @@ jobs:
 
       - name: Yarn install and release
         env:
-          GH_TOKEN: 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
+          GH_TOKEN: ${{ secrets.TOKEN }}
         run: |
           npm install
           npm run build
